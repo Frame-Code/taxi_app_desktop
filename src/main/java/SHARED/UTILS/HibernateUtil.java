@@ -15,7 +15,7 @@ public class HibernateUtil {
         }
 
         try {
-            return new Configuration().configure().buildSessionFactory();
+            return new Configuration().configure("hibernate-test.cfg.xml").buildSessionFactory();
         } catch (HibernateException ex) {
             throw new RuntimeException("Error creating session factory " + ex);
         }
