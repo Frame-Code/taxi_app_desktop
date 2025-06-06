@@ -301,11 +301,13 @@ public class CabRequestView extends javax.swing.JFrame {
         });
 
         btnSelectOrigin.addActionListener(e -> {
-            selectLocation(txtOriginReference, origin);
+            setLocation(txtOriginReference);
+            origin = mapViewer.getSelectedCoordinates();
         });
 
         btnSelectDestiny.addActionListener(e -> {
-            selectLocation(txtDestinyReference, destiny);
+            setLocation(txtDestinyReference);
+            destiny = mapViewer.getSelectedCoordinates();
         });
 
         btnFindCabs.addActionListener(e -> {
@@ -319,9 +321,8 @@ public class CabRequestView extends javax.swing.JFrame {
 
     }
 
-    private void selectLocation(JTextField txtField, GeoPosition geoPosition) {
+    private void setLocation(JTextField txtField) {
         txtField.setText(openCageClient.format(mapViewer.getSelectedCoordinates().getLatitude(), mapViewer.getSelectedCoordinates().getLongitude()));
-        geoPosition = mapViewer.getSelectedCoordinates();
     }
 
     public static void main(String args[]) throws UnsupportedLookAndFeelException {
