@@ -4,15 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Painter;
 import javax.swing.event.MouseInputListener;
+import lombok.Getter;
+import lombok.extern.apachecommons.CommonsLog;
 import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.OSMTileFactoryInfo;
 import org.jxmapviewer.input.CenterMapListener;
@@ -31,30 +28,30 @@ import org.jxmapviewer.viewer.WaypointPainter;
  *
  * @author Daniel Mora Cantillo
  */
+@CommonsLog
 public class OpenStreetMapView implements IMapViewer{
-
     private JXMapViewer mapViewer;
     private DefaultWaypoint selectedLocation;
-    private JLabel coordinatesLabel;
     private GeoPosition selectedCoordinates;
-
     
     @Override
     public void initMap(JPanel mainPanel) {
+        mainPanel.setLayout(new BorderLayout());
+        
+        mapViewer = new JXMapViewer();
+        
         TileFactoryInfo info = new OSMTileFactoryInfo();
         DefaultTileFactory tileFactory = new DefaultTileFactory(info);
-
-        mapViewer = new JXMapViewer();
         mapViewer.setTileFactory(tileFactory);
         mapViewer.setZoom(8);
 
-        GeoPosition gye = new GeoPosition(-79.877327, -2.163495);
+        GeoPosition gye = new GeoPosition(-2.163495, -79.877327);
         mapViewer.setAddressLocation(gye);
 
         initControllers();
 
         mainPanel.add(mapViewer, BorderLayout.CENTER);
-        System.out.println("Everything");
+        log.info("Map loaded correctly");
     }
 
     private void initControllers() {
@@ -69,6 +66,7 @@ public class OpenStreetMapView implements IMapViewer{
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
+                    log.info("New point seleted");
                     // Convertir píxeles a coordenadas geográficas
                     Point p = e.getPoint();
                     GeoPosition geo = mapViewer.convertPointToGeoPosition(p);
@@ -76,13 +74,6 @@ public class OpenStreetMapView implements IMapViewer{
 
                     // Actualizar el waypoint seleccionado
                     updateSelectedLocation(geo);
-
-                    // Mostrar las coordenadas en la etiqueta
-                    coordinatesLabel.setText(String.format(
-                            "Latitud: %.6f, Longitud: %.6f",
-                            geo.getLatitude(),
-                            geo.getLongitude()));
-                    System.out.println("Coordinates changed");
 
                 }
             }
@@ -92,20 +83,17 @@ public class OpenStreetMapView implements IMapViewer{
         // Crear nuevo waypoint para la ubicación seleccionada
         selectedLocation = new DefaultWaypoint(position);
         
-        // Crear conjunto de waypoints
-        Set<Waypoint> waypoints = new HashSet<>();
-        waypoints.add(selectedLocation);
+        Set<Waypoint> waypoints = Set.of(selectedLocation);
         
         // Crear una capa de waypoints
         WaypointPainter<Waypoint> waypointPainter = new WaypointPainter<>();
         waypointPainter.setWaypoints(waypoints);
         
         // Crear un pintador compuesto (por si quieres añadir más capas)
-        List<Painter<JXMapViewer>> painters = new ArrayList<>();
-        painters.add((Painter<JXMapViewer>) waypointPainter);
+        List<WaypointPainter<Waypoint>> painters = List.of(waypointPainter);
         
         // Establecer el pintador compuesto en el mapa
-        CompoundPainter<JXMapViewer> painter = new CompoundPainter<>();
+        CompoundPainter<JXMapViewer> painter = new CompoundPainter<>(painters);
         mapViewer.setOverlayPainter(painter);
         
         // Repintar el mapa
