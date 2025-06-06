@@ -93,11 +93,6 @@
                       </Group>
                       <EmptySpace pref="25" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnSelectCurrent" min="-2" pref="264" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
-                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -111,9 +106,7 @@
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtOriginReference" min="-2" pref="33" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnSelectCurrent" min="-2" pref="31" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="139" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtDestinyReference" min="-2" pref="33" max="-2" attributes="0"/>
@@ -182,11 +175,6 @@
                 <Property name="text" type="java.lang.String" value="BUSCAR TAXIS"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnSelectCurrent">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="SELECCIONAR LA UBICACI&#xd3;N ACTUAL"/>
-              </Properties>
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="map">
@@ -200,7 +188,6 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="txtCoordinates" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="pnlMap" alignment="1" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="btnSelectOrigin" min="-2" pref="199" max="-2" attributes="0"/>
                                       <EmptySpace pref="103" max="32767" attributes="0"/>
@@ -213,6 +200,7 @@
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
+                          <Component id="pnlMap" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>

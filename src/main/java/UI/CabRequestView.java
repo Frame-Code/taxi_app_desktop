@@ -1,12 +1,17 @@
 package UI;
 
+import SERVICE.EXTERNAL.CLIENT.OPENCAGE.IOpenCageClient;
+import SERVICE.EXTERNAL.CLIENT.OPENCAGE.OpenCageClientImpl;
 import UI.UTILS.RoundedPanelWithShadow;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import org.jxmapviewer.viewer.GeoPosition;
 
 /**
  *
@@ -15,9 +20,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class CabRequestView extends javax.swing.JFrame {
 
     private final IMapViewer mapViewer;
+    private final IOpenCageClient openCageClient;
+    private GeoPosition origin;
+    private GeoPosition destiny;
 
-    public CabRequestView(IMapViewer mapViewer) {
+    public CabRequestView(IMapViewer mapViewer, IOpenCageClient openCageClient) {
         this.mapViewer = mapViewer;
+        this.openCageClient = openCageClient;
         initComponents();
         initMap();
         initControllers();
@@ -37,7 +46,6 @@ public class CabRequestView extends javax.swing.JFrame {
         txtOriginReference = new javax.swing.JTextField();
         txtDestinyReference = new javax.swing.JTextField();
         btnFindCabs = new javax.swing.JButton();
-        btnSelectCurrent = new javax.swing.JButton();
         map = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         pnlMap = new javax.swing.JPanel();
@@ -77,8 +85,6 @@ public class CabRequestView extends javax.swing.JFrame {
 
         btnFindCabs.setText("BUSCAR TAXIS");
 
-        btnSelectCurrent.setText("SELECCIONAR LA UBICACIÓN ACTUAL");
-
         javax.swing.GroupLayout requestTaxiLayout = new javax.swing.GroupLayout(requestTaxi);
         requestTaxi.setLayout(requestTaxiLayout);
         requestTaxiLayout.setHorizontalGroup(
@@ -96,10 +102,6 @@ public class CabRequestView extends javax.swing.JFrame {
                     .addComponent(txtOriginReference, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
                     .addComponent(txtDestinyReference))
                 .addContainerGap(25, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, requestTaxiLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSelectCurrent, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(120, 120, 120))
         );
         requestTaxiLayout.setVerticalGroup(
             requestTaxiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,9 +114,7 @@ public class CabRequestView extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtOriginReference, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSelectCurrent, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96)
+                .addGap(139, 139, 139)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDestinyReference, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,7 +150,6 @@ public class CabRequestView extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mapLayout.createSequentialGroup()
                         .addGroup(mapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtCoordinates, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(mapLayout.createSequentialGroup()
                                 .addComponent(btnSelectOrigin, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
@@ -158,7 +157,8 @@ public class CabRequestView extends javax.swing.JFrame {
                         .addGap(35, 35, 35))
                     .addGroup(mapLayout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         mapLayout.setVerticalGroup(
             mapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,18 +292,40 @@ public class CabRequestView extends javax.swing.JFrame {
                 btnSelectOrigin.setEnabled(true);
             }
         });
+
+        btnSelectOrigin.addActionListener(e -> {
+            selectLocation(txtOriginReference, origin);
+        });
+
+        btnSelectDestiny.addActionListener(e -> {
+            selectLocation(txtDestinyReference, destiny);
+        });
+
+        btnFindCabs.addActionListener(e -> {
+            if (origin != null && destiny != null) {
+                System.out.println("Find cabs");
+                return;
+            }
+            JOptionPane.showMessageDialog(this, "Selecciona una ubicacion de origen y destino por favor", "Error", JOptionPane.ERROR_MESSAGE);
+
+        });
+
+    }
+
+    private void selectLocation(JTextField txtField, GeoPosition geoPosition) {
+        txtField.setText(openCageClient.format(mapViewer.getSelectedCoordinates().getLatitude(), mapViewer.getSelectedCoordinates().getLongitude()));
+        geoPosition = mapViewer.getSelectedCoordinates();
     }
 
     public static void main(String args[]) throws UnsupportedLookAndFeelException {
         UIManager.setLookAndFeel(new FlatDarkLaf());
         java.awt.EventQueue.invokeLater(() -> {
-            CabRequestView view = new CabRequestView(new OpenStreetMapView());
+            CabRequestView view = new CabRequestView(new OpenStreetMapView(), OpenCageClientImpl.getInstance());
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFindCabs;
-    private javax.swing.JButton btnSelectCurrent;
     private javax.swing.JButton btnSelectDestiny;
     private javax.swing.JButton btnSelectOrigin;
     private javax.swing.JPanel contentPane;
