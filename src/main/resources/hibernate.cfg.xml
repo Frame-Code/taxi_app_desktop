@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "https://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/taxi_app</property>
+        <property name="hibernate.connection.username">Dev</property>
+        <property name="hibernate.connection.password">root</property>
+
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <property name="current_session_context_class">thread</property>
+        <property name="hibernate.hbm2ddl.auto">create-drop</property>
+
+        <!-- entities -->
+        <mapping class="DOMAIN.ENTITIES.Address"/>
+        <mapping class="DOMAIN.ENTITIES.Admin"/>
+        <mapping class="DOMAIN.ENTITIES.Cab"/>
+        <mapping class="DOMAIN.ENTITIES.Car"/>
+        <mapping class="DOMAIN.ENTITIES.Client"/>
+        <mapping class="DOMAIN.ENTITIES.ClientAddress"/>
+        <mapping class="DOMAIN.ENTITIES.Driver"/>
+        <mapping class="DOMAIN.ENTITIES.Fare"/>
+        <mapping class="DOMAIN.ENTITIES.License"/>
+        <mapping class="DOMAIN.ENTITIES.Notification"/>
+        <mapping class="DOMAIN.ENTITIES.Payment"/>
+        <mapping class="DOMAIN.ENTITIES.Permission"/>
+        <mapping class="DOMAIN.ENTITIES.Ride"/>
+        <mapping class="DOMAIN.ENTITIES.RoadNotification"/>
+        <mapping class="DOMAIN.ENTITIES.Role"/>
+        <mapping class="DOMAIN.ENTITIES.TaxiLiveAddress"/>
+        <mapping class="DOMAIN.ENTITIES.User"/>
+        <mapping class="DOMAIN.ENTITIES.Vehicle"/>
+        <mapping class="DOMAIN.ENTITIES.VehicleMaintenance"/>
+
+    </session-factory>
+</hibernate-configuration>

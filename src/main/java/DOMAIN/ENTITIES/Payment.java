@@ -1,6 +1,6 @@
 package DOMAIN.ENTITIES;
 
-import SHARED.ENUMS.PERMISSION_NAME;
+import SHARED.ENUMS.PAYMENT_METHOD;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -8,14 +8,12 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
+import java.util.UUID;
 
 /**
  * @author Daniel Mora Cantillo
@@ -24,27 +22,20 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
-public class Permission {
+@Getter
+@Setter
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private PERMISSION_NAME permissionName;
+    private PAYMENT_METHOD paymentMethod;
 
     @Column(nullable = false)
-    private LocalDate createdAt;
+    private Double amount;
 
     @Column(nullable = false)
-    private boolean isDeleted;
-
-    private String description;
-
-    @PrePersist
-    protected void prePersist() {
-        this.createdAt = LocalDate.now();
-        this.isDeleted = false;
-    }
+    private UUID transactionCode;
 }

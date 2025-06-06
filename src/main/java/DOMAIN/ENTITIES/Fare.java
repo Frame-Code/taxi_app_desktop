@@ -1,14 +1,10 @@
 package DOMAIN.ENTITIES;
 
-import SHARED.ENUMS.PERMISSION_NAME;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,27 +20,36 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
-public class Permission {
+@Getter
+@Setter
+public class Fare {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private final Integer id = 1;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private PERMISSION_NAME permissionName;
+    private Double pricePerMinute;
+
+    @Column(nullable = false)
+    private Double pricePerKm;
+
+    @Column(nullable = false)
+    private Double baseFare;
 
     @Column(nullable = false)
     private LocalDate createdAt;
 
     @Column(nullable = false)
-    private boolean isDeleted;
-
-    private String description;
+    private LocalDate updatedAt;
 
     @PrePersist
     protected void prePersist() {
         this.createdAt = LocalDate.now();
-        this.isDeleted = false;
     }
+
+    @PreUpdate
+    protected void preUpdate() {
+        this.updatedAt = LocalDate.now();
+    }
+
+
 }

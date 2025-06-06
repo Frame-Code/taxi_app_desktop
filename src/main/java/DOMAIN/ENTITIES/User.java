@@ -44,9 +44,16 @@ public class User {
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String passwordHash;
+
+    @Column(nullable = false)
     private boolean isDeleted;
+
+    @Column(nullable = false)
     private LocalDate createdAt;
+
+    @Column(nullable = false)
     private String createdBy;
+
     @ManyToOne
     @JoinColumn(name = "idRole")
     private Role role;
