@@ -3,6 +3,7 @@ package DOMAIN.REPOSITORY.IMPL;
 import DOMAIN.ENTITIES.Client;
 import DOMAIN.ENTITIES.User;
 import DOMAIN.REPOSITORY.INTERFACES.ClientRepository;
+import SHARED.UTILS.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -24,7 +25,7 @@ class ClientRepositoryImplTest {
 
     @BeforeAll
     static void setUp() {
-        repository = new ClientRepositoryImpl();
+        repository = new ClientRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-test.cfg.xml"));
     }
 
     @Test

@@ -6,16 +6,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
-    @Getter
-    private static final SessionFactory sessionFactory = buildSessionFactory();
-
-    private static SessionFactory buildSessionFactory() {
-        if(sessionFactory != null) {
-            return sessionFactory;
-        }
-
+    private static SessionFactory buildSessionFactory(String configFile) {
         try {
-            return new Configuration().configure("hibernate-test.cfg.xml").buildSessionFactory();
+            return new Configuration().configure(configFile).buildSessionFactory();
         } catch (HibernateException ex) {
             throw new RuntimeException("Error creating session factory " + ex);
         }
@@ -25,4 +18,11 @@ public class HibernateUtil {
         getSessionFactory().close();
     }
 
+    public static SessionFactory getSessionFactory(String configFile) {
+        return buildSessionFactory(configFile);
+    }
+
+    public static SessionFactory getSessionFactory() {
+        return buildSessionFactory("hibernate.cfg.xml");
+    }
 }
