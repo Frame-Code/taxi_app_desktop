@@ -19,7 +19,7 @@ import java.time.LocalDate;
 /**
  * @author Daniel Mora Cantillo
  * */
-@Entity
+@Entity(name = "users")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

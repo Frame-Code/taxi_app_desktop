@@ -30,9 +30,10 @@ public class ClientRepositoryImpl implements ClientRepository {
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            Query<Client> query = session.createQuery("SELECT c FROM Client c WHERE id = :id", Client.class);
-            query.setParameter("id", email);
+            Query<Client> query = session.createQuery("SELECT c FROM Client c WHERE c.user.email = :email", Client.class);
+            query.setParameter("email", email);
             Client client = query.getSingleResult();
+            log.info("The client is:" + client);
             transaction.commit();
             return Optional.of(client);
         } catch (HibernateException | NullPointerException e) {
@@ -76,14 +77,14 @@ public class ClientRepositoryImpl implements ClientRepository {
     @Override
     public Optional<Client> findById(Long id) {
         var client = sessionFactory.openSession().find(Client.class, id);
-        HibernateUtil.shutdown();
+        sessionFactory.getCurrentSession().close();
         return Optional.of(client);
     }
 
     @Override
     public List<Client> findAll() {
         var clients = sessionFactory.openSession().createQuery("FROM Client", Client.class).list();
-        HibernateUtil.shutdown();
+        sessionFactory.getCurrentSession().close();
         return clients;
     }
 
