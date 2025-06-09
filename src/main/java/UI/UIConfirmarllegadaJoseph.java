@@ -1,5 +1,6 @@
 package UI;
 
+import com.formdev.flatlaf.FlatDarkLaf;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -131,7 +132,8 @@ public class UIConfirmarllegadaJoseph extends JFrame {
         return lbl;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedLookAndFeelException {
+        UIManager.setLookAndFeel(new FlatDarkLaf());
         SwingUtilities.invokeLater(() -> {
             UIConfirmarllegadaJoseph ui = new UIConfirmarllegadaJoseph();
             ui.setVisible(true);

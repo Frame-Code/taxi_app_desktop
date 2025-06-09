@@ -1,10 +1,12 @@
 package UI;
 
+import com.formdev.flatlaf.FlatDarkLaf;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class UIRegistrarLocalidadJoseph extends JFrame {
+
     // Colors
     private static final Color BACKGROUND_GENERAL = Color.decode("#F5F3F1");
     private static final Color FORM_BACKGROUND = Color.decode("#DCDCDC");
@@ -157,7 +159,9 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
         btn.setPreferredSize(new Dimension(150, 35));
         return btn;
     }
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws UnsupportedLookAndFeelException {
+        UIManager.setLookAndFeel(new FlatDarkLaf());
         SwingUtilities.invokeLater(() -> {
             UIRegistrarLocalidadJoseph ui = new UIRegistrarLocalidadJoseph();
             ui.setVisible(true);
