@@ -1,50 +1,48 @@
 package DOMAIN.REPOSITORY.IMPL;
 
-import DOMAIN.ENTITIES.Client;
-import DOMAIN.REPOSITORY.INTERFACES.ClientRepository;
-import SHARED.UTILS.HibernateUtil;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import DOMAIN.ENTITIES.Province;
+import DOMAIN.REPOSITORY.INTERFACES.ProvinceRepository;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.HibernateException;
+import org.hibernate.NonUniqueResultException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
-/**
- * @author Daniel Mora Cantillo
- * */
 @CommonsLog
-@AllArgsConstructor
-public class ClientRepositoryImpl extends BaseRepository implements ClientRepository {
+public class ProvinceRepositoryImpl extends BaseRepository implements ProvinceRepository {
 
-    public ClientRepositoryImpl(SessionFactory sessionFactory) {
+    public ProvinceRepositoryImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 
+
     @Override
-    public Optional<Client> findByEmail(String email) {
+    public Optional<Province> findByName(String name) {
         Transaction transaction = null;
         Session session = null;
         try {
             session = super.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            Query<Client> query = session.createQuery("SELECT c FROM Client c WHERE c.user.email = :email", Client.class);
-            query.setParameter("email", email);
-            Client client = query.getSingleResult();
+            Query<Province> query = session.createQuery("SELECT p FROM Province p WHERE p.name = :name", Province.class);
+            query.setParameter("name", name);
+            Province province = query.getSingleResult();
             transaction.commit();
-            return Optional.of(client);
-        } catch (HibernateException | NullPointerException e) {
-            if(transaction != null) {
+            return Optional.of(province);
+        } catch (NullPointerException | NoSuchElementException e) {
+            if (transaction != null) {
                 log.error("Error finding client: " + e.getMessage());
                 transaction.rollback();
             }
+        } catch (NonUniqueResultException e) {
+            throw new RuntimeException("Error, duplicated values for province names, exception {}", e);
         } finally {
-            if(transaction != null) {
+            if (transaction != null) {
                 session.close();
                 log.info("Hibernate session closed");
             }
@@ -53,48 +51,48 @@ public class ClientRepositoryImpl extends BaseRepository implements ClientReposi
     }
 
     @Override
-    public Optional<Client> findById(Long id) {
-        var client = super.getSessionFactory().openSession().find(Client.class, id);
-        super.getSessionFactory().getCurrentSession().close();
-        return Optional.ofNullable(client);
-    }
-
-    @Override
-    public Client save(Client client) {
+    public Province save(Province province) {
         Transaction transaction = null;
         Session session = null;
         try {
             session = super.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.persist(client);
+            session.persist(province);
             transaction.commit();
-            log.info("Client saved successfully");
+            log.info("Car saved successfully");
         } catch (HibernateException | NullPointerException e) {
-            if(transaction != null) {
-                log.error("Error saving client: " + e.getMessage());
+            if (transaction != null) {
+                log.error("Error saving car: " + e.getMessage());
                 transaction.rollback();
             }
         } finally {
-            if(transaction != null) {
+            if (transaction != null) {
                 session.close();
                 log.info("Hibernate session closed");
             }
         }
-        return client;
+        return province;
     }
 
     @Override
-    public List<Client> findAll() {
-        var clients = super.getSessionFactory().openSession().createQuery("FROM Client", Client.class).list();
+    public Optional<Province> findById(Long id) {
+        var province = super.getSessionFactory().openSession().find(Province.class, id);
         super.getSessionFactory().getCurrentSession().close();
-        return clients;
+        return Optional.ofNullable(province);
+    }
+
+    @Override
+    public List<Province> findAll() {
+        var provinceList = super.getSessionFactory().openSession().createQuery("FROM Province", Province.class).list();
+        super.getSessionFactory().getCurrentSession().close();
+        return provinceList;
     }
 
     @Override
     public void deleteById(Long id) {
-        var clientOpt = findById(id);
-        if(clientOpt.isEmpty()) {
-            log.error("Client not found");
+        var provinceOpt = findById(id);
+        if (provinceOpt.isEmpty()) {
+            log.error("Province not found");
             return;
         }
 
@@ -103,16 +101,16 @@ public class ClientRepositoryImpl extends BaseRepository implements ClientReposi
         try {
             session = super.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.remove(clientOpt.get().getId());
+            session.remove(provinceOpt.get().getId());
             transaction.commit();
-            log.info("Client deleted successfully");
+            log.info("Province deleted successfully");
         } catch (HibernateException | NullPointerException ex) {
-            if(transaction != null) {
-                log.error("Error deleting client: " + ex.getMessage());
+            if (transaction != null) {
+                log.error("Error deleting province: " + ex.getMessage());
                 transaction.rollback();
             }
         } finally {
-            if(transaction != null) {
+            if (transaction != null) {
                 session.close();
                 log.info("Hibernate session closed");
             }
@@ -120,18 +118,18 @@ public class ClientRepositoryImpl extends BaseRepository implements ClientReposi
     }
 
     @Override
-    public Client update(Client client) {
+    public Province update(Province province) {
         Transaction transaction = null;
         Session session = null;
         try {
             session = super.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.merge(client);
+            session.merge(province);
             transaction.commit();
-            log.info("Client saved successfully");
+            log.info("Province saved successfully");
         } catch (HibernateException | NullPointerException ex) {
             if(transaction != null) {
-                log.error("Error saving client: " + ex.getMessage());
+                log.error("Error saving province: " + ex.getMessage());
                 transaction.rollback();
             }
         } finally {
@@ -140,6 +138,6 @@ public class ClientRepositoryImpl extends BaseRepository implements ClientReposi
                 log.info("Hibernate session closed");
             }
         }
-        return client;
+        return province;
     }
 }

@@ -50,7 +50,7 @@ public class CarRepositoryImpl extends BaseRepository implements CarRepository {
     public Optional<Car> findById(Long id) {
         var car = super.getSessionFactory().openSession().find(Car.class, id);
         super.getSessionFactory().getCurrentSession().close();
-        return Optional.of(car);
+        return Optional.ofNullable(car);
     }
 
     @Override
