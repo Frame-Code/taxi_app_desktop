@@ -1,47 +1,39 @@
 package DOMAIN.REPOSITORY.IMPL;
 
+import DOMAIN.ENTITIES.Car;
 import DOMAIN.ENTITIES.Client;
-import DOMAIN.REPOSITORY.INTERFACES.ClientRepository;
-import SHARED.UTILS.HibernateUtil;
+import DOMAIN.REPOSITORY.INTERFACES.CarRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
 import java.util.List;
 import java.util.Optional;
 
-/**
- * @author Daniel Mora Cantillo
- * */
 @CommonsLog
 @AllArgsConstructor
-public class ClientRepositoryImpl extends BaseRepository implements ClientRepository {
+public class CarRepositoryImpl extends BaseRepository implements CarRepository {
 
-    public ClientRepositoryImpl(SessionFactory sessionFactory) {
+    public CarRepositoryImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 
     @Override
-    public Optional<Client> findByEmail(String email) {
+    public Car save(Car car) {
         Transaction transaction = null;
         Session session = null;
         try {
             session = super.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            Query<Client> query = session.createQuery("SELECT c FROM Client c WHERE c.user.email = :email", Client.class);
-            query.setParameter("email", email);
-            Client client = query.getSingleResult();
-            log.info("The client is:" + client);
+            session.persist(car);
             transaction.commit();
-            return Optional.of(client);
+            log.info("Car saved successfully");
         } catch (HibernateException | NullPointerException e) {
             if(transaction != null) {
-                log.error("Error finding client: " + e.getMessage());
+                log.error("Error saving car: " + e.getMessage());
                 transaction.rollback();
             }
         } finally {
@@ -50,52 +42,29 @@ public class ClientRepositoryImpl extends BaseRepository implements ClientReposi
                 log.info("Hibernate session closed");
             }
         }
-        return Optional.empty();
+        return car;
+
     }
 
     @Override
-    public Client save(Client client) {
-        Transaction transaction = null;
-        Session session = null;
-        try {
-            session = super.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
-            session.persist(client);
-            transaction.commit();
-            log.info("Client saved successfully");
-        } catch (HibernateException | NullPointerException e) {
-            if(transaction != null) {
-                log.error("Error saving client: " + e.getMessage());
-                transaction.rollback();
-            }
-        } finally {
-            if(transaction != null) {
-                session.close();
-                log.info("Hibernate session closed");
-            }
-        }
-        return client;
-    }
-
-    @Override
-    public Optional<Client> findById(Long id) {
-        var client = super.getSessionFactory().openSession().find(Client.class, id);
+    public Optional<Car> findById(Long id) {
+        var car = super.getSessionFactory().openSession().find(Car.class, id);
         super.getSessionFactory().getCurrentSession().close();
-        return Optional.of(client);
+        return Optional.of(car);
     }
 
     @Override
-    public List<Client> findAll() {
-        var clients = super.getSessionFactory().openSession().createQuery("FROM Client", Client.class).list();
+    public List<Car> findAll() {
+        var cars = super.getSessionFactory().openSession().createQuery("FROM Car", Car.class).list();
         super.getSessionFactory().getCurrentSession().close();
-        return clients;
+        return cars;
     }
 
     @Override
     public void deleteById(Long id) {
-        var clientOpt = findById(id);
-        if(clientOpt.isEmpty()) {
-            log.error("Client not found");
+        var carOpt = findById(id);
+        if(carOpt.isEmpty()) {
+            log.error("Car not found");
             return;
         }
 
@@ -104,12 +73,12 @@ public class ClientRepositoryImpl extends BaseRepository implements ClientReposi
         try {
             session = super.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.remove(clientOpt.get().getId());
+            session.remove(carOpt.get().getId());
             transaction.commit();
-            log.info("Client deleted successfully");
+            log.info("Car deleted successfully");
         } catch (HibernateException | NullPointerException ex) {
             if(transaction != null) {
-                log.error("Error deleting client: " + ex.getMessage());
+                log.error("Error deleting car: " + ex.getMessage());
                 transaction.rollback();
             }
         } finally {
@@ -121,7 +90,7 @@ public class ClientRepositoryImpl extends BaseRepository implements ClientReposi
     }
 
     @Override
-    public Client update(Client client) {
+    public Car update(Car client) {
         Transaction transaction = null;
         Session session = null;
         try {
