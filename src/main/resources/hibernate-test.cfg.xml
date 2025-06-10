@@ -23,6 +23,7 @@
         <mapping class="DOMAIN.ENTITIES.Admin"/>
         <mapping class="DOMAIN.ENTITIES.Cab"/>
         <mapping class="DOMAIN.ENTITIES.Car"/>
+        <mapping class="DOMAIN.ENTITIES.City"/>
         <mapping class="DOMAIN.ENTITIES.Client"/>
         <mapping class="DOMAIN.ENTITIES.ClientAddress"/>
         <mapping class="DOMAIN.ENTITIES.Driver"/>
@@ -31,6 +32,7 @@
         <mapping class="DOMAIN.ENTITIES.Notification"/>
         <mapping class="DOMAIN.ENTITIES.Payment"/>
         <mapping class="DOMAIN.ENTITIES.Permission"/>
+        <mapping class="DOMAIN.ENTITIES.Province"/>
         <mapping class="DOMAIN.ENTITIES.Ride"/>
         <mapping class="DOMAIN.ENTITIES.RoadNotification"/>
         <mapping class="DOMAIN.ENTITIES.Role"/>
