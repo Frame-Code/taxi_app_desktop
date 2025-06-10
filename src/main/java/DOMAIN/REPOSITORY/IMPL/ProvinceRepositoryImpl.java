@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+/**
+ * @author Daniel Mora Cantillo
+ * */
 @AllArgsConstructor
 @CommonsLog
 public class ProvinceRepositoryImpl extends BaseRepository implements ProvinceRepository {
