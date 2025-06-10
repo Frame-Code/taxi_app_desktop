@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -32,5 +33,15 @@ public class Province {
     private String name;
 
     @OneToMany(mappedBy = "province", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<City> cities;
+    private Set<City> cities = new HashSet<>();
+
+    public void addCity(City city) {
+        cities.add(city);
+        city.setProvince(this);
+    }
+
+    public void setCities(Set<City> cities) {
+        this.cities = cities;
+        cities.forEach(city -> city.setProvince(this));
+    }
 }

@@ -312,7 +312,6 @@ public class CabRequestView extends javax.swing.JFrame {
 
         btnFindCabs.addActionListener(e -> {
             if (origin != null && destiny != null) {
-                System.out.println("Find cabs");
                 return;
             }
             JOptionPane.showMessageDialog(this, "Selecciona una ubicacion de origen y destino por favor", "Error", JOptionPane.ERROR_MESSAGE);

@@ -35,14 +35,12 @@ class CityRepositoryImplTest {
 
         Province province = Province.builder()
                 .name("Guayas")
-                .cities(Set.of(city1, city2))
                 .build();
-        Province province1 = provinceRepository.save(province);
-        System.out.println(province1.toString());
+        province.setCities(Set.of(city1, city2));
+        provinceRepository.save(province);
         List<City> cities = cityRepository.findCitiesByProvinceName("guayas");
         assertNotNull(cities);
-        System.out.println(cities.isEmpty());
-        assert cities.isEmpty();
+        assert !cities.isEmpty();
     }
 
     @Test

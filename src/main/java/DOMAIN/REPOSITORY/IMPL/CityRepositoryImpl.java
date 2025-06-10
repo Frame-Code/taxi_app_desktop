@@ -39,7 +39,6 @@ public class CityRepositoryImpl extends BaseRepository implements CityRepository
             return List.of();
         }
         log.info("Province founded");
-        System.out.println(provinceOpt.get());
         return provinceOpt.get().getCities().stream().toList();
     }
 
