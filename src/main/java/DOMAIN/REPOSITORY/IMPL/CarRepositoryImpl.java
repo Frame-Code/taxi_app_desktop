@@ -13,6 +13,9 @@ import org.hibernate.Transaction;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author Daniel Mora Cantillo
+ * */
 @CommonsLog
 @AllArgsConstructor
 public class CarRepositoryImpl extends BaseRepository implements CarRepository {

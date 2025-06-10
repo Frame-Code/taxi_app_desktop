@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.SessionFactory;
 
+/**
+ * @author Daniel Mora Cantillo
+ * */
 @Getter
 @RequiredArgsConstructor
 public abstract class BaseRepository {

@@ -5,6 +5,9 @@ import DOMAIN.REPOSITORY.DAO.INTERFACES.IBaseDao;
 
 import java.util.Optional;
 
+/**
+ * @author Daniel Mora Cantillo
+ * */
 public interface ClientRepository extends IBaseDao<Client> {
     Optional<Client> findByEmail(String email);
 }

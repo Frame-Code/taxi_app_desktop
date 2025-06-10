@@ -12,6 +12,9 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author Daniel Mora Cantillo
+ * */
 class ClientRepositoryImplTest {
     private static ClientRepository repository;
 

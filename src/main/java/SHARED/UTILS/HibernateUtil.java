@@ -4,6 +4,9 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+/**
+ * @author Daniel Mora Cantillo
+ * */
 public class HibernateUtil {
     private static SessionFactory buildSessionFactory(String configFile) {
         try {
