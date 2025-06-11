@@ -1,4 +1,4 @@
-package DOMAIN.REPOSITORY.IMPL;
+package SERVICE.IMPL;
 
 import DOMAIN.REPOSITORY.INTERFACES.ClientRepository;
 import SERVICE.INTERFACES.ILogInService;

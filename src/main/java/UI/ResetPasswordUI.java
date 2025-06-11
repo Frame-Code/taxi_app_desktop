@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package UI;
+import SERVICE.IMPL.EmailService;
 
 /**
  *
@@ -112,9 +113,27 @@ public class ResetPasswordUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        String email = jTextField2.getText().trim();
+        EmailService emailService = new EmailService();
+
+        if (!emailService.esEmailValido(email)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El correo electrónico no tiene un formato válido.",
+                    "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        boolean enviado = emailService.enviarCorreoRecuperacion(email);
+
+        if (enviado) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Correo enviado correctamente a: " + email,
+                    "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "No se pudo enviar el correo. Intenta nuevamente.",
+                    "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:

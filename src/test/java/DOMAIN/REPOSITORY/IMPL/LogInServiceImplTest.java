@@ -1,5 +1,6 @@
 package DOMAIN.REPOSITORY.IMPL;
 
+import SERVICE.IMPL.LogInServiceImpl;
 import DOMAIN.ENTITIES.Client;
 import DOMAIN.ENTITIES.User;
 import DOMAIN.REPOSITORY.INTERFACES.ClientRepository;
