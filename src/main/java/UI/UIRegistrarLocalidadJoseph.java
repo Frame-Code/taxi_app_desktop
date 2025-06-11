@@ -8,7 +8,6 @@ import java.awt.*;
 public class UIRegistrarLocalidadJoseph extends JFrame {
 
     // Colors
-    private static final Color BACKGROUND_GENERAL = Color.decode("#F5F3F1");
     private static final Color FORM_BACKGROUND = Color.decode("#DCDCDC");
     private static final Color TEXT_PRIMARY = Color.decode("#000000");
     private static final Color TEXT_SECONDARY = Color.decode("#5A5A5A");
@@ -23,12 +22,12 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900, 600);
         setLocationRelativeTo(null);
-        getContentPane().setBackground(BACKGROUND_GENERAL);
+        // <-- Eliminada la línea de background_general
         setLayout(new BorderLayout(10, 10));
 
         // --- Header ---
         JPanel header = new JPanel(new BorderLayout());
-        header.setBackground(BACKGROUND_GENERAL);
+        // hereda ahora #2B2B2B
         header.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
         JLabel logo = new JLabel("SYSTEM");
@@ -37,14 +36,13 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
         header.add(logo, BorderLayout.WEST);
 
         JPanel navButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
-        navButtons.setBackground(BACKGROUND_GENERAL);
+        navButtons.setOpaque(false); // que herede también
         navButtons.add(createNavLabel("EMPEZAR RUTA"));
         navButtons.add(createNavLabel("ABOUT"));
         navButtons.add(createNavLabel("LOCATIONS AVAILABLE"));
         navButtons.add(createNavLabel("USERNAME"));
         header.add(navButtons, BorderLayout.CENTER);
 
-        // Profile icon placeholder
         JLabel profile = new JLabel("👤");
         profile.setFont(new Font("Arial", Font.PLAIN, 20));
         header.add(profile, BorderLayout.EAST);
@@ -53,7 +51,7 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
 
         // --- Main Content ---
         JPanel mainPanel = new JPanel();
-        mainPanel.setBackground(FORM_BACKGROUND);
+        mainPanel.setBackground(FORM_BACKGROUND); // sigue en gris claro
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
@@ -168,3 +166,4 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
         });
     }
 }
+

@@ -16,7 +16,7 @@ public class UIConfirmarllegadaJoseph extends JFrame {
     private static final Color BUTTON_TEXT = Color.WHITE;
     private static final Color INPUT_BORDER = Color.BLACK;
 
-    // Campos de texto editables
+    // Campos de texto (solo lectura)
     private JTextField origenField;
     private JTextField destinoField;
     private JTextField taxistaField;
@@ -68,7 +68,7 @@ public class UIConfirmarllegadaJoseph extends JFrame {
         content.add(title);
         content.add(Box.createRigidArea(new Dimension(0, 20)));
 
-        // Panel de formulario editable
+        // Panel de formulario (solo lectura)
         JPanel infoPanel = new JPanel(new GridLayout(4, 2, 10, 10));
         infoPanel.setBackground(FORM_BACKGROUND);
         infoPanel.setBorder(new LineBorder(INPUT_BORDER));
@@ -79,6 +79,7 @@ public class UIConfirmarllegadaJoseph extends JFrame {
         origenField = new JTextField();
         origenField.setFont(new Font("Arial", Font.PLAIN, 16));
         origenField.setBorder(new LineBorder(INPUT_BORDER));
+        origenField.setEditable(false); // <- desactivado para que no se pueda escribir
         infoPanel.add(origenField);
 
         // Destino
@@ -86,6 +87,7 @@ public class UIConfirmarllegadaJoseph extends JFrame {
         destinoField = new JTextField();
         destinoField.setFont(new Font("Arial", Font.PLAIN, 16));
         destinoField.setBorder(new LineBorder(INPUT_BORDER));
+        destinoField.setEditable(false); // <- desactivado para que no se pueda escribir
         infoPanel.add(destinoField);
 
         // Taxista
@@ -93,6 +95,7 @@ public class UIConfirmarllegadaJoseph extends JFrame {
         taxistaField = new JTextField();
         taxistaField.setFont(new Font("Arial", Font.PLAIN, 16));
         taxistaField.setBorder(new LineBorder(INPUT_BORDER));
+        taxistaField.setEditable(false); // <- desactivado para que no se pueda escribir
         infoPanel.add(taxistaField);
 
         // Carro
@@ -100,6 +103,7 @@ public class UIConfirmarllegadaJoseph extends JFrame {
         carroField = new JTextField();
         carroField.setFont(new Font("Arial", Font.PLAIN, 16));
         carroField.setBorder(new LineBorder(INPUT_BORDER));
+        carroField.setEditable(false); // <- desactivado para que no se pueda escribir
         infoPanel.add(carroField);
 
         content.add(infoPanel);
@@ -140,4 +144,7 @@ public class UIConfirmarllegadaJoseph extends JFrame {
         });
     }
 }
+
+
+
 
