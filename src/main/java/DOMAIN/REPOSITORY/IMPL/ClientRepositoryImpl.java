@@ -52,6 +52,32 @@ public class ClientRepositoryImpl extends BaseRepository implements ClientReposi
     }
 
     @Override
+    public Optional<Client> findByPhone(String phone) {
+        Transaction transaction = null;
+        Session session = null;
+        try {
+            session = super.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+            Query<Client> query = session.createQuery("SELECT c FROM Client c WHERE c.user.phone = :phone", Client.class);
+            query.setParameter("phone", phone);
+            Client client = query.getSingleResult();
+            transaction.commit();
+            return Optional.of(client);
+        } catch (HibernateException | NullPointerException | NoResultException e) {
+            if(transaction != null) {
+                log.error("Error finding client: " + e.getMessage());
+                transaction.rollback();
+            }
+        } finally {
+            if(transaction != null) {
+                session.close();
+                log.info("Hibernate session closed");
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Override
     public Optional<Client> findById(Long id) {
         var client = super.getSessionFactory().openSession().find(Client.class, id);
         super.getSessionFactory().getCurrentSession().close();

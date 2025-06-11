@@ -3,6 +3,7 @@ package DOMAIN.REPOSITORY.IMPL;
 import DOMAIN.ENTITIES.Client;
 import DOMAIN.ENTITIES.User;
 import DOMAIN.REPOSITORY.INTERFACES.ClientRepository;
+import SERVICE.IMPL.LogInServiceImpl;
 import SERVICE.INTERFACES.ILogInService;
 import SHARED.UTILS.HibernateUtil;
 import SHARED.UTILS.PasswordUtils;
