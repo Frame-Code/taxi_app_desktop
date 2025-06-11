@@ -7,7 +7,6 @@ import SERVICE.INTERFACES.ISignUpClientService;
 import SERVICE.INTERFACES.SignUpService;
 import lombok.extern.apachecommons.CommonsLog;
 
-import java.time.LocalDate;
 
 @CommonsLog
 public class SignUpClientServiceImpl extends SignUpService implements ISignUpClientService {
@@ -16,22 +15,12 @@ public class SignUpClientServiceImpl extends SignUpService implements ISignUpCli
     }
 
     @Override
-    public boolean signUp(String name, String lastNames, LocalDate bornDate, String email, String phone, String password) {
-        if (isUsedEmail(email) || isUsedPhone(phone)) {
+    public boolean signUp(Client client) {
+        if (isUsedEmail(client.getUser().getEmail()) || isUsedPhone(client.getUser().getPhone())) {
             log.warn("Can't sign up user, the email or phone is already in use");
             return false;
         }
-        super.getRepository().save(Client.builder()
-                .user(User.builder()
-                        .names(name)
-                        .lastNames(lastNames)
-                        .bornDate(bornDate)
-                        .email(email)
-                        .phone(phone)
-                        .passwordHash(password)
-                        .createdBy(name + " " + lastNames)
-                        .build())
-                .build());
+        super.getRepository().save(client);
         log.info("User signed up successfully");
         return true;
     }

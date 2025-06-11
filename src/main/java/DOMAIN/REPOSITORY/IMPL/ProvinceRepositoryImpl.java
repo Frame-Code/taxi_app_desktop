@@ -1,6 +1,7 @@
 package DOMAIN.REPOSITORY.IMPL;
 
 import DOMAIN.ENTITIES.Province;
+import DOMAIN.REPOSITORY.INTERFACES.BaseRepository;
 import DOMAIN.REPOSITORY.INTERFACES.ProvinceRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;

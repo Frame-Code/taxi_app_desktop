@@ -1,6 +1,7 @@
 package DOMAIN.REPOSITORY.IMPL;
 
 import DOMAIN.ENTITIES.City;
+import DOMAIN.REPOSITORY.INTERFACES.BaseRepository;
 import DOMAIN.REPOSITORY.INTERFACES.CityRepository;
 import DOMAIN.REPOSITORY.INTERFACES.ProvinceRepository;
 import lombok.AllArgsConstructor;

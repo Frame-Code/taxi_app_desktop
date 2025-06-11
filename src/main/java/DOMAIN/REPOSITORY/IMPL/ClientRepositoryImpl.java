@@ -1,6 +1,7 @@
 package DOMAIN.REPOSITORY.IMPL;
 
 import DOMAIN.ENTITIES.Client;
+import DOMAIN.REPOSITORY.INTERFACES.BaseRepository;
 import DOMAIN.REPOSITORY.INTERFACES.ClientRepository;
 import jakarta.persistence.NoResultException;
 import lombok.AllArgsConstructor;
