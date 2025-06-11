@@ -2,9 +2,8 @@ package DOMAIN.REPOSITORY.IMPL;
 
 import DOMAIN.ENTITIES.Client;
 import DOMAIN.REPOSITORY.INTERFACES.ClientRepository;
-import SHARED.UTILS.HibernateUtil;
+import jakarta.persistence.NoResultException;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -38,7 +37,7 @@ public class ClientRepositoryImpl extends BaseRepository implements ClientReposi
             Client client = query.getSingleResult();
             transaction.commit();
             return Optional.of(client);
-        } catch (HibernateException | NullPointerException e) {
+        } catch (HibernateException | NullPointerException | NoResultException e) {
             if(transaction != null) {
                 log.error("Error finding client: " + e.getMessage());
                 transaction.rollback();
