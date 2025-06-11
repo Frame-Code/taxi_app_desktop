@@ -6,9 +6,9 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/taxi_app</property>
-        <property name="hibernate.connection.username">Dev</property>
-        <property name="hibernate.connection.password">Dann31MC</property>
+        <property name="hibernate.connection.url">jdbc:mysql://serverless-us-east4.sysp0000.db2.skysql.com:4019/taxi_app</property>
+        <property name="hibernate.connection.username">dbpgf23509908</property>
+        <property name="hibernate.connection.password">8GO),eVh44D8?EiGx2O28l</property>
 
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">true</property>
