@@ -1,5 +1,5 @@
 package SERVICE.IMPL;
-import SERVICE.EXTERNAL.CLIENT.OPENCAGE.IEmailService;
+import SERVICE.INTERFACES.IEmailService;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.mail.Session;

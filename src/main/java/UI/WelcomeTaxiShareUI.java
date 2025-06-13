@@ -4,18 +4,22 @@
  */
 package UI;
 
+import SERVICE.IMPL.EmailServiceImpl;
+import SERVICE.INTERFACES.IEmailService;
+
 /**
  *
  * @author RonaldPC
  */
 public class WelcomeTaxiShareUI extends javax.swing.JFrame {
-    
+    private final IEmailService emailService;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(WelcomeTaxiShareUI.class.getName());
 
     /**
      * Creates new form WelcomeTaxiShareUI
      */
-    public WelcomeTaxiShareUI() {
+    public WelcomeTaxiShareUI(IEmailService emailService) {
+        this.emailService = emailService;
         initComponents();
     }
 
@@ -126,7 +130,7 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Crear y mostrar la ventana de reset de contraseña
-        ResetPasswordUI resetWindow = new ResetPasswordUI();
+        ResetPasswordUI resetWindow = new ResetPasswordUI(emailService);
         resetWindow.setVisible(true);
 
         // Opcional: cerrar la ventana actual de login
@@ -135,31 +139,6 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new WelcomeTaxiShareUI().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

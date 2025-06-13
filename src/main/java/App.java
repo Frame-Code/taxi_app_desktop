@@ -1,4 +1,5 @@
 
+import SERVICE.IMPL.EmailServiceImpl;
 import SHARED.UTILS.HibernateUtil;
 import UI.WelcomeTaxiShareUI;
 
@@ -11,8 +12,7 @@ import UI.WelcomeTaxiShareUI;
 public class App {
 
     public static void main(String[] args) {
-        HibernateUtil.getSessionFactory();
-        WelcomeTaxiShareUI ventana = new WelcomeTaxiShareUI();
+        WelcomeTaxiShareUI ventana = new WelcomeTaxiShareUI(new EmailServiceImpl());
             ventana.setVisible(true);
     }
 }

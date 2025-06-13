@@ -1,4 +1,4 @@
-package SERVICE.EXTERNAL.CLIENT.OPENCAGE;
+package SERVICE.INTERFACES;
 
 public interface IEmailService {
     boolean enviarCorreoRecuperacion(String emailDestino);
