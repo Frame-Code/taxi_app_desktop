@@ -5,4 +5,5 @@ public interface IEmailService {
     boolean validarCodigoVerificacion(String email, String codigo);
     boolean esEmailValido(String email);
     void limpiarCodigosExpirados();
+    boolean actualizarContrasena(String email, String nuevaContrasena);
 }

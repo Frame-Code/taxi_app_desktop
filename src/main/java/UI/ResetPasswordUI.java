@@ -123,6 +123,11 @@ public class ResetPasswordUI extends javax.swing.JFrame {
         if (enviado) {
             JOptionPane.showMessageDialog(this, "Correo enviado correctamente a: " + email,
                     "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            ChangePasswordUI changePasswordUI = new ChangePasswordUI(emailService, email);
+            changePasswordUI.setVisible(true);
+
+            // Opcional: cerrar ventana actual
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo enviar el correo. Intenta nuevamente.",
                     "Error", JOptionPane.ERROR_MESSAGE);

@@ -1,8 +1,8 @@
 package SERVICE.IMPL;
 import SERVICE.INTERFACES.IEmailService;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.mail.Session;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
+import jakarta.mail.Session;
 import java.util.Properties;
 import java.util.Random;
 import java.util.HashMap;
@@ -13,10 +13,12 @@ public class EmailServiceImpl implements IEmailService {
 
     private static final String SMTP_HOST = "smtp.gmail.com";
     private static final String SMTP_PORT = "587";
-    private static final String EMAIL_FROM = "tu_email@gmail.com"; // Cambia por tu email
-    private static final String EMAIL_PASSWORD = "tu_app_password"; // Cambia por tu contraseña de aplicación
+    private static final String EMAIL_FROM = "ronaldseminario78@gmail.com"; // Cambia por tu email
+    private static final String EMAIL_PASSWORD = "uzkaqqghneavcxit"; // Cambia por tu contraseña de aplicación
 
     private static Map<String, String> verificationCodes = new HashMap<>();
+    // Simulación de base de datos usuarios email -> contraseña
+    private static Map<String, String> usuarios = new HashMap<>();
 
     @Override
     public boolean enviarCorreoRecuperacion(String emailDestino) {
@@ -66,6 +68,20 @@ public class EmailServiceImpl implements IEmailService {
     public void limpiarCodigosExpirados() {
         // Método de ejemplo
         System.out.println("Limpieza de códigos expirados ejecutada");
+    }
+
+    // Método para actualizar contraseña en "base de datos"
+    @Override
+    public boolean actualizarContrasena(String email, String nuevaContrasena) {
+        if (usuarios.containsKey(email)) {
+            // Aquí puedes agregar un hash para la contraseña si quieres
+            usuarios.put(email, nuevaContrasena);
+            System.out.println("Contraseña actualizada para: " + email);
+            return true;
+        } else {
+            System.out.println("No se encontró usuario con el email: " + email);
+            return false;
+        }
     }
 
     // --- Métodos privados auxiliares ---

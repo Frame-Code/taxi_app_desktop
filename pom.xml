@@ -68,11 +68,11 @@
             <artifactId>jbcrypt</artifactId>
             <version>0.4</version>
         </dependency>
-        <!-- Dependencia para JavaMail -->
+        <!-- Dependencia actualizada para JavaMail -->
         <dependency>
             <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>1.6.2</version>
+            <artifactId>jakarta.mail</artifactId>
+            <version>2.0.1</version>
         </dependency>
         <dependency>
             <groupId>jakarta.persistence</groupId>
@@ -87,14 +87,6 @@
         </dependency>
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>java.net</id>
-            <name>Java.net Repository for JavaMail</name>
-            <url>https://maven.java.net/content/repositories/releases/</url>
-        </repository>
-    </repositories>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
@@ -103,3 +95,4 @@
     </properties>
 
 </project>
+
