@@ -1,6 +1,7 @@
 package DOMAIN.REPOSITORY.IMPL;
 
 import DOMAIN.ENTITIES.Client;
+import DOMAIN.REPOSITORY.INTERFACES.BaseRepository;
 import DOMAIN.REPOSITORY.INTERFACES.ClientRepository;
 import jakarta.persistence.NoResultException;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,32 @@ public class ClientRepositoryImpl extends BaseRepository implements ClientReposi
             transaction = session.beginTransaction();
             Query<Client> query = session.createQuery("SELECT c FROM Client c WHERE c.user.email = :email", Client.class);
             query.setParameter("email", email);
+            Client client = query.getSingleResult();
+            transaction.commit();
+            return Optional.of(client);
+        } catch (HibernateException | NullPointerException | NoResultException e) {
+            if(transaction != null) {
+                log.error("Error finding client: " + e.getMessage());
+                transaction.rollback();
+            }
+        } finally {
+            if(transaction != null) {
+                session.close();
+                log.info("Hibernate session closed");
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Client> findByPhone(String phone) {
+        Transaction transaction = null;
+        Session session = null;
+        try {
+            session = super.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+            Query<Client> query = session.createQuery("SELECT c FROM Client c WHERE c.user.phone = :phone", Client.class);
+            query.setParameter("phone", phone);
             Client client = query.getSingleResult();
             transaction.commit();
             return Optional.of(client);

@@ -63,4 +63,8 @@ public class User {
         this.createdAt = LocalDate.now();
         this.isDeleted = false;
     }
+
+    public String getFullNames() {
+        return names + " " + lastNames;
+    }
 }
