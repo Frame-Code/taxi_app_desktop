@@ -1,4 +1,4 @@
-package DOMAIN.REPOSITORY.IMPL;
+package DOMAIN.REPOSITORY.INTERFACES;
 
 import SHARED.UTILS.HibernateUtil;
 import lombok.Getter;

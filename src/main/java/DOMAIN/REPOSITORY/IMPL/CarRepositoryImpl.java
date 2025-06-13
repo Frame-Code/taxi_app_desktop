@@ -1,7 +1,7 @@
 package DOMAIN.REPOSITORY.IMPL;
 
 import DOMAIN.ENTITIES.Car;
-import DOMAIN.ENTITIES.Client;
+import DOMAIN.REPOSITORY.INTERFACES.BaseRepository;
 import DOMAIN.REPOSITORY.INTERFACES.CarRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
