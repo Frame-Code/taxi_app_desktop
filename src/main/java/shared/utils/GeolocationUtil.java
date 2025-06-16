@@ -17,7 +17,7 @@ public class GeolocationUtil {
         return new WKTWriter().write(point);
     }
 
-    public static String coordinatesToWKT(double latitude, double longitude) {
+    public static String coordinatesToWKT(double longitude, double latitude) {
         return pointToWKT(createPoint(latitude, longitude));
     }
 }

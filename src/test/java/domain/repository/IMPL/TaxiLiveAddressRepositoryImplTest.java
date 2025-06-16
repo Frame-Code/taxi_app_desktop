@@ -10,6 +10,7 @@ import domain.repository.INTERFACES.CabRepository;
 import domain.repository.INTERFACES.CarRepository;
 import domain.repository.INTERFACES.DriverRepository;
 import domain.repository.INTERFACES.TaxiLiveAddressRepository;
+import lombok.extern.apachecommons.CommonsLog;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import shared.enums.STATUS_TAXI;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@CommonsLog
 class TaxiLiveAddressRepositoryImplTest {
     private static TaxiLiveAddressRepository taxiLiveAddressRepository;
     private static DriverRepository driverRepository;
@@ -41,8 +43,7 @@ class TaxiLiveAddressRepositoryImplTest {
         List<Cab> nearbyCabs = taxiLiveAddressRepository.findNearbyCabs(
                 GeolocationUtil.coordinatesToWKT(-2.166028, -79.830170),
                 8000);
-        System.out.println(nearbyCabs.isEmpty());
-        nearbyCabs.forEach(System.out::println);
+        assertFalse(nearbyCabs.isEmpty());
     }
 
     private void loadData() {
@@ -82,18 +83,22 @@ class TaxiLiveAddressRepositoryImplTest {
                     .driver(driver1)
                     .build();
             cabRepository.save(cab1);
+            log.info("TEST: cab saved");
             TaxiLiveAddress taxiLiveAddress = null;
             switch (i) {
                 case 0 -> taxiLiveAddress = TaxiLiveAddress.builder()
                         .cab(cab1)
+                        .reference("San gabriel")
                         .location(GeolocationUtil.createPoint(-2.155412, -79.823990))
                         .build();
                 case 1 -> taxiLiveAddress = TaxiLiveAddress.builder()
                         .cab(cab1)
+                        .reference("America del sur")
                         .location(GeolocationUtil.createPoint(-2.153026, -79.826456))
                         .build();
                 case 2 -> taxiLiveAddress = TaxiLiveAddress.builder()
                         .cab(cab1)
+                        .reference("Elsa bucaran")
                         .location(GeolocationUtil.createPoint(-2.158131, -79.822651))
                         .build();
             }

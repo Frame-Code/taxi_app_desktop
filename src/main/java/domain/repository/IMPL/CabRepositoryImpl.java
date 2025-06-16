@@ -27,7 +27,7 @@ public class CabRepositoryImpl extends BaseRepository implements CabRepository {
             transaction = session.beginTransaction();
             session.persist(cab);
             transaction.commit();
-            log.info("province saved successfully");
+            log.info("Cab saved successfully");
         } catch (HibernateException | NullPointerException e) {
             if (transaction != null) {
                 log.error("Error saving province: " + e.getMessage());

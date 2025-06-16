@@ -133,7 +133,7 @@ public class ProvinceRepositoryImpl extends BaseRepository implements ProvinceRe
             transaction = session.beginTransaction();
             session.merge(province);
             transaction.commit();
-            log.info("Province saved successfully");
+            log.info("Province updated successfully");
         } catch (HibernateException | NullPointerException ex) {
             if(transaction != null) {
                 log.error("Error saving province: " + ex.getMessage());

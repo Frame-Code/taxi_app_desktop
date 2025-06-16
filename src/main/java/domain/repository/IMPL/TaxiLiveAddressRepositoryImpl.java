@@ -41,8 +41,6 @@ public class TaxiLiveAddressRepositoryImpl extends BaseRepository implements Tax
             query.setParameter("point", pointWTK);
             List<TaxiLiveAddress> nearbyCabsAddress = query.getResultList();
             transaction.commit();
-            log.info("Nearby cabs list" + nearbyCabsAddress.isEmpty());
-            log.info("Cabs founded successfully");
             return nearbyCabsAddress.stream().map(TaxiLiveAddress::getCab).toList();
         } catch (NullPointerException | NoSuchElementException e) {
             if (transaction != null) {
@@ -67,7 +65,7 @@ public class TaxiLiveAddressRepositoryImpl extends BaseRepository implements Tax
             transaction = session.beginTransaction();
             session.persist(taxiLiveAddress);
             transaction.commit();
-            log.info("province saved successfully");
+            log.info("Taxi_live_address saved successfully");
         } catch (HibernateException | NullPointerException e) {
             if (transaction != null) {
                 log.error("Error saving province: " + e.getMessage());
