@@ -10,7 +10,6 @@ import domain.repository.INTERFACES.CabRepository;
 import domain.repository.INTERFACES.CarRepository;
 import domain.repository.INTERFACES.DriverRepository;
 import domain.repository.INTERFACES.TaxiLiveAddressRepository;
-import lombok.extern.apachecommons.CommonsLog;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import shared.enums.STATUS_TAXI;
@@ -22,7 +21,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@CommonsLog
 class TaxiLiveAddressRepositoryImplTest {
     private static TaxiLiveAddressRepository taxiLiveAddressRepository;
     private static DriverRepository driverRepository;
@@ -83,7 +81,6 @@ class TaxiLiveAddressRepositoryImplTest {
                     .driver(driver1)
                     .build();
             cabRepository.save(cab1);
-            log.info("TEST: cab saved");
             TaxiLiveAddress taxiLiveAddress = null;
             switch (i) {
                 case 0 -> taxiLiveAddress = TaxiLiveAddress.builder()
@@ -104,7 +101,6 @@ class TaxiLiveAddressRepositoryImplTest {
             }
             taxiLiveAddressRepository.save(taxiLiveAddress);
         }
-
     }
 
     @Test

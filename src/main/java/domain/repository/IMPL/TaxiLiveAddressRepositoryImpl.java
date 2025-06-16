@@ -12,7 +12,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
-import org.hibernate.query.Query;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -25,7 +24,7 @@ public class TaxiLiveAddressRepositoryImpl extends BaseRepository implements Tax
     }
 
     @Override
-    public List<Cab> findNearbyCabs(String pointWTK, int meters_distance) {
+    public List<Cab> findNearbyCabs(String pointWTK, double meters_distance) {
         Transaction transaction = null;
         Session session = null;
         try {
