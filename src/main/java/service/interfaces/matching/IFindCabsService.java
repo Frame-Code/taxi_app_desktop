@@ -1,4 +1,4 @@
-package service.interfaces;
+package service.interfaces.matching;
 
 import domain.entities.Cab;
 
