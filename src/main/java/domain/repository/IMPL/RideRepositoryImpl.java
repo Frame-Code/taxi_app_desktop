@@ -1,6 +1,5 @@
 package domain.repository.IMPL;
 
-import domain.entities.City;
 import domain.entities.Ride;
 import domain.repository.INTERFACES.BaseRepository;
 import domain.repository.INTERFACES.RideRepository;

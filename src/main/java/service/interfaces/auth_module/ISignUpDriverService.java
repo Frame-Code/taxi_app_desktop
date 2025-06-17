@@ -1,4 +1,4 @@
-package service.interfaces.auth;
+package service.interfaces.auth_module;
 
 import domain.entities.Driver;
 

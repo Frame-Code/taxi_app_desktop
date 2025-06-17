@@ -1,4 +1,4 @@
-package service.interfaces.matching;
+package service.interfaces.matching_module;
 
 import domain.entities.Cab;
 

@@ -1,4 +1,4 @@
-package service.interfaces;
+package service.interfaces.location_module;
 
 import domain.entities.Province;
 

@@ -1,9 +1,9 @@
-package service.impl;
+package service.impl.location_module;
 
 import domain.entities.City;
 import domain.entities.Province;
 import domain.repository.INTERFACES.ProvinceRepository;
-import service.interfaces.IProvinceService;
+import service.interfaces.location_module.IProvinceService;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;

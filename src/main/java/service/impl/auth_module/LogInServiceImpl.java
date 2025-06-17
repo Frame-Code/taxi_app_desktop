@@ -1,7 +1,7 @@
-package service.impl.auth;
+package service.impl.auth_module;
 
 import domain.repository.INTERFACES.ClientRepository;
-import service.interfaces.auth.ILogInService;
+import service.interfaces.auth_module.ILogInService;
 import shared.utils.PasswordUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;

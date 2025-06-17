@@ -1,10 +1,10 @@
-package service.impl.auth;
+package service.impl.auth_module;
 
 import domain.entities.Driver;
 import domain.repository.INTERFACES.ClientRepository;
 import domain.repository.INTERFACES.DriverRepository;
-import service.interfaces.auth.ISignUpDriverService;
-import service.interfaces.auth.SignUpService;
+import service.interfaces.auth_module.ISignUpDriverService;
+import service.interfaces.auth_module.SignUpService;
 import lombok.extern.apachecommons.CommonsLog;
 
 @CommonsLog

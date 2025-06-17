@@ -35,7 +35,7 @@ public class Ride{
     @Column(nullable = false)
     private LocalDateTime startDate;
 
-    @Column(nullable = false)
+    @Column()
     private LocalDateTime endDate;
 
     @ManyToOne

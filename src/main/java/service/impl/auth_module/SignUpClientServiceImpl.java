@@ -1,9 +1,9 @@
-package service.impl.auth;
+package service.impl.auth_module;
 
 import domain.entities.Client;
 import domain.repository.INTERFACES.ClientRepository;
-import service.interfaces.auth.ISignUpClientService;
-import service.interfaces.auth.SignUpService;
+import service.interfaces.auth_module.ISignUpClientService;
+import service.interfaces.auth_module.SignUpService;
 import lombok.extern.apachecommons.CommonsLog;
 
 

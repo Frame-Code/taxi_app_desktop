@@ -1,10 +1,10 @@
-package service.impl.matching;
+package service.impl.matching_module;
 
 import domain.entities.Cab;
 import domain.repository.INTERFACES.TaxiLiveAddressRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
-import service.interfaces.matching.IFindCabsService;
+import service.interfaces.matching_module.IFindCabsService;
 import shared.utils.GeolocationUtil;
 
 import java.util.List;
