@@ -1,5 +1,7 @@
 package SERVICE.IMPL;
 
+import DOMAIN.ENTITIES.Client;
+import DOMAIN.ENTITIES.User;
 import DOMAIN.REPOSITORY.IMPL.ClientRepositoryImpl;
 import DOMAIN.REPOSITORY.INTERFACES.ClientRepository;
 import SERVICE.INTERFACES.ISignUpClientService;
@@ -23,9 +25,16 @@ class SignUpClientServiceImplTest {
 
     @Test
     void signUp() {
-        assertTrue(service.signUp("Daniel", "Mora",
-                LocalDate.now(), "mail@email.com",
-                "0941", "pass"));
+        assertTrue(service.signUp(Client.builder()
+                .user(User.builder()
+                        .names("Daniel")
+                        .lastNames("Mora")
+                        .bornDate(LocalDate.now())
+                        .email("mail@mail.com")
+                        .phone("0941")
+                        .passwordHash("pass")
+                        .build())
+                .build()));
 
     }
 }

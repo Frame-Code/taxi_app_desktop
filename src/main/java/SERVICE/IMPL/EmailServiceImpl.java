@@ -3,12 +3,15 @@ import SERVICE.INTERFACES.IEmailService;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 import jakarta.mail.Session;
+import lombok.extern.apachecommons.CommonsLog;
+
 import java.util.Properties;
 import java.util.Random;
 import java.util.HashMap;
 import java.util.Map;
 
 
+@CommonsLog
 public class EmailServiceImpl implements IEmailService {
 
     private static final String SMTP_HOST = "smtp.gmail.com";
@@ -38,12 +41,11 @@ public class EmailServiceImpl implements IEmailService {
             Message mensaje = crearMensaje(session, emailDestino, codigoVerificacion);
             Transport.send(mensaje);
 
-            System.out.println("Correo de recuperación enviado exitosamente a: " + emailDestino);
+            log.info("Correo de recuperación enviado exitosamente a: " + emailDestino);
             return true;
 
         } catch (MessagingException e) {
-            System.err.println("Error al enviar correo: " + e.getMessage());
-            e.printStackTrace();
+            log.warn("Error al enviar correo: " + e.getMessage());
             return false;
         }
     }
@@ -64,22 +66,16 @@ public class EmailServiceImpl implements IEmailService {
         return email != null && email.matches(emailRegex);
     }
 
-    @Override
-    public void limpiarCodigosExpirados() {
-        // Método de ejemplo
-        System.out.println("Limpieza de códigos expirados ejecutada");
-    }
-
     // Método para actualizar contraseña en "base de datos"
     @Override
     public boolean actualizarContrasena(String email, String nuevaContrasena) {
         if (usuarios.containsKey(email)) {
             // Aquí puedes agregar un hash para la contraseña si quieres
             usuarios.put(email, nuevaContrasena);
-            System.out.println("Contraseña actualizada para: " + email);
+            log.info("Contraseña actualizada para: " + email);
             return true;
         } else {
-            System.out.println("No se encontró usuario con el email: " + email);
+            log.info("No se encontró usuario con el email: " + email);
             return false;
         }
     }
