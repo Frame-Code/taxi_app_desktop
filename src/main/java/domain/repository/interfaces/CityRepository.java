@@ -1,9 +1,10 @@
-package domain.repository.INTERFACES;
+package domain.repository.interfaces;
 
 import domain.entities.City;
-import domain.repository.DAO.INTERFACES.IBaseDao;
+import domain.repository.dao.interfaces.IBaseDao;
 
 import java.util.List;
+
 
 /**
  * @author Daniel Mora Cantillo

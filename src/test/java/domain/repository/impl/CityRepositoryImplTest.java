@@ -1,9 +1,9 @@
-package domain.repository.IMPL;
+package domain.repository.impl;
 
 import domain.entities.City;
 import domain.entities.Province;
-import domain.repository.INTERFACES.CityRepository;
-import domain.repository.INTERFACES.ProvinceRepository;
+import domain.repository.interfaces.CityRepository;
+import domain.repository.interfaces.ProvinceRepository;
 import shared.utils.HibernateUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

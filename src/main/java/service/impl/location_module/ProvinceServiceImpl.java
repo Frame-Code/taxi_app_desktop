@@ -2,7 +2,7 @@ package service.impl.location_module;
 
 import domain.entities.City;
 import domain.entities.Province;
-import domain.repository.INTERFACES.ProvinceRepository;
+import domain.repository.interfaces.ProvinceRepository;
 import service.interfaces.location_module.IProvinceService;
 import lombok.RequiredArgsConstructor;
 

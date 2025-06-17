@@ -1,8 +1,8 @@
-package domain.repository.IMPL;
+package domain.repository.impl;
 
 import domain.entities.Client;
 import domain.entities.User;
-import domain.repository.INTERFACES.ClientRepository;
+import domain.repository.interfaces.ClientRepository;
 import service.impl.auth_module.LogInServiceImpl;
 import service.interfaces.auth_module.ILogInService;
 import shared.utils.HibernateUtil;

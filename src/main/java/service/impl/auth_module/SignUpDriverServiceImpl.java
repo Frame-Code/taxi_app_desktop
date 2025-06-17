@@ -1,8 +1,8 @@
 package service.impl.auth_module;
 
 import domain.entities.Driver;
-import domain.repository.INTERFACES.ClientRepository;
-import domain.repository.INTERFACES.DriverRepository;
+import domain.repository.interfaces.ClientRepository;
+import domain.repository.interfaces.DriverRepository;
 import service.interfaces.auth_module.ISignUpDriverService;
 import service.interfaces.auth_module.SignUpService;
 import lombok.extern.apachecommons.CommonsLog;

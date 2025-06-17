@@ -1,4 +1,4 @@
-package domain.repository.DAO.INTERFACES;
+package domain.repository.dao.interfaces;
 
 import java.util.List;
 import java.util.Optional;

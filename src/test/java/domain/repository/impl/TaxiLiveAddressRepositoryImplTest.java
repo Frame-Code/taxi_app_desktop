@@ -1,4 +1,4 @@
-package domain.repository.IMPL;
+package domain.repository.impl;
 
 import domain.entities.Cab;
 import domain.entities.Car;
@@ -6,10 +6,10 @@ import domain.entities.Driver;
 import domain.entities.License;
 import domain.entities.TaxiLiveAddress;
 import domain.entities.User;
-import domain.repository.INTERFACES.CabRepository;
-import domain.repository.INTERFACES.CarRepository;
-import domain.repository.INTERFACES.DriverRepository;
-import domain.repository.INTERFACES.TaxiLiveAddressRepository;
+import domain.repository.interfaces.CabRepository;
+import domain.repository.interfaces.CarRepository;
+import domain.repository.interfaces.DriverRepository;
+import domain.repository.interfaces.TaxiLiveAddressRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import shared.enums.STATUS_TAXI;

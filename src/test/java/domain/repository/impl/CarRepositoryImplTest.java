@@ -1,7 +1,7 @@
-package domain.repository.IMPL;
+package domain.repository.impl;
 
 import domain.entities.Car;
-import domain.repository.INTERFACES.CarRepository;
+import domain.repository.interfaces.CarRepository;
 import shared.utils.HibernateUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

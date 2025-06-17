@@ -1,9 +1,8 @@
-package domain.repository.IMPL;
+package domain.repository.impl;
 
-import domain.entities.Car;
-import domain.repository.INTERFACES.BaseRepository;
-import domain.repository.INTERFACES.CarRepository;
-import lombok.AllArgsConstructor;
+import domain.entities.Ride;
+import domain.repository.interfaces.BaseRepository;
+import domain.repository.interfaces.RideRepository;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -13,61 +12,56 @@ import org.hibernate.Transaction;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * @author Daniel Mora Cantillo
- * */
 @CommonsLog
-@AllArgsConstructor
-public class CarRepositoryImpl extends BaseRepository implements CarRepository {
+public class RideRepositoryImpl extends BaseRepository implements RideRepository {
 
-    public CarRepositoryImpl(SessionFactory sessionFactory) {
+    public RideRepositoryImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 
     @Override
-    public Car save(Car car) {
+    public Ride save(Ride ride) {
         Transaction transaction = null;
         Session session = null;
         try {
             session = super.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.persist(car);
+            session.persist(ride);
             transaction.commit();
-            log.info("Car saved successfully");
+            log.info("Ride saved successfully");
         } catch (HibernateException | NullPointerException e) {
-            if(transaction != null) {
-                log.error("Error saving car: " + e.getMessage());
+            if (transaction != null) {
+                log.error("Error saving ride: " + e.getMessage());
                 transaction.rollback();
             }
         } finally {
-            if(transaction != null) {
+            if (transaction != null) {
                 session.close();
                 log.info("Hibernate session closed");
             }
         }
-        return car;
-
+        return ride;
     }
 
     @Override
-    public Optional<Car> findById(Long id) {
-        var car = super.getSessionFactory().openSession().find(Car.class, id);
+    public Optional<Ride> findById(Long id) {
+        var ride = super.getSessionFactory().openSession().find(Ride.class, id);
         super.getSessionFactory().getCurrentSession().close();
-        return Optional.ofNullable(car);
+        return Optional.ofNullable(ride);
     }
 
     @Override
-    public List<Car> findAll() {
-        var cars = super.getSessionFactory().openSession().createQuery("FROM Car", Car.class).list();
+    public List<Ride> findAll() {
+        var ride = super.getSessionFactory().openSession().createQuery("FROM Ride", Ride.class).list();
         super.getSessionFactory().getCurrentSession().close();
-        return cars;
+        return ride;
     }
 
     @Override
     public void deleteById(Long id) {
-        var carOpt = findById(id);
-        if(carOpt.isEmpty()) {
-            log.error("Car not found");
+        var rideOpt = findById(id);
+        if (rideOpt.isEmpty()) {
+            log.error("Ride not found");
             return;
         }
 
@@ -76,16 +70,16 @@ public class CarRepositoryImpl extends BaseRepository implements CarRepository {
         try {
             session = super.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.remove(carOpt.get().getId());
+            session.remove(rideOpt.get().getId());
             transaction.commit();
-            log.info("Car deleted successfully");
+            log.info("City deleted successfully");
         } catch (HibernateException | NullPointerException ex) {
-            if(transaction != null) {
-                log.error("Error deleting car: " + ex.getMessage());
+            if (transaction != null) {
+                log.error("Error deleting ride: " + ex.getMessage());
                 transaction.rollback();
             }
         } finally {
-            if(transaction != null) {
+            if (transaction != null) {
                 session.close();
                 log.info("Hibernate session closed");
             }
@@ -93,18 +87,18 @@ public class CarRepositoryImpl extends BaseRepository implements CarRepository {
     }
 
     @Override
-    public Car update(Car client) {
+    public Ride update(Ride ride) {
         Transaction transaction = null;
         Session session = null;
         try {
             session = super.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.merge(client);
+            session.merge(ride);
             transaction.commit();
-            log.info("Client saved successfully");
+            log.info("Ride saved successfully");
         } catch (HibernateException | NullPointerException ex) {
             if(transaction != null) {
-                log.error("Error saving client: " + ex.getMessage());
+                log.error("Error saving ride: " + ex.getMessage());
                 transaction.rollback();
             }
         } finally {
@@ -113,6 +107,6 @@ public class CarRepositoryImpl extends BaseRepository implements CarRepository {
                 log.info("Hibernate session closed");
             }
         }
-        return client;
+        return ride;
     }
 }

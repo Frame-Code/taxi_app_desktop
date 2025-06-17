@@ -1,7 +1,7 @@
 package service.impl.matching_module;
 
 import domain.entities.Cab;
-import domain.repository.INTERFACES.TaxiLiveAddressRepository;
+import domain.repository.interfaces.TaxiLiveAddressRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import service.interfaces.matching_module.IFindCabsService;

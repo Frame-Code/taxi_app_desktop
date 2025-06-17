@@ -1,13 +1,11 @@
-package domain.repository.IMPL;
+package domain.repository.impl;
 
 import domain.entities.Cab;
-import domain.entities.Province;
 import domain.entities.TaxiLiveAddress;
-import domain.repository.INTERFACES.BaseRepository;
-import domain.repository.INTERFACES.TaxiLiveAddressRepository;
+import domain.repository.interfaces.BaseRepository;
+import domain.repository.interfaces.TaxiLiveAddressRepository;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.HibernateException;
-import org.hibernate.NonUniqueResultException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

@@ -1,7 +1,7 @@
 package service.impl.ride_service;
 
 import domain.entities.Ride;
-import domain.repository.INTERFACES.RideRepository;
+import domain.repository.interfaces.RideRepository;
 import lombok.RequiredArgsConstructor;
 import service.interfaces.ride_module.IRideService;
 

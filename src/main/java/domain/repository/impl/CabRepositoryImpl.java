@@ -1,8 +1,8 @@
-package domain.repository.IMPL;
+package domain.repository.impl;
 
 import domain.entities.Cab;
-import domain.repository.INTERFACES.BaseRepository;
-import domain.repository.INTERFACES.CabRepository;
+import domain.repository.interfaces.BaseRepository;
+import domain.repository.interfaces.CabRepository;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

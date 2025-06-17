@@ -1,8 +1,8 @@
-package domain.repository.IMPL;
+package domain.repository.impl;
 
 import domain.entities.Client;
-import domain.repository.INTERFACES.BaseRepository;
-import domain.repository.INTERFACES.ClientRepository;
+import domain.repository.interfaces.BaseRepository;
+import domain.repository.interfaces.ClientRepository;
 import jakarta.persistence.NoResultException;
 import lombok.AllArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;

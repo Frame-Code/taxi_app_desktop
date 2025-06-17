@@ -7,6 +7,7 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -30,6 +31,7 @@ public class CabRequestView extends javax.swing.JFrame {
         initComponents();
         initMap();
         initControllers();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
     }
 

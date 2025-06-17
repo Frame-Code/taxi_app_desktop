@@ -1,6 +1,6 @@
 package service.interfaces.auth_module;
 
-import domain.repository.INTERFACES.ClientRepository;
+import domain.repository.interfaces.ClientRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
