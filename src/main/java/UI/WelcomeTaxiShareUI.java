@@ -4,8 +4,13 @@
  */
 package UI;
 
+import SERVICE.EXTERNAL.CLIENT.OPENCAGE.IOpenCageClient;
 import SERVICE.IMPL.EmailServiceImpl;
+import SERVICE.IMPL.MapViewerImpl;
 import SERVICE.INTERFACES.IEmailService;
+import SERVICE.INTERFACES.ILogInService;
+import SERVICE.IMPL.LogInServiceImpl;
+import SERVICE.EXTERNAL.CLIENT.OPENCAGE.OpenCageClientImpl;
 
 /**
  *
@@ -14,12 +19,13 @@ import SERVICE.INTERFACES.IEmailService;
 public class WelcomeTaxiShareUI extends javax.swing.JFrame {
     private final IEmailService emailService;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(WelcomeTaxiShareUI.class.getName());
-
+    private final ILogInService loginService;
     /**
      * Creates new form WelcomeTaxiShareUI
      */
-    public WelcomeTaxiShareUI(IEmailService emailService) {
+    public WelcomeTaxiShareUI(IEmailService emailService, ILogInService loginService) {
         this.emailService = emailService;
+        this.loginService = loginService;
         initComponents();
     }
 
@@ -136,9 +142,27 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
         // Opcional: cerrar la ventana actual de login
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        String email = jTextField1.getText();
+        String password = new String(jPasswordField1.getPassword());
+
+        boolean isValid = loginService.login(email, password);
+
+        if (isValid) {
+            // Login exitoso, abrir ventana CabRequestView
+            IMapViewer mapViewer = new MapViewerImpl(); // tu implementación real
+            IOpenCageClient openCageClient = OpenCageClientImpl.getInstance();
+
+            CabRequestView cabRequestView = new CabRequestView(mapViewer, openCageClient);
+            this.dispose();
+        } else {
+            // Login fallido, mostrar mensaje
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Usuario o contraseña incorrectos",
+                    "Error de inicio de sesión",
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

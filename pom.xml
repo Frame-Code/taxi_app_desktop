@@ -68,7 +68,6 @@
             <artifactId>jbcrypt</artifactId>
             <version>0.4</version>
         </dependency>
-        <!-- Dependencia actualizada para JavaMail -->
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>jakarta.mail</artifactId>
@@ -95,4 +94,3 @@
     </properties>
 
 </project>
-
