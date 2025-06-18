@@ -12,13 +12,14 @@ import SERVICE.INTERFACES.ILogInService;
 import SERVICE.IMPL.LogInServiceImpl;
 import SERVICE.EXTERNAL.CLIENT.OPENCAGE.OpenCageClientImpl;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author RonaldPC
  */
 public class WelcomeTaxiShareUI extends javax.swing.JFrame {
     private final IEmailService emailService;
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(WelcomeTaxiShareUI.class.getName());
     private final ILogInService loginService;
     /**
      * Creates new form WelcomeTaxiShareUI
@@ -27,6 +28,7 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
         this.emailService = emailService;
         this.loginService = loginService;
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -47,7 +49,7 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("Welcome to TaxiShare");

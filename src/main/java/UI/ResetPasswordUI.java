@@ -5,6 +5,8 @@
 package UI;
 import SERVICE.INTERFACES.IEmailService;
 import SERVICE.IMPL.EmailServiceImpl;
+
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 /**
  *
@@ -17,6 +19,7 @@ public class ResetPasswordUI extends javax.swing.JFrame {
     public ResetPasswordUI(IEmailService emailService) {
         this.emailService = emailService;
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     @SuppressWarnings("unchecked")

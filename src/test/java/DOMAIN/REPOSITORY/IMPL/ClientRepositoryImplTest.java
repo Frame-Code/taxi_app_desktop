@@ -21,7 +21,7 @@ class ClientRepositoryImplTest {
 
     @BeforeAll
     static void setUp() {
-        repository = new ClientRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-test.cfg.xml"));
+        repository = new ClientRepositoryImpl(HibernateUtil.getSessionFactory());
     }
 
     @Test

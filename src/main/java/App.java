@@ -6,11 +6,22 @@ import UI.WelcomeTaxiShareUI;
 
 import DOMAIN.REPOSITORY.IMPL.ClientRepositoryImpl;
 import DOMAIN.REPOSITORY.INTERFACES.ClientRepository;
+import com.formdev.flatlaf.FlatDarkLaf;
+import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.SessionFactory;
 import SHARED.UTILS.HibernateUtil;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+@CommonsLog
 public class App {
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+        } catch (UnsupportedLookAndFeelException e) {
+            log.warn("Can't load theme look and feel, error: " + e);
+        }
         IEmailService emailService = new EmailServiceImpl();
 
         // Obtener la SessionFactory (asegúrate que SHARED.UTILS.HibernateUtil provee esta instancia)
