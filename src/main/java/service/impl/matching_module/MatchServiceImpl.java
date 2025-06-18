@@ -1,0 +1,61 @@
+package service.impl.matching_module;
+
+import domain.entities.Address;
+import domain.entities.Cab;
+import domain.entities.Client;
+import domain.entities.Payment;
+import domain.entities.Ride;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.apachecommons.CommonsLog;
+import service.interfaces.ride_module.IRideService;
+import service.interfaces.matching_module.IFindCabsService;
+import service.interfaces.matching_module.IMathService;
+import shared.dto.CoordinatesToMatchDTO;
+import shared.enums.STATUS_ROAD;
+import shared.enums.STATUS_TAXI;
+import shared.utils.GeolocationUtil;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+@CommonsLog
+@RequiredArgsConstructor
+public class MatchServiceImpl implements IMathService {
+    private final IFindCabsService findCabsService;
+    private final IRideService rideService;
+
+    @Override
+    public List<Cab> findNearbyCabs(double latitude, double longitude) {
+        return findCabsService.findNearbyCabs(latitude, longitude).stream()
+                .filter(cab -> cab.getStatus().equals(STATUS_TAXI.ENABLE))
+                .toList();
+    }
+
+    @Override
+    public Optional<Cab> requestCab(CoordinatesToMatchDTO coordinatesToMatchDTO, List<Cab> cabs, Client client, Payment payment) {
+        return cabs.stream().findFirst().map(cab -> {
+            var ride = Ride.builder()
+                    .client(client)
+                    .cab(cab)
+                    .startDate(LocalDateTime.now())
+                    .startAddress(Address.builder()
+                            .location(GeolocationUtil.createPoint(
+                                    coordinatesToMatchDTO.originLatitude(),
+                                    coordinatesToMatchDTO.originLongitude()
+                            ))
+                            .build())
+                    .endAddress(Address.builder()
+                            .location(GeolocationUtil.createPoint(
+                                    coordinatesToMatchDTO.destinyLatitude(),
+                                    coordinatesToMatchDTO.destinyLongitude()
+                            ))
+                            .build())
+                    .status(STATUS_ROAD.INITIALIZED)
+                    .payment(payment)
+                    .build();
+            rideService.save(ride);
+            return cab;
+        }).or(Optional::empty);
+    }
+}

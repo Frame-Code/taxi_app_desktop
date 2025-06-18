@@ -1,15 +1,14 @@
-import SERVICE.IMPL.EmailServiceImpl;
-import SERVICE.IMPL.LogInServiceImpl;
-import SERVICE.INTERFACES.IEmailService;
-import SERVICE.INTERFACES.ILogInService;
-import UI.WelcomeTaxiShareUI;
-
-import DOMAIN.REPOSITORY.IMPL.ClientRepositoryImpl;
-import DOMAIN.REPOSITORY.INTERFACES.ClientRepository;
 import com.formdev.flatlaf.FlatDarkLaf;
+import domain.repository.impl.ClientRepositoryImpl;
+import domain.repository.interfaces.ClientRepository;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.SessionFactory;
-import SHARED.UTILS.HibernateUtil;
+import service.impl.auth_module.EmailServiceImpl;
+import service.impl.auth_module.LogInServiceImpl;
+import service.interfaces.auth_module.IEmailService;
+import service.interfaces.auth_module.ILogInService;
+import shared.utils.HibernateUtil;
+import ui.WelcomeTaxiShareUI;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;

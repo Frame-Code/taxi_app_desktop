@@ -19,27 +19,27 @@
         <property name="hibernate.hbm2ddl.auto">create-drop</property>
 
         <!-- Entities - Tus entidades del proyecto -->
-        <mapping class="DOMAIN.ENTITIES.Address"/>
-        <mapping class="DOMAIN.ENTITIES.Admin"/>
-        <mapping class="DOMAIN.ENTITIES.Cab"/>
-        <mapping class="DOMAIN.ENTITIES.Car"/>
-        <mapping class="DOMAIN.ENTITIES.City"/>
-        <mapping class="DOMAIN.ENTITIES.Client"/>
-        <mapping class="DOMAIN.ENTITIES.ClientAddress"/>
-        <mapping class="DOMAIN.ENTITIES.Driver"/>
-        <mapping class="DOMAIN.ENTITIES.Fare"/>
-        <mapping class="DOMAIN.ENTITIES.License"/>
-        <mapping class="DOMAIN.ENTITIES.Notification"/>
-        <mapping class="DOMAIN.ENTITIES.Payment"/>
-        <mapping class="DOMAIN.ENTITIES.Permission"/>
-        <mapping class="DOMAIN.ENTITIES.Province"/>
-        <mapping class="DOMAIN.ENTITIES.Ride"/>
-        <mapping class="DOMAIN.ENTITIES.RoadNotification"/>
-        <mapping class="DOMAIN.ENTITIES.Role"/>
-        <mapping class="DOMAIN.ENTITIES.TaxiLiveAddress"/>
-        <mapping class="DOMAIN.ENTITIES.User"/>
-        <mapping class="DOMAIN.ENTITIES.Vehicle"/>
-        <mapping class="DOMAIN.ENTITIES.VehicleMaintenance"/>
+        <mapping class="domain.entities.Address"/>
+        <mapping class="domain.entities.Admin"/>
+        <mapping class="domain.entities.Cab"/>
+        <mapping class="domain.entities.Car"/>
+        <mapping class="domain.entities.City"/>
+        <mapping class="domain.entities.Client"/>
+        <mapping class="domain.entities.ClientAddress"/>
+        <mapping class="domain.entities.Driver"/>
+        <mapping class="domain.entities.Fare"/>
+        <mapping class="domain.entities.License"/>
+        <mapping class="domain.entities.Notification"/>
+        <mapping class="domain.entities.Payment"/>
+        <mapping class="domain.entities.Permission"/>
+        <mapping class="domain.entities.Province"/>
+        <mapping class="domain.entities.Ride"/>
+        <mapping class="domain.entities.RoadNotification"/>
+        <mapping class="domain.entities.Role"/>
+        <mapping class="domain.entities.TaxiLiveAddress"/>
+        <mapping class="domain.entities.User"/>
+        <mapping class="domain.entities.Vehicle"/>
+        <mapping class="domain.entities.VehicleMaintenance"/>
 
     </session-factory>
 </hibernate-configuration>
