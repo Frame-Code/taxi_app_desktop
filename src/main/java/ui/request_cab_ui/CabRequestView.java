@@ -1,4 +1,4 @@
-package ui;
+package ui.request_cab_ui;
 
 import service.external.client.opencage.IOpenCageClient;
 import service.external.client.opencage.OpenCageClientImpl;

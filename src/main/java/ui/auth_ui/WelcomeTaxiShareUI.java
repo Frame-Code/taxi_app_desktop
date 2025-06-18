@@ -2,13 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ui;
+package ui.auth_ui;
 
 
-import service.external.client.opencage.IOpenCageClient;
 import service.external.client.opencage.OpenCageClientImpl;
 import service.interfaces.auth_module.IEmailService;
 import service.interfaces.auth_module.ILogInService;
+import ui.request_cab_ui.CabRequestView;
+import ui.request_cab_ui.IMapViewer;
+import ui.request_cab_ui.MapViewerImpl;
 
 import javax.swing.JFrame;
 

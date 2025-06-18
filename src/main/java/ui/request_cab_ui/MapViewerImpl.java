@@ -1,4 +1,4 @@
-package ui;
+package ui.request_cab_ui;
 
 import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.OSMTileFactoryInfo;

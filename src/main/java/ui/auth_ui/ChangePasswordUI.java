@@ -1,4 +1,4 @@
-package ui;
+package ui.auth_ui;
 
 import service.interfaces.auth_module.IEmailService;
 

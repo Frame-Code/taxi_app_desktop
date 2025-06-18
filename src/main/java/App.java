@@ -8,7 +8,7 @@ import service.impl.auth_module.LogInServiceImpl;
 import service.interfaces.auth_module.IEmailService;
 import service.interfaces.auth_module.ILogInService;
 import shared.utils.HibernateUtil;
-import ui.WelcomeTaxiShareUI;
+import ui.auth_ui.WelcomeTaxiShareUI;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
