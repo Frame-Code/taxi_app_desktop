@@ -1,5 +1,6 @@
 package shared.utils;
 
+import lombok.extern.apachecommons.CommonsLog;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+@CommonsLog
 public class HttpClientUtil {
     public static final OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.SECONDS)
@@ -51,6 +53,7 @@ public class HttpClientUtil {
             if (!response.isSuccessful()) {
                 throw new IOException("Unexpected code " + response);
             }
+            log.info("Http code response: " + response.code());
             return response.body().string();
         }
     }

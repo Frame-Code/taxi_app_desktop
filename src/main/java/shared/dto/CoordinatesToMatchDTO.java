@@ -4,14 +4,13 @@ public record CoordinatesToMatchDTO(
         double originLatitude,
         double originLongitude,
         double destinyLatitude,
-        double destinyLongitude
-
-) {
-    public String getOrigin(String split) {
-        return originLongitude + split + originLatitude;
+        double destinyLongitude)
+{
+    public String getOrigin(String splitter) {
+        return originLongitude + splitter + originLatitude;
     }
 
-    public String getDestiny(String split) {
-        return destinyLongitude + split + destinyLatitude;
+    public String getDestiny(String splitter) {
+        return destinyLongitude + splitter + destinyLatitude;
     }
 }
