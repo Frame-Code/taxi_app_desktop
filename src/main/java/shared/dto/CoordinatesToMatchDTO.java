@@ -7,4 +7,11 @@ public record CoordinatesToMatchDTO(
         double destinyLongitude
 
 ) {
+    public String getOrigin(String split) {
+        return originLongitude + split + originLatitude;
+    }
+
+    public String getDestiny(String split) {
+        return destinyLongitude + split + destinyLatitude;
+    }
 }
