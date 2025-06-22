@@ -24,7 +24,7 @@ import java.time.LocalDate;
 @Setter
 public class Fare {
     @Id
-    private final Integer id = 1;
+    private final Long id = 1L;
 
     @Column(nullable = false)
     private Double pricePerMinute;

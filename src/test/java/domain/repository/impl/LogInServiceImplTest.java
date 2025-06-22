@@ -6,7 +6,7 @@ import domain.repository.interfaces.ClientRepository;
 import service.impl.auth_module.LogInServiceImpl;
 import service.interfaces.auth_module.ILogInService;
 import shared.utils.HibernateUtil;
-import shared.utils.PasswordUtils;
+import shared.utils.PasswordUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +30,7 @@ class LogInServiceImplTest {
                         .names("Daniel")
                         .lastNames("Mora")
                         .email("mail@email.com")
-                        .passwordHash(PasswordUtils.hashPassword("pass"))
+                        .passwordHash(PasswordUtil.hashPassword("pass"))
                         .phone("0941")
                         .build())
                 .build());

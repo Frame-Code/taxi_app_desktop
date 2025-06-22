@@ -4,7 +4,7 @@ import lombok.extern.apachecommons.CommonsLog;
 import org.mindrot.jbcrypt.BCrypt;
 
 @CommonsLog
-public class PasswordUtils {
+public class PasswordUtil {
     private static final int DEFAULT_LOG_ROUNDS = 12;
     private static final int MIN_LOG_ROUNDS = 10;
     private static final int MAX_LOG_ROUNDS = 15;
