@@ -38,7 +38,6 @@ public class Fare {
     @Column(nullable = false)
     private LocalDate createdAt;
 
-    @Column(nullable = false)
     private LocalDate updatedAt;
 
     @PrePersist

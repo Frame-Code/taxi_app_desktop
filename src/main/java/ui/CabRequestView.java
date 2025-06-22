@@ -1,7 +1,15 @@
 package ui;
 
+import domain.repository.impl.FareRepositoryImpl;
+import domain.repository.impl.RideRepositoryImpl;
 import service.external.client.opencage.IOpenCageClient;
 import service.external.client.opencage.OpenCageClientImpl;
+import service.external.client.openrouteservice.OpenRouteServiceClientImpl;
+import service.impl.ride_service.FareServiceImpl;
+import service.impl.ride_service.IRideCalculationsServiceImpl;
+import service.impl.ride_service.RideServiceImpl;
+import shared.dto.CoordinatesRideDTO;
+import shared.utils.HibernateUtil;
 import ui.components.RoundedPanelWithShadow;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.Color;
@@ -314,6 +322,8 @@ public class CabRequestView extends javax.swing.JFrame {
 
         btnFindCabs.addActionListener(e -> {
             if (origin != null && destiny != null) {
+                CoordinatesRideDTO coordinatesRideDTO = new CoordinatesRideDTO(txtOriginReference.getText(), origin.getLatitude(), origin.getLongitude(), txtDestinyReference.getText(), destiny.getLatitude(), destiny.getLongitude());
+                new ConfirmRideView(coordinatesRideDTO, new RideServiceImpl(new RideRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")), new OpenRouteServiceClientImpl()),new IRideCalculationsServiceImpl(new FareRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),new FareServiceImpl(new FareRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))));
                 return;
             }
             JOptionPane.showMessageDialog(this, "Selecciona una ubicacion de origen y destino por favor", "Error", JOptionPane.ERROR_MESSAGE);
