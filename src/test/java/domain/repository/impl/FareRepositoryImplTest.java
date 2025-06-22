@@ -12,7 +12,7 @@ class FareRepositoryImplTest {
     private static FareRepository repository;
     @BeforeAll
     static void setUp() {
-        repository = new FareRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"));
+        repository = new FareRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-test.cfg.xml"));
     }
     @Test
     void save() {
@@ -21,6 +21,6 @@ class FareRepositoryImplTest {
                 .pricePerKm(0.5)
                 .pricePerMinute(0.25)
                 .build();
-        repository.save(fare);
+        assertEquals(fare.getId(), repository.save(fare).getId());
     }
 }

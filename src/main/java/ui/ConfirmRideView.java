@@ -32,6 +32,7 @@ public class ConfirmRideView extends javax.swing.JFrame {
     public ConfirmRideView(CoordinatesRideDTO coordinatesRideDTO, IRideService rideService, IRideCalculationsService rideCalculationsService, IFareService fareService) {
         initComponents();
         setResizable(false);
+        setTitle("Confirmar ruta");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation(getCenterScreen(screenSize.width, this.getWidth()), getCenterScreen(screenSize.height, this.getHeight()));
@@ -57,11 +58,11 @@ public class ConfirmRideView extends javax.swing.JFrame {
         try {
             rideService.getInfoRide(coordinatesToMatchDTO)
                     .map(infoRideDTO -> {
-                        approxTime.setText(String.valueOf(infoRideDTO.approxTime()));
-                        approxKm.setText(String.valueOf(infoRideDTO.approxDistance()));
-                        pricePerMinute.setText(String.valueOf(fareOpt.get().getPricePerMinute()));
-                        pricePerKm.setText(String.valueOf(fareOpt.get().getPricePerKm()));
-                        princeBase.setText(String.valueOf(fareOpt.get().getBaseFare()));
+                        approxTime.setText(String.valueOf(infoRideDTO.getApproxTimeAsMinutes()) + " Minutos");
+                        approxKm.setText(String.valueOf(infoRideDTO.approxDistance()) + " KM");
+                        pricePerMinute.setText("$" + String.valueOf(fareOpt.get().getPricePerMinute()));
+                        pricePerKm.setText("$" + String.valueOf(fareOpt.get().getPricePerKm()));
+                        princeBase.setText("$" + String.valueOf(fareOpt.get().getBaseFare()));
                         finalPrice.setText("$" + rideCalculationsService.getPrice(infoRideDTO.approxDistance(), infoRideDTO.approxTime()));
                         return null;
                     });
@@ -96,11 +97,9 @@ public class ConfirmRideView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         referenceOrigin = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
         coordinatesOrigin = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         referenceDestiny = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
         coordinatesDestiny = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
@@ -145,7 +144,7 @@ public class ConfirmRideView extends javax.swing.JFrame {
         finalPrice.setText("approx.");
 
         jLabel27.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel27.setText("Recuerda que el pago es en efectivo, asegurate de llevar suelto.");
+        jLabel27.setText("Nota: Recuerda que el pago es en efectivo, asegurate de llevar suelto.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -200,25 +199,19 @@ public class ConfirmRideView extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Origen y destino", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
 
         jLabel31.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel31.setText("Referencia de origen:");
+        jLabel31.setText("Origen");
 
         referenceOrigin.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         referenceOrigin.setText("reference...");
-
-        jLabel33.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel33.setText("Coordenadas de origen:");
 
         coordinatesOrigin.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         coordinatesOrigin.setText("coordinates...");
 
         jLabel35.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel35.setText("Referencia de destino:");
+        jLabel35.setText("Destino");
 
         referenceDestiny.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         referenceDestiny.setText("reference...");
-
-        jLabel37.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel37.setText("Coordenadas de destino:");
 
         coordinatesDestiny.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         coordinatesDestiny.setText("coordinates...");
@@ -232,11 +225,9 @@ public class ConfirmRideView extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(referenceOrigin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(coordinatesOrigin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
+                    .addComponent(coordinatesOrigin, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
                     .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(referenceDestiny, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(coordinatesDestiny, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator2))
                 .addContainerGap())
@@ -246,20 +237,16 @@ public class ConfirmRideView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel31)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(referenceOrigin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel33)
+                .addComponent(referenceOrigin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(coordinatesOrigin)
-                .addGap(3, 3, 3)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(jLabel35)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel35)
+                .addGap(12, 12, 12)
                 .addComponent(referenceDestiny)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel37)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(coordinatesDestiny)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -323,10 +310,10 @@ public class ConfirmRideView extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(contentPaneLayout.createSequentialGroup()
-                .addGap(228, 228, 228)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnConfirmRide, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(224, 224, 224))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,13 +321,13 @@ public class ConfirmRideView extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnConfirmRide, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -351,17 +338,11 @@ public class ConfirmRideView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(contentPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(contentPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel approxKm;
@@ -380,9 +361,7 @@ public class ConfirmRideView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel37;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
