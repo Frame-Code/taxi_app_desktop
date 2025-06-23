@@ -6,8 +6,9 @@ package ui.auth_ui;
 
 import service.interfaces.auth_module.IEmailService;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.*;
+
 /**
  *
  * @author User
@@ -19,7 +20,8 @@ public class ResetPasswordUI extends javax.swing.JFrame {
     public ResetPasswordUI(IEmailService emailService) {
         this.emailService = emailService;
         initComponents();
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setSize(800, 500);
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -65,8 +67,11 @@ public class ResetPasswordUI extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        // Creamos un panel principal donde irá todo el contenido con GroupLayout
+        JPanel mainPanel = new JPanel();
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(layout);
+
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -109,8 +114,19 @@ public class ResetPasswordUI extends javax.swing.JFrame {
                                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
+        // Ahora envolvemos mainPanel en wrapperPanel con FlowLayout centrado
+        JPanel wrapperPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        wrapperPanel.add(mainPanel);
+
+        // Reemplazamos el contentPane del JFrame con wrapperPanel
+        getContentPane().removeAll();
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(wrapperPanel, BorderLayout.CENTER);
+
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+        setLocationRelativeTo(null);
+    }
+
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String email = jTextField2.getText().trim();

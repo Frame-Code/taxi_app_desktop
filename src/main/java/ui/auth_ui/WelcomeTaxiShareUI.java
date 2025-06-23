@@ -12,7 +12,8 @@ import ui.request_cab_ui.CabRequestView;
 import ui.request_cab_ui.IMapViewer;
 import ui.request_cab_ui.MapViewerImpl;
 
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -28,7 +29,8 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
         this.emailService = emailService;
         this.loginService = loginService;
         initComponents();
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setSize(800, 500);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -119,20 +121,18 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+
+        JPanel wrapperPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+
+        wrapperPanel.add(jPanel1);
+
+        getContentPane().removeAll(); // elimina contenido anterior
+        getContentPane().setLayout(new BorderLayout()); // o cualquier layout simple
+        getContentPane().add(wrapperPanel, BorderLayout.CENTER);
+
+        pack();
+        setLocationRelativeTo(null);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
