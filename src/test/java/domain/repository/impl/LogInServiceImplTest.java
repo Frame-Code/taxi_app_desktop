@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LogInServiceImplTest {
+public class LogInServiceImplTest {
     private static ClientRepository repository;
     private static ILogInService service;
 

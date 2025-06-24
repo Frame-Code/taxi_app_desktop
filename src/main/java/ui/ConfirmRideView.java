@@ -44,7 +44,6 @@ public class ConfirmRideView extends javax.swing.JFrame {
         this.rideCalculationsService = rideCalculationsService;
         this.fareService = fareService;
         loadFields(new CoordinatesToMatchDTO(coordinatesRideDTO.originLatitude(), coordinatesRideDTO.originLongitude(), coordinatesRideDTO.destinyLatitude(), coordinatesRideDTO.destinyLongitude()));
-        setVisible(true);
     }
 
     private void loadFields(CoordinatesToMatchDTO coordinatesToMatchDTO) {
@@ -64,6 +63,7 @@ public class ConfirmRideView extends javax.swing.JFrame {
                         pricePerKm.setText("$" + String.valueOf(fareOpt.get().getPricePerKm()));
                         princeBase.setText("$" + String.valueOf(fareOpt.get().getBaseFare()));
                         finalPrice.setText("$" + rideCalculationsService.getPrice(infoRideDTO.approxDistance(), infoRideDTO.approxTime()));
+                        setVisible(true);
                         return null;
                     });
         }catch (IOException ex) {
