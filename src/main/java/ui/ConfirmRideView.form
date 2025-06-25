@@ -50,8 +50,10 @@
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnConfirmRide" min="-2" pref="233" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="224" max="-2" attributes="0"/>
+                  <Component id="btnBack" min="-2" pref="108" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
+                  <Component id="btnConfirmRide" min="-2" pref="273" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="225" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -66,7 +68,10 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="btnConfirmRide" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnConfirmRide" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="btnBack" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -421,6 +426,11 @@
         <Component class="javax.swing.JButton" name="btnConfirmRide">
           <Properties>
             <Property name="text" type="java.lang.String" value="CONFIRMAR RUTA"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnBack">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&lt;- Regresar"/>
           </Properties>
         </Component>
       </SubComponents>

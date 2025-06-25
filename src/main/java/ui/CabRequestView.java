@@ -360,8 +360,9 @@ public class CabRequestView extends javax.swing.JFrame {
                         txtDestinyReference.getText(),
                         destiny.getLatitude(),
                         destiny.getLongitude());
-                new ConfirmRideView(coordinatesRideDTO, rideService, rideCalculationsService, fareService, matchService, paymentFactory, client);
-                this.dispose();
+                new ConfirmRideView(coordinatesRideDTO, rideService, rideCalculationsService, fareService, matchService, paymentFactory, client, this);
+                //setVisible(false);
+                dispose();
                 return;
             }
             JOptionPane.showMessageDialog(this, "Selecciona una ubicacion de origen y destino por favor", "Error", JOptionPane.ERROR_MESSAGE);
