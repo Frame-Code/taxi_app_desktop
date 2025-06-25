@@ -3,6 +3,10 @@ package shared.utils;
 import lombok.extern.apachecommons.CommonsLog;
 import org.mindrot.jbcrypt.BCrypt;
 
+/**
+ *
+ * @author Daniel Mora Cantillo
+ */
 @CommonsLog
 public class PasswordUtil {
     private static final int DEFAULT_LOG_ROUNDS = 12;

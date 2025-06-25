@@ -6,7 +6,10 @@ import shared.utils.HttpClientUtil;
 import java.io.IOException;
 import java.util.Map;
 
-
+/**
+ *
+ * @author Daniel Mora Cantillo
+ */
 public class OpenRouteServiceClientImpl implements IOpenRouteServiceClient{
     private final String API_KEY = "5b3ce3597851110001cf6248431dfed58cac459ab8a456569ef40232";
     private final String ENDPOINT_DRIVING_CAR = "https://api.openrouteservice.org/v2/directions/driving-car?";

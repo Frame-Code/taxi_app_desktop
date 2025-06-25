@@ -14,6 +14,10 @@ import shared.dto.InfoRideDTO;
 import java.io.IOException;
 import java.util.Optional;
 
+/**
+ *
+ * @author Daniel Mora Cantillo
+ */
 @RequiredArgsConstructor
 public class RideServiceImpl implements IRideService {
     private final RideRepository repository;

@@ -9,6 +9,10 @@ import shared.utils.GeolocationUtil;
 
 import java.util.List;
 
+/**
+ *
+ * @author Daniel Mora Cantillo
+ */
 @CommonsLog
 @RequiredArgsConstructor
 public class FindCabsServiceImpl implements IFindCabsService {
@@ -21,7 +25,7 @@ public class FindCabsServiceImpl implements IFindCabsService {
         double minDistance = MIN_DISTANCE;
         List<Cab> nearbyCabs = List.of();
         while (minDistance <= MAX_DISTANCE) {
-            nearbyCabs = repository.findNearbyCabs(GeolocationUtil.coordinatesToWKT(longitude, latitude), minDistance);
+            nearbyCabs = repository.findNearbyCabs(GeolocationUtil.coordinatesToWKT(latitude, longitude), minDistance);
             if(!nearbyCabs.isEmpty()) {
                 log.info("Nearby cabs founded for the client with the following coordinates " + "lat: " + latitude + "long: " + longitude);
                 log.info("Total cabs founded: " + nearbyCabs.size());

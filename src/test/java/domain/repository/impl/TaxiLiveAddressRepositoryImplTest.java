@@ -29,10 +29,10 @@ class TaxiLiveAddressRepositoryImplTest {
 
     @BeforeAll
     static void setUp() {
-        taxiLiveAddressRepository = new TaxiLiveAddressRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"));
-        driverRepository = new DriverRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"));
-        carRepository = new CarRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"));
-        cabRepository = new CabRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"));
+        taxiLiveAddressRepository = new TaxiLiveAddressRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-test.cfg.xml"));
+        driverRepository = new DriverRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-test.cfg.xml"));
+        carRepository = new CarRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-test.cfg.xml"));
+        cabRepository = new CabRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-test.cfg.xml"));
     }
 
     @Test

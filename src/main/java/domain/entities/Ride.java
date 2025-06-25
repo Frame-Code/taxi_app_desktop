@@ -1,5 +1,7 @@
 package domain.entities;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToOne;
 import shared.enums.STATUS_ROAD;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,14 +37,13 @@ public class Ride{
     @Column(nullable = false)
     private LocalDateTime startDate;
 
-    @Column()
     private LocalDateTime endDate;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_address_origin")
     private Address startAddress;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_address_destiny")
     private Address endAddress;
 
@@ -50,7 +51,7 @@ public class Ride{
     @Column(nullable = false)
     private STATUS_ROAD status;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_payment")
     private Payment payment;
 

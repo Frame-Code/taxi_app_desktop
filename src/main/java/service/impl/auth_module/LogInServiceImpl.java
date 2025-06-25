@@ -6,6 +6,10 @@ import shared.utils.PasswordUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 
+/**
+ *
+ * @author Daniel Mora Cantillo
+ */
 @RequiredArgsConstructor
 @CommonsLog
 public class LogInServiceImpl implements ILogInService {

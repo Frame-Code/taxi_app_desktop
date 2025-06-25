@@ -7,6 +7,10 @@ import service.interfaces.ride_module.IFareService;
 
 import java.util.Optional;
 
+/**
+ *
+ * @author Daniel Mora Cantillo
+ */
 @RequiredArgsConstructor
 public class FareServiceImpl implements IFareService {
     private final FareRepository repository;

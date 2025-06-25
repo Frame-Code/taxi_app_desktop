@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import service.interfaces.ride_module.IRideService;
 import service.interfaces.matching_module.IFindCabsService;
-import service.interfaces.matching_module.IMathService;
+import service.interfaces.matching_module.IMatchService;
 import shared.dto.CoordinatesToMatchDTO;
 import shared.enums.STATUS_ROAD;
 import shared.enums.STATUS_TAXI;
@@ -19,9 +19,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *
+ * @author Daniel Mora Cantillo
+ */
 @CommonsLog
 @RequiredArgsConstructor
-public class MatchServiceImpl implements IMathService {
+public class MatchServiceImpl implements IMatchService {
     private final IFindCabsService findCabsService;
     private final IRideService rideService;
 

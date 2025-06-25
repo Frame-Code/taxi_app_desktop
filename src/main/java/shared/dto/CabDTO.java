@@ -1,5 +1,9 @@
 package shared.dto;
 
+/**
+ *
+ * @author Daniel Mora Cantillo
+ */
 public record CabDTO(
         String fullNames,
         String email,

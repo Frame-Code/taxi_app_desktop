@@ -12,8 +12,6 @@ import javax.swing.JProgressBar;
  */
 public class LoadingDialog extends JFrame {
 
-    private JLabel loadingLabel;
-
     public LoadingDialog(String titleDialog, String titleLabel) {
         super(titleDialog);
         setLayout(new BorderLayout());
@@ -26,17 +24,11 @@ public class LoadingDialog extends JFrame {
     }
 
     private void addComponents(String titleLabel) {
-        loadingLabel = new JLabel(titleLabel, JLabel.CENTER);
+        JLabel loadingLabel = new JLabel(titleLabel, JLabel.CENTER);
         add(loadingLabel, BorderLayout.CENTER);
-
         JProgressBar progressBar = new JProgressBar();
         progressBar.setIndeterminate(true);
         add(progressBar, BorderLayout.SOUTH);
-    }
-    
-    public static void main(String[] args) {
-        LoadingDialog d = new LoadingDialog("Waiting", "Wait a moment");
-        d.setVisible(true);
     }
 
 }

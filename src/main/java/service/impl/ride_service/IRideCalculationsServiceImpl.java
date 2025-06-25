@@ -7,6 +7,10 @@ import service.interfaces.ride_module.IRideCalculationsService;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ *
+ * @author Daniel Mora Cantillo
+ */
 @CommonsLog
 @RequiredArgsConstructor
 public class IRideCalculationsServiceImpl implements IRideCalculationsService {

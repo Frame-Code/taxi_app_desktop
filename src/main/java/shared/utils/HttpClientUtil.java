@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+/**
+ *
+ * @author Daniel Mora Cantillo
+ */
 @CommonsLog
 public class HttpClientUtil {
     public static final OkHttpClient client = new OkHttpClient.Builder()

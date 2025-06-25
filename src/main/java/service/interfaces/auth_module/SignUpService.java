@@ -4,6 +4,10 @@ import domain.repository.interfaces.ClientRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+/**
+ *
+ * @author Daniel Mora Cantillo
+ */
 @Getter
 @RequiredArgsConstructor
 public abstract class SignUpService {

@@ -1,14 +1,23 @@
 package ui;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import domain.entities.Client;
+import domain.entities.User;
+import domain.repository.impl.ClientRepositoryImpl;
 import domain.repository.impl.FareRepositoryImpl;
 import domain.repository.impl.RideRepositoryImpl;
+import domain.repository.impl.TaxiLiveAddressRepositoryImpl;
 import service.external.client.opencage.IOpenCageClient;
 import service.external.client.opencage.OpenCageClientImpl;
 import service.external.client.openrouteservice.OpenRouteServiceClientImpl;
+import service.impl.matching_module.FindCabsServiceImpl;
+import service.impl.matching_module.MatchServiceImpl;
+import service.impl.payment_module.PaymentFactoryImpl;
 import service.impl.ride_service.FareServiceImpl;
 import service.impl.ride_service.IRideCalculationsServiceImpl;
 import service.impl.ride_service.RideServiceImpl;
+import service.interfaces.matching_module.IMatchService;
+import service.interfaces.payment_module.PaymentFactory;
 import service.interfaces.ride_module.IFareService;
 import service.interfaces.ride_module.IRideCalculationsService;
 import service.interfaces.ride_module.IRideService;
@@ -37,6 +46,9 @@ public class CabRequestView extends javax.swing.JFrame {
     private final IRideService rideService;
     private final IRideCalculationsService rideCalculationsService;
     private final IFareService fareService;
+    private final IMatchService matchService;
+    private final PaymentFactory paymentFactory;
+    private final Client client;
     private GeoPosition origin;
     private GeoPosition destiny;
 
@@ -44,12 +56,18 @@ public class CabRequestView extends javax.swing.JFrame {
                           IOpenCageClient openCageClient,
                           IRideService rideService,
                           IRideCalculationsService rideCalculationsService,
-                          IFareService fareService) {
+                          IFareService fareService,
+                          IMatchService matchService,
+                          PaymentFactory paymentFactory,
+                          Client client) {
         this.mapViewer = mapViewer;
         this.openCageClient = openCageClient;
         this.rideService = rideService;
         this.rideCalculationsService = rideCalculationsService;
         this.fareService = fareService;
+        this.matchService = matchService;
+        this.paymentFactory = paymentFactory;
+        this.client = client;
         initComponents();
         initMap();
         initControllers();
@@ -342,7 +360,8 @@ public class CabRequestView extends javax.swing.JFrame {
                         txtDestinyReference.getText(),
                         destiny.getLatitude(),
                         destiny.getLongitude());
-                new ConfirmRideView(coordinatesRideDTO, rideService, rideCalculationsService, fareService);
+                new ConfirmRideView(coordinatesRideDTO, rideService, rideCalculationsService, fareService, matchService, paymentFactory, client);
+                this.dispose();
                 return;
             }
             JOptionPane.showMessageDialog(this, "Selecciona una ubicacion de origen y destino por favor", "Error", JOptionPane.ERROR_MESSAGE);
@@ -361,7 +380,10 @@ public class CabRequestView extends javax.swing.JFrame {
             CabRequestView view = new CabRequestView(new OpenStreetMapView(),
                     OpenCageClientImpl.getInstance(),
                     new RideServiceImpl(new RideRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")), new OpenRouteServiceClientImpl()),
-                    new IRideCalculationsServiceImpl(new FareRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))), new FareServiceImpl(new FareRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))));
+                    new IRideCalculationsServiceImpl(new FareRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))), new FareServiceImpl(new FareRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),
+                    new MatchServiceImpl(new FindCabsServiceImpl(new TaxiLiveAddressRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))), new RideServiceImpl(new RideRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")), new OpenRouteServiceClientImpl())),
+                    new PaymentFactoryImpl(),
+                    new ClientRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")).findByEmail("mail@email.com").get());
         });
     }
 

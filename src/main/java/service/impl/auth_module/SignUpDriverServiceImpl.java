@@ -7,6 +7,10 @@ import service.interfaces.auth_module.ISignUpDriverService;
 import service.interfaces.auth_module.SignUpService;
 import lombok.extern.apachecommons.CommonsLog;
 
+/**
+ *
+ * @author Daniel Mora Cantillo
+ */
 @CommonsLog
 public class SignUpDriverServiceImpl extends SignUpService implements ISignUpDriverService {
     private final DriverRepository driverRepository;

@@ -6,7 +6,10 @@ import service.interfaces.auth_module.ISignUpClientService;
 import service.interfaces.auth_module.SignUpService;
 import lombok.extern.apachecommons.CommonsLog;
 
-
+/**
+ *
+ * @author Daniel Mora Cantillo
+ */
 @CommonsLog
 public class SignUpClientServiceImpl extends SignUpService implements ISignUpClientService {
     public SignUpClientServiceImpl(ClientRepository repository) {
