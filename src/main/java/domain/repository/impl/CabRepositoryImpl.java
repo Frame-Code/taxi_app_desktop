@@ -44,21 +44,40 @@ public class CabRepositoryImpl extends BaseRepository implements CabRepository {
 
     @Override
     public Optional<Cab> findById(Long id) {
-        return Optional.empty();
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public List<Cab> findAll() {
-        return List.of();
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void deleteById(Long id) {
-
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Cab update(Cab object) {
-        return null;
+    public Cab update(Cab cab) {
+        Transaction transaction = null;
+        Session session = null;
+        try {
+            session = super.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+            session.merge(cab);
+            transaction.commit();
+            log.info("Cab updated successfully");
+        } catch (HibernateException | NullPointerException ex) {
+            if(transaction != null) {
+                log.error("Error updating cab: " + ex.getMessage());
+                transaction.rollback();
+            }
+        } finally {
+            if(transaction != null) {
+                session.close();
+                log.info("Hibernate session closed");
+            }
+        }
+        return cab;
     }
 }

@@ -3,6 +3,7 @@ package ui;
 import com.formdev.flatlaf.FlatLightLaf;
 import domain.entities.Client;
 import domain.entities.User;
+import domain.repository.impl.CabRepositoryImpl;
 import domain.repository.impl.ClientRepositoryImpl;
 import domain.repository.impl.FareRepositoryImpl;
 import domain.repository.impl.RideRepositoryImpl;
@@ -380,9 +381,9 @@ public class CabRequestView extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             CabRequestView view = new CabRequestView(new OpenStreetMapView(),
                     OpenCageClientImpl.getInstance(),
-                    new RideServiceImpl(new RideRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")), new OpenRouteServiceClientImpl()),
+                    new RideServiceImpl(new RideRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")), new CabRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")), new OpenRouteServiceClientImpl()),
                     new IRideCalculationsServiceImpl(new FareRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))), new FareServiceImpl(new FareRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),
-                    new MatchServiceImpl(new FindCabsServiceImpl(new TaxiLiveAddressRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))), new RideServiceImpl(new RideRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")), new OpenRouteServiceClientImpl())),
+                    new MatchServiceImpl(new FindCabsServiceImpl(new TaxiLiveAddressRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))), new RideServiceImpl(new RideRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")), new CabRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")) ,new OpenRouteServiceClientImpl())),
                     new PaymentFactoryImpl(),
                     new ClientRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")).findByEmail("mail@email.com").get());
         });

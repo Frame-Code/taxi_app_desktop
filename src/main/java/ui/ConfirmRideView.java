@@ -25,7 +25,6 @@ import javax.swing.SwingUtilities;
  */
 @CommonsLog
 public class ConfirmRideView extends javax.swing.JFrame {
-
     private final IFareService fareService;
     private final IRideService rideService;
     private final IMatchService matchService;
@@ -62,7 +61,7 @@ public class ConfirmRideView extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         setTitle("Confirmar ruta");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         initControllers();
         loadFields(coordinatesToMatchDTO, coordinatesRideDTO);
@@ -76,7 +75,7 @@ public class ConfirmRideView extends javax.swing.JFrame {
                 Thread.sleep(700);
                 SwingUtilities.invokeLater(() -> {
                     List<Cab> cabsFounded = matchService.findNearbyCabs(originLatitude, originLongitude);
-                    loadingDialog.setVisible(false);
+                    loadingDialog.dispose();
                     if (cabsFounded.isEmpty()) {
                         JOptionPane.showMessageDialog(this, "No se han encontrado taxis disponibles, intente mas tarde :(", "Taxis no encontrados", JOptionPane.INFORMATION_MESSAGE);
                         return;

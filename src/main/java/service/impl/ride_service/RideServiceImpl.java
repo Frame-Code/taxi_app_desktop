@@ -4,12 +4,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import domain.entities.Ride;
+import domain.repository.interfaces.CabRepository;
 import domain.repository.interfaces.RideRepository;
 import lombok.RequiredArgsConstructor;
 import service.external.client.openrouteservice.IOpenRouteServiceClient;
 import service.interfaces.ride_module.IRideService;
 import shared.dto.CoordinatesToMatchDTO;
 import shared.dto.InfoRideDTO;
+import shared.enums.STATUS_TAXI;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -21,11 +23,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RideServiceImpl implements IRideService {
     private final RideRepository repository;
+    private final CabRepository cabRepository;
     private final IOpenRouteServiceClient openRouteServiceClient;
     private final Gson gson = new Gson();
 
     @Override
     public Ride save(Ride ride) {
+        ride.getCab().setStatus(STATUS_TAXI.WORKING);
+        cabRepository.update(ride.getCab());
         return repository.save(ride);
     }
 

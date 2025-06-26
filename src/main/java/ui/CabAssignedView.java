@@ -1,11 +1,7 @@
 package ui;
 
-import com.formdev.flatlaf.FlatLightLaf;
 import shared.dto.CabDTO;
-
 import javax.swing.JFrame;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -17,7 +13,7 @@ public class CabAssignedView extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle("Taxi asignado!");
         setFields(cabDTO);
         setVisible(true);
