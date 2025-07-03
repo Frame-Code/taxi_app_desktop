@@ -5,6 +5,8 @@ import com.opencagedata.jopencage.model.JOpenCageResponse;
 import com.opencagedata.jopencage.model.JOpenCageReverseRequest;
 import lombok.extern.apachecommons.CommonsLog;
 
+import java.util.Optional;
+
 /**
  *
  * @author Daniel Mora Cantillo
@@ -30,5 +32,12 @@ public class OpenCageClientImpl implements IOpenCageClient{
         JOpenCageResponse response = geoCoder.reverse(new JOpenCageReverseRequest(latitude, longitude));
         log.info("Coordinates formated");
         return response.getResults().get(0).getFormatted();
+    }
+
+    @Override
+    public Optional<String> getState(double latitude, double longitude) {
+        JOpenCageResponse response = geoCoder.reverse(new JOpenCageReverseRequest(latitude, longitude));
+        log.info("Coordinates formated");
+        return Optional.ofNullable(response.getResults().get(0).getComponents().getState());
     }
 }

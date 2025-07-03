@@ -14,4 +14,5 @@ public interface IProvinceService {
     Province save(String provinceName);
     Optional<Province> findByName(String name);
     Optional<Province> addCity(String provinceName, String cityName);
+    boolean isLocationAvailable(String provinceName);
 }

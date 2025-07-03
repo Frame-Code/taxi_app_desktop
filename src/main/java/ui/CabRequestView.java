@@ -6,17 +6,20 @@ import domain.entities.User;
 import domain.repository.impl.CabRepositoryImpl;
 import domain.repository.impl.ClientRepositoryImpl;
 import domain.repository.impl.FareRepositoryImpl;
+import domain.repository.impl.ProvinceRepositoryImpl;
 import domain.repository.impl.RideRepositoryImpl;
 import domain.repository.impl.TaxiLiveAddressRepositoryImpl;
 import service.external.client.opencage.IOpenCageClient;
 import service.external.client.opencage.OpenCageClientImpl;
 import service.external.client.openrouteservice.OpenRouteServiceClientImpl;
+import service.impl.location_module.ProvinceServiceImpl;
 import service.impl.matching_module.FindCabsServiceImpl;
 import service.impl.matching_module.MatchServiceImpl;
 import service.impl.payment_module.PaymentFactoryImpl;
 import service.impl.ride_service.FareServiceImpl;
 import service.impl.ride_service.IRideCalculationsServiceImpl;
 import service.impl.ride_service.RideServiceImpl;
+import service.interfaces.location_module.IProvinceService;
 import service.interfaces.matching_module.IMatchService;
 import service.interfaces.payment_module.PaymentFactory;
 import service.interfaces.ride_module.IFareService;
@@ -41,13 +44,13 @@ import org.jxmapviewer.viewer.GeoPosition;
  * @author Daniel Mora Cantillo
  */
 public class CabRequestView extends javax.swing.JFrame {
-
     private final IMapViewer mapViewer;
     private final IOpenCageClient openCageClient;
     private final IRideService rideService;
     private final IRideCalculationsService rideCalculationsService;
     private final IFareService fareService;
     private final IMatchService matchService;
+    private final IProvinceService provinceService;
     private final PaymentFactory paymentFactory;
     private final Client client;
     private GeoPosition origin;
@@ -59,6 +62,7 @@ public class CabRequestView extends javax.swing.JFrame {
                           IRideCalculationsService rideCalculationsService,
                           IFareService fareService,
                           IMatchService matchService,
+                          IProvinceService provinceService,
                           PaymentFactory paymentFactory,
                           Client client) {
         this.mapViewer = mapViewer;
@@ -67,6 +71,7 @@ public class CabRequestView extends javax.swing.JFrame {
         this.rideCalculationsService = rideCalculationsService;
         this.fareService = fareService;
         this.matchService = matchService;
+        this.provinceService = provinceService;
         this.paymentFactory = paymentFactory;
         this.client = client;
         initComponents();
@@ -353,21 +358,26 @@ public class CabRequestView extends javax.swing.JFrame {
         });
 
         btnFindCabs.addActionListener(e -> {
-            if (origin != null && destiny != null) {
-                CoordinatesRideDTO coordinatesRideDTO = new CoordinatesRideDTO(
-                        txtOriginReference.getText(),
-                        origin.getLatitude(),
-                        origin.getLongitude(),
-                        txtDestinyReference.getText(),
-                        destiny.getLatitude(),
-                        destiny.getLongitude());
-                new ConfirmRideView(coordinatesRideDTO, rideService, rideCalculationsService, fareService, matchService, paymentFactory, client, this);
-                //setVisible(false);
-                dispose();
+            if (origin == null || destiny == null) {
+                JOptionPane.showMessageDialog(this, "Selecciona una ubicacion de origen y destino por favor", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(this, "Selecciona una ubicacion de origen y destino por favor", "Error", JOptionPane.ERROR_MESSAGE);
 
+            var provinceNameOpt = openCageClient.getState(mapViewer.getSelectedCoordinates().getLatitude(), mapViewer.getSelectedCoordinates().getLongitude());
+            if(provinceNameOpt.isEmpty() || !provinceService.isLocationAvailable(provinceNameOpt.get())) {
+                JOptionPane.showMessageDialog(this, "En la provincia seleccionada no esta disponible el sistema", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            CoordinatesRideDTO coordinatesRideDTO = new CoordinatesRideDTO(
+                    txtOriginReference.getText(),
+                    origin.getLatitude(),
+                    origin.getLongitude(),
+                    txtDestinyReference.getText(),
+                    destiny.getLatitude(),
+                    destiny.getLongitude());
+            new ConfirmRideView(coordinatesRideDTO, rideService, rideCalculationsService, fareService, matchService, paymentFactory, client, this);
+            dispose();
         });
 
     }
@@ -379,13 +389,16 @@ public class CabRequestView extends javax.swing.JFrame {
     public static void main(String args[]) throws UnsupportedLookAndFeelException {
         UIManager.setLookAndFeel(new FlatLightLaf());
         java.awt.EventQueue.invokeLater(() -> {
-            CabRequestView view = new CabRequestView(new OpenStreetMapView(),
+            new CabRequestView(
+                    new OpenStreetMapView(),
                     OpenCageClientImpl.getInstance(),
                     new RideServiceImpl(new RideRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")), new CabRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")), new OpenRouteServiceClientImpl()),
                     new IRideCalculationsServiceImpl(new FareRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))), new FareServiceImpl(new FareRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),
                     new MatchServiceImpl(new FindCabsServiceImpl(new TaxiLiveAddressRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))), new RideServiceImpl(new RideRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")), new CabRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")) ,new OpenRouteServiceClientImpl())),
+                    new ProvinceServiceImpl(new ProvinceRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),
                     new PaymentFactoryImpl(),
-                    new ClientRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")).findByEmail("mail@email.com").get());
+                    new ClientRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")).findByEmail("mail@email.com").get()
+            );
         });
     }
 

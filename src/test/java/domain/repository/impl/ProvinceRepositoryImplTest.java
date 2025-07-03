@@ -16,7 +16,7 @@ class ProvinceRepositoryImplTest {
 
     @BeforeAll
     static void setUp() {
-        repository = new ProvinceRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-test.cfg.xml"));
+        repository = new ProvinceRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"));
     }
 
     @Test

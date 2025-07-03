@@ -74,4 +74,9 @@ public class ProvinceServiceImpl implements IProvinceService {
                     return repository.update(province);
                 }).or(Optional::empty);
     }
+
+    @Override
+    public boolean isLocationAvailable(String provinceName) {
+        return findByName(provinceName).isPresent();
+    }
 }

@@ -110,7 +110,7 @@ public class ConfirmRideView extends javax.swing.JFrame {
         var fareOpt = fareService.findFare();
         if (fareOpt.isEmpty()) {
             log.error("Impossible calculate price because is not possible to find fare");
-            JOptionPane.showMessageDialog(this, "No se puede calcular precio, consulte a departamente TI", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se puede calcular precio, consulte al departamento TI", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -132,7 +132,8 @@ public class ConfirmRideView extends javax.swing.JFrame {
                     });
         } catch (IOException ex) {
             log.error("Impossible calculate price because is not possible connect to external services");
-            JOptionPane.showMessageDialog(this, "No se puede calcular precio, consulte a departamente TI", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se puede calcular precio, consulte a departamento TI", "Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(-1);
         }
 
     }
