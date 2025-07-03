@@ -1,8 +1,8 @@
-package DOMAIN.REPOSITORY.IMPL;
+package domain.repository.impl;
 
-import DOMAIN.ENTITIES.Car;
-import DOMAIN.REPOSITORY.INTERFACES.BaseRepository;
-import DOMAIN.REPOSITORY.INTERFACES.CarRepository;
+import domain.entities.Car;
+import domain.repository.interfaces.BaseRepository;
+import domain.repository.interfaces.CarRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.HibernateException;

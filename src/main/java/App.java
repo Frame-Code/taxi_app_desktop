@@ -1,4 +1,4 @@
-import SHARED.UTILS.HibernateUtil;
+import shared.utils.HibernateUtil;
 
 /**
  *

@@ -1,6 +1,6 @@
-package SERVICE.INTERFACES;
+package service.interfaces;
 
-import DOMAIN.ENTITIES.Driver;
+import domain.entities.Driver;
 
 public interface ISignUpDriverService {
     boolean signUp(Driver driver);

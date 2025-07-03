@@ -1,6 +1,6 @@
-package DOMAIN.REPOSITORY.INTERFACES;
+package domain.repository.interfaces;
 
-import SHARED.UTILS.HibernateUtil;
+import shared.utils.HibernateUtil;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.SessionFactory;

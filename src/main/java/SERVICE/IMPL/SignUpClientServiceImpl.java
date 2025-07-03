@@ -1,11 +1,11 @@
-package SERVICE.IMPL;
+package service.impl;
 
-import DOMAIN.ENTITIES.Client;
-import DOMAIN.ENTITIES.User;
-import DOMAIN.REPOSITORY.INTERFACES.ClientRepository;
-import SERVICE.INTERFACES.ISignUpClientService;
-import SERVICE.INTERFACES.SignUpService;
+
+import domain.entities.Client;
+import domain.repository.interfaces.ClientRepository;
 import lombok.extern.apachecommons.CommonsLog;
+import service.interfaces.ISignUpClientService;
+import service.interfaces.SignUpService;
 
 
 @CommonsLog

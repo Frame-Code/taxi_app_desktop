@@ -1,10 +1,11 @@
-package SERVICE.IMPL;
+package service.impl;
 
-import DOMAIN.ENTITIES.City;
-import DOMAIN.ENTITIES.Province;
-import DOMAIN.REPOSITORY.INTERFACES.ProvinceRepository;
-import SERVICE.INTERFACES.IProvinceService;
+
+import domain.entities.City;
+import domain.entities.Province;
+import domain.repository.interfaces.ProvinceRepository;
 import lombok.RequiredArgsConstructor;
+import service.interfaces.IProvinceService;
 
 import java.util.List;
 import java.util.Optional;

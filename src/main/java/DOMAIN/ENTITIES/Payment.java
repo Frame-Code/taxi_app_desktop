@@ -1,6 +1,6 @@
-package DOMAIN.ENTITIES;
+package domain.entities;
 
-import SHARED.ENUMS.PAYMENT_METHOD;
+import shared.enums.PAYMENT_METHOD;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

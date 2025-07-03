@@ -1,7 +1,7 @@
-package DOMAIN.REPOSITORY.INTERFACES;
+package domain.repository.interfaces;
 
-import DOMAIN.ENTITIES.Client;
-import DOMAIN.REPOSITORY.DAO.INTERFACES.IBaseDao;
+import domain.entities.Client;
+import domain.repository.dao.interfaces.IBaseDao;
 
 import java.util.Optional;
 

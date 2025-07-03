@@ -1,4 +1,4 @@
-package SHARED.ENUMS;
+package shared.enums;
 
 public enum STATUS_ROAD {
     INITIALIZED,

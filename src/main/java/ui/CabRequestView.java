@@ -1,8 +1,8 @@
-package UI;
+package ui;
 
-import SERVICE.EXTERNAL.CLIENT.OPENCAGE.IOpenCageClient;
-import SERVICE.EXTERNAL.CLIENT.OPENCAGE.OpenCageClientImpl;
-import UI.UTILS.RoundedPanelWithShadow;
+import service.external.client.opencage.IOpenCageClient;
+import service.external.client.opencage.OpenCageClientImpl;
+import ui.components.RoundedPanelWithShadow;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;

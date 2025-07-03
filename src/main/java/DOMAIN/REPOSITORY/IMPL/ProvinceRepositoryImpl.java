@@ -1,8 +1,8 @@
-package DOMAIN.REPOSITORY.IMPL;
+package domain.repository.impl;
 
-import DOMAIN.ENTITIES.Province;
-import DOMAIN.REPOSITORY.INTERFACES.BaseRepository;
-import DOMAIN.REPOSITORY.INTERFACES.ProvinceRepository;
+import domain.entities.Province;
+import domain.repository.interfaces.BaseRepository;
+import domain.repository.interfaces.ProvinceRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.HibernateException;
@@ -26,7 +26,6 @@ public class ProvinceRepositoryImpl extends BaseRepository implements ProvinceRe
     public ProvinceRepositoryImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
-
 
     @Override
     public Optional<Province> findByName(String name) {

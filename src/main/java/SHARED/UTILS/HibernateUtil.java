@@ -1,4 +1,4 @@
-package SHARED.UTILS;
+package shared.utils;
 
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;

@@ -1,6 +1,6 @@
-package DOMAIN.ENTITIES;
+package domain.entities;
 
-import SHARED.ENUMS.STATUS_TAXI;
+import shared.enums.STATUS_TAXI;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

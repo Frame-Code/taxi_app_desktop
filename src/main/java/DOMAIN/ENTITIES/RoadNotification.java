@@ -1,6 +1,6 @@
-package DOMAIN.ENTITIES;
+package domain.entities;
 
-import SHARED.ENUMS.REQUEST_STATUS_NOTIFICATION;
+import shared.enums.REQUEST_STATUS_NOTIFICATION;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -9,7 +9,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

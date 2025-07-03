@@ -1,4 +1,4 @@
-package SHARED.ENUMS;
+package shared.enums;
 
 public enum PAYMENT_METHOD {
     CASH,

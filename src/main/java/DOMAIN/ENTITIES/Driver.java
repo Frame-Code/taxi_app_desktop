@@ -1,4 +1,4 @@
-package DOMAIN.ENTITIES;
+package domain.entities;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -45,4 +46,9 @@ public class Driver {
     private LocalDate entryDate;
 
     private Integer experienceYears;
+
+    @PrePersist
+    protected void persist() {
+        this.entryDate = LocalDate.now();
+    }
 }
