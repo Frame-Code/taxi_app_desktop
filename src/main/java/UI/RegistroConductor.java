@@ -549,7 +549,7 @@ public class RegistroConductor extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new RegistroConductor(new SignUpDriverServiceImpl(new ClientRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")), new DriverRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")))).setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new RegistroConductor(new SignUpDriverServiceImpl(new ClientRepositoryImpl(HibernateUtil.getSessionFactory("hibernate.cfg.xml")), new DriverRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")))).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

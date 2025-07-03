@@ -20,7 +20,6 @@ import java.util.Optional;
  * @author Daniel Mora Cantillo
  * */
 @CommonsLog
-@AllArgsConstructor
 public class ClientRepositoryImpl extends BaseRepository implements ClientRepository {
 
     public ClientRepositoryImpl(SessionFactory sessionFactory) {
