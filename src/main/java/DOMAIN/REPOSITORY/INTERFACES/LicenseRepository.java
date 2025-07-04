@@ -1,11 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
-package DOMAIN.REPOSITORY.INTERFACES;
+package domain.repository.interfaces;
 
-import domain.entities.License; //
-import domain.repository.dao.interfaces.IBaseDao; //
+import domain.entities.License;
+import domain.repository.dao.interfaces.IBaseDao;
 import java.util.Optional;
 
 /**

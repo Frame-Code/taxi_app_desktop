@@ -20,6 +20,6 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @PrimaryKeyJoinColumn(name = "id")
 public class Car extends Vehicle {
-    @Column(length = 25, unique = true, nullable = false)
+    @Column(length = 25, unique = true)
     private String chassisNumber;
 }

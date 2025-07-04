@@ -14,8 +14,7 @@ public class LogInServiceImpl implements ILogInService {
     @Override
     public boolean login(String email, String plainPassword) {
         return repository.findByEmail(email)
-                .map(client -> {
-                    return PasswordUtils.verifyPassword(plainPassword, client.getUser().getPasswordHash());
-                }).orElse(false);
+                .map(client -> PasswordUtils.verifyPassword(plainPassword, client.getUserEntity().getPasswordHash()))
+                .orElse(false);
     }
 }

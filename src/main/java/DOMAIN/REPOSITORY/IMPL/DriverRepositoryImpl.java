@@ -119,7 +119,7 @@ public class DriverRepositoryImpl extends BaseRepository implements DriverReposi
         try {
             session = super.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            Query<Driver> query = session.createQuery("SELECT d FROM Driver d WHERE d.user.license.driverLicense = :driverLicense", Driver.class);
+            Query<Driver> query = session.createQuery("SELECT d FROM Driver d WHERE d.userEntity.license.driverLicense = :driverLicense", Driver.class);
             query.setParameter("driverLicense", licensePlate);
             Driver client = query.getSingleResult();
             transaction.commit();

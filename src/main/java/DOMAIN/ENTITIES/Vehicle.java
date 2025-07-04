@@ -32,7 +32,7 @@ public class Vehicle {
     @Column(length = 4, nullable = false)
     private String year;
 
-    @Column(length = 25, nullable = false)
+    @Column(length = 25)
     private String color;
 
     @Column(length = 50, nullable = false)
@@ -43,25 +43,5 @@ public class Vehicle {
 
     @Column(length = 15, unique = true, nullable = false)
     private String licensePlate;
-
-    public String getPlate() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void setBrand(String marcaVehiculo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void setModel(String modeloVehiculo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void setYear(int anioVehiculo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void setPlate(String matriculaVehiculo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
 }

@@ -33,13 +33,13 @@ public class Driver {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idUser")
-    private User user;
+    private UserEntity userEntity;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idLicense")
     private License license;
 
-    @Column(nullable = false, length = 150)
+    @Column(length = 150)
     private String address;
 
     @Column(nullable = false)
@@ -52,27 +52,4 @@ public class Driver {
         this.entryDate = LocalDate.now();
     }
 
-    public Object getUser() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public Object getLicense() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public Object getVehicle() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void setUser(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void setLicense(License license) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void setVehicle(Vehicle vehicle) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

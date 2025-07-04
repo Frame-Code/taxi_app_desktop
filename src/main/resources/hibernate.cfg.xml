@@ -35,7 +35,7 @@
         <mapping class="domain.entities.RoadNotification"/>
         <mapping class="domain.entities.Role"/>
         <mapping class="domain.entities.TaxiLiveAddress"/>
-        <mapping class="domain.entities.User"/>
+        <mapping class="domain.entities.UserEntity"/>
         <mapping class="domain.entities.Vehicle"/>
         <mapping class="domain.entities.VehicleMaintenance"/>
 

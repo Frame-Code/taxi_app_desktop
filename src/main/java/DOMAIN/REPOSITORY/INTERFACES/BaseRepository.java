@@ -16,4 +16,10 @@ public abstract class BaseRepository {
     public BaseRepository() {
         this.sessionFactory = HibernateUtil.getSessionFactory();
     }
+
+    protected String formatName(String name) {
+        name = name.toLowerCase();
+        name = name.trim();
+        return name;
+    }
 }

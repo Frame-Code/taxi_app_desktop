@@ -1,11 +1,9 @@
 package domain.repository.impl;
 
-
-import domain.entities.Client;
+import domain.entities.UserEntity;
 import domain.repository.interfaces.BaseRepository;
-import domain.repository.interfaces.ClientRepository;
+import domain.repository.interfaces.UserRepository;
 import jakarta.persistence.NoResultException;
-import lombok.AllArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -16,31 +14,29 @@ import org.hibernate.query.Query;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * @author Daniel Mora Cantillo
- * */
 @CommonsLog
-public class ClientRepositoryImpl extends BaseRepository implements ClientRepository {
+public class UserRepositoryImpl extends BaseRepository implements UserRepository {
 
-    public ClientRepositoryImpl(SessionFactory sessionFactory) {
+    public UserRepositoryImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 
+
     @Override
-    public Optional<Client> findByEmail(String email) {
+    public Optional<UserEntity> findByEmail(String email) {
         Transaction transaction = null;
         Session session = null;
         try {
             session = super.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            Query<Client> query = session.createQuery("SELECT c FROM Client c WHERE c.userEntity.email = :email", Client.class);
+            Query<UserEntity> query = session.createQuery("SELECT u FROM UserEntity u WHERE u.email = :email", UserEntity.class);
             query.setParameter("email", email);
-            Client client = query.getSingleResult();
+            UserEntity userEntity = query.getSingleResult();
             transaction.commit();
-            return Optional.of(client);
+            return Optional.of(userEntity);
         } catch (HibernateException | NullPointerException | NoResultException e) {
             if(transaction != null) {
-                log.error("Error finding client: " + e.getMessage());
+                log.error("Error finding userEntity: " + e.getMessage());
                 transaction.rollback();
             }
         } finally {
@@ -53,20 +49,20 @@ public class ClientRepositoryImpl extends BaseRepository implements ClientReposi
     }
 
     @Override
-    public Optional<Client> findByPhone(String phone) {
+    public Optional<UserEntity> findByPhone(String phone) {
         Transaction transaction = null;
         Session session = null;
         try {
             session = super.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            Query<Client> query = session.createQuery("SELECT c FROM Client c WHERE c.userEntity.phone = :phone", Client.class);
+            Query<UserEntity> query = session.createQuery("SELECT u FROM UserEntity u WHERE u.phone = :phone", UserEntity.class);
             query.setParameter("phone", phone);
-            Client client = query.getSingleResult();
+            UserEntity userEntity = query.getSingleResult();
             transaction.commit();
-            return Optional.of(client);
+            return Optional.of(userEntity);
         } catch (HibernateException | NullPointerException | NoResultException e) {
             if(transaction != null) {
-                log.error("Error finding client: " + e.getMessage());
+                log.error("Error finding userEntity: " + e.getMessage());
                 transaction.rollback();
             }
         } finally {
@@ -79,25 +75,18 @@ public class ClientRepositoryImpl extends BaseRepository implements ClientReposi
     }
 
     @Override
-    public Optional<Client> findById(Long id) {
-        var client = super.getSessionFactory().openSession().find(Client.class, id);
-        super.getSessionFactory().getCurrentSession().close();
-        return Optional.ofNullable(client);
-    }
-
-    @Override
-    public Client save(Client client) {
+    public UserEntity save(UserEntity userEntity) {
         Transaction transaction = null;
         Session session = null;
         try {
             session = super.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.persist(client);
+            session.persist(userEntity);
             transaction.commit();
-            log.info("Client saved successfully");
+            log.info("UserEntity saved successfully");
         } catch (HibernateException | NullPointerException e) {
             if(transaction != null) {
-                log.error("Error saving client: " + e.getMessage());
+                log.error("Error saving userEntity: " + e.getMessage());
                 transaction.rollback();
             }
         } finally {
@@ -106,21 +95,28 @@ public class ClientRepositoryImpl extends BaseRepository implements ClientReposi
                 log.info("Hibernate session closed");
             }
         }
-        return client;
+        return userEntity;
     }
 
     @Override
-    public List<Client> findAll() {
-        var clients = super.getSessionFactory().openSession().createQuery("FROM Client", Client.class).list();
+    public Optional<UserEntity> findById(Long id) {
+        var user = super.getSessionFactory().openSession().createQuery("FROM UserEntity", UserEntity.class).getSingleResult();
         super.getSessionFactory().getCurrentSession().close();
-        return clients;
+        return Optional.ofNullable(user);
+    }
+
+    @Override
+    public List<UserEntity> findAll() {
+        var users = super.getSessionFactory().openSession().createQuery("FROM UserEntity", UserEntity.class).list();
+        super.getSessionFactory().getCurrentSession().close();
+        return users;
     }
 
     @Override
     public void deleteById(Long id) {
-        var clientOpt = findById(id);
-        if(clientOpt.isEmpty()) {
-            log.error("Client not found");
+        var userOpt = findById(id);
+        if(userOpt.isEmpty()) {
+            log.error("UserEntity not found");
             return;
         }
 
@@ -129,12 +125,12 @@ public class ClientRepositoryImpl extends BaseRepository implements ClientReposi
         try {
             session = super.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.remove(clientOpt.get().getId());
+            session.remove(userOpt.get().getId());
             transaction.commit();
-            log.info("Client deleted successfully");
+            log.info("UserEntity deleted successfully");
         } catch (HibernateException | NullPointerException ex) {
             if(transaction != null) {
-                log.error("Error deleting client: " + ex.getMessage());
+                log.error("Error deleting userEntity: " + ex.getMessage());
                 transaction.rollback();
             }
         } finally {
@@ -146,18 +142,18 @@ public class ClientRepositoryImpl extends BaseRepository implements ClientReposi
     }
 
     @Override
-    public Client update(Client client) {
+    public UserEntity update(UserEntity userEntity) {
         Transaction transaction = null;
         Session session = null;
         try {
             session = super.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.merge(client);
+            session.merge(userEntity);
             transaction.commit();
-            log.info("Client saved successfully");
+            log.info("UserEntity saved successfully");
         } catch (HibernateException | NullPointerException ex) {
             if(transaction != null) {
-                log.error("Error saving client: " + ex.getMessage());
+                log.error("Error saving userEntity: " + ex.getMessage());
                 transaction.rollback();
             }
         } finally {
@@ -166,6 +162,6 @@ public class ClientRepositoryImpl extends BaseRepository implements ClientReposi
                 log.info("Hibernate session closed");
             }
         }
-        return client;
+        return userEntity;
     }
 }

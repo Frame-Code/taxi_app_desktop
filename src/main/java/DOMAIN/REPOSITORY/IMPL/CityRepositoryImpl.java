@@ -130,9 +130,4 @@ public class CityRepositoryImpl extends BaseRepository implements CityRepository
         return city;
     }
 
-    protected String formatName(String name) {
-        name = name.toLowerCase();
-        name = name.trim();
-        return name;
-    }
 }
