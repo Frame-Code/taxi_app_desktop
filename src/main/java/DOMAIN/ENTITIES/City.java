@@ -29,4 +29,11 @@ public class City {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idProvince")
     private Province province;
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "\n name='" + name + '\n' +
+                '}';
+    }
 }

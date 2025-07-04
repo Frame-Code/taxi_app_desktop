@@ -1,6 +1,6 @@
 package ui;
 
-import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import domain.entities.Province;
 import domain.repository.impl.ProvinceRepositoryImpl;
 import service.impl.ProvinceServiceImpl;
@@ -26,10 +26,6 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
     private JButton searchBtn;
     private JTextArea resultsArea;
 
-
-    private static final Color FORM_BACKGROUND = Color.decode("#DCDCDC");
-    private static final Color TEXT_PRIMARY = Color.decode("#000000");
-
     public UIRegistrarLocalidadJoseph(IProvinceService provinceService) {
         this.provinceService = provinceService;
 
@@ -38,34 +34,32 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
         setSize(900, 600);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
+        setResizable(false);
 
         JPanel header = new JPanel(new BorderLayout());
         header.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         add(header, BorderLayout.NORTH);
 
         JPanel mainPanel = new JPanel();
-        mainPanel.setBackground(FORM_BACKGROUND);
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         JLabel title = new JLabel("REGISTRAR LOCALIDADES");
         title.setFont(new Font("Arial Black", Font.BOLD, 32));
-        title.setForeground(TEXT_PRIMARY);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(title);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         JPanel formsContainer = new JPanel(new GridLayout(1, 2, 20, 0));
-        formsContainer.setBackground(FORM_BACKGROUND);
 
         JPanel cityPanel = new JPanel();
         setupFormPanel(cityPanel, "Ciudad");
-        cityPanel.add(createLabel("Nombre:", TEXT_PRIMARY, 14));
+        cityPanel.add(createLabel("Nombre:", null, 14));
         txtNombreCiudad = createTextField(20); // Asignación
         cityPanel.add(txtNombreCiudad);
         cityPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        cityPanel.add(createLabel("Provincia:", TEXT_PRIMARY, 14));
-        comboProvincias = new JComboBox<>(); // Asignación
+        cityPanel.add(createLabel("Provincia:", null, 14));
+        comboProvincias = new JComboBox<>();
         cityPanel.add(comboProvincias);
         cityPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         btnGuardarCiudad = createButton("GUARDAR CIUDAD"); // Asignación
@@ -74,7 +68,7 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
 
         JPanel provPanel = new JPanel();
         setupFormPanel(provPanel, "Provincia");
-        provPanel.add(createLabel("Nombre:", TEXT_PRIMARY, 14));
+        provPanel.add(createLabel("Nombre:", null, 14));
         txtNombreProvincia = createTextField(20); // Asignación
         provPanel.add(txtNombreProvincia);
         provPanel.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -87,8 +81,7 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
 
         // --- Panel de Búsqueda ---
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        searchPanel.setBackground(FORM_BACKGROUND);
-        searchPanel.add(createLabel("Buscar:", TEXT_PRIMARY, 16));
+        searchPanel.add(createLabel("Buscar:", null, 16));
         searchField = createTextField(30); // Asignación
         searchPanel.add(searchField);
         searchBtn = createButton("BUSCAR"); // Asignación y cambio de texto
@@ -176,7 +169,6 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
     }
 
     private void setupFormPanel(JPanel panel, String legend) {
-        panel.setBackground(FORM_BACKGROUND);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.BLACK), legend));
     }
@@ -198,17 +190,15 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
 
     private JButton createButton(String text) {
         JButton btn = new JButton(text);
-        btn.setBackground(Color.decode("#2B2B2B"));
-        btn.setForeground(Color.WHITE);
         btn.setFont(new Font("Arial", Font.BOLD, 14));
         btn.setPreferredSize(new Dimension(180, 35)); // Ancho ajustado
         return btn;
     }
 
     public static void main(String[] args) throws UnsupportedLookAndFeelException {
-        UIManager.setLookAndFeel(new FlatDarkLaf());
+        UIManager.setLookAndFeel(new FlatLightLaf());
         SwingUtilities.invokeLater(() -> {
-            UIRegistrarLocalidadJoseph ui = new UIRegistrarLocalidadJoseph(new ProvinceServiceImpl(new ProvinceRepositoryImpl(HibernateUtil.getSessionFactory("hibernate.cfg.xml"))));
+            UIRegistrarLocalidadJoseph ui = new UIRegistrarLocalidadJoseph(new ProvinceServiceImpl(new ProvinceRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-test.cfg.xml"))));
             ui.setVisible(true);
         });
     }

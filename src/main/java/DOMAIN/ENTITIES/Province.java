@@ -23,7 +23,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-@ToString
 public class Province {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,5 +42,13 @@ public class Province {
     public void setCities(Set<City> cities) {
         this.cities = cities;
         cities.forEach(city -> city.setProvince(this));
+    }
+
+    @Override
+    public String toString() {
+        return "Province{" +
+                "\n name='" + name + '\n' +
+                ", cities=" + cities +
+                '}';
     }
 }
