@@ -1,6 +1,6 @@
-package SERVICE.INTERFACES;
+package service.interfaces;
 
-import DOMAIN.ENTITIES.Province;
+import domain.entities.Province;
 
 import java.util.List;
 import java.util.Optional;

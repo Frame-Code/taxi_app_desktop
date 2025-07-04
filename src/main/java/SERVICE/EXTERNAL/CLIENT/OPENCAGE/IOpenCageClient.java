@@ -1,4 +1,4 @@
-package SERVICE.EXTERNAL.CLIENT.OPENCAGE;
+package service.external.client.opencage;
 
 /**
  *

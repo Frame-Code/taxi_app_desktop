@@ -1,10 +1,10 @@
-package SERVICE.IMPL;
+package service.impl;
 
-import DOMAIN.REPOSITORY.INTERFACES.ClientRepository;
-import SERVICE.INTERFACES.ILogInService;
-import SHARED.UTILS.PasswordUtils;
+import domain.repository.interfaces.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
+import service.interfaces.ILogInService;
+import shared.utils.PasswordUtils;
 
 @RequiredArgsConstructor
 @CommonsLog

@@ -1,6 +1,6 @@
-package SERVICE.INTERFACES;
+package service.interfaces;
 
-import DOMAIN.ENTITIES.Client;
+import domain.entities.Client;
 
 public interface ISignUpClientService {
     boolean signUp(Client client);

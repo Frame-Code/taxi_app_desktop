@@ -1,7 +1,8 @@
-package DOMAIN.REPOSITORY.INTERFACES;
+package domain.repository.interfaces;
 
-import DOMAIN.ENTITIES.City;
-import DOMAIN.REPOSITORY.DAO.INTERFACES.IBaseDao;
+
+import domain.entities.City;
+import domain.repository.dao.interfaces.IBaseDao;
 
 import java.util.List;
 

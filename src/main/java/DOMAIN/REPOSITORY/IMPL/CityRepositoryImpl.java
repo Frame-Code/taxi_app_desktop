@@ -1,9 +1,9 @@
-package DOMAIN.REPOSITORY.IMPL;
+package domain.repository.impl;
 
-import DOMAIN.ENTITIES.City;
-import DOMAIN.REPOSITORY.INTERFACES.BaseRepository;
-import DOMAIN.REPOSITORY.INTERFACES.CityRepository;
-import DOMAIN.REPOSITORY.INTERFACES.ProvinceRepository;
+import domain.entities.City;
+import domain.repository.interfaces.BaseRepository;
+import domain.repository.interfaces.CityRepository;
+import domain.repository.interfaces.ProvinceRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.HibernateException;

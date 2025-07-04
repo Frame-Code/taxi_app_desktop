@@ -1,7 +1,8 @@
-package DOMAIN.REPOSITORY.INTERFACES;
+package domain.repository.interfaces;
 
-import DOMAIN.ENTITIES.Car;
-import DOMAIN.REPOSITORY.DAO.INTERFACES.IBaseDao;
+
+import domain.entities.Car;
+import domain.repository.dao.interfaces.IBaseDao;
 
 /**
  * @author Daniel Mora Cantillo

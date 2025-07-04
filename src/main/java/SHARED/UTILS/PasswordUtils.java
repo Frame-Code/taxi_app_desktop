@@ -1,4 +1,4 @@
-package SHARED.UTILS;
+package shared.utils;
 
 import lombok.extern.apachecommons.CommonsLog;
 import org.mindrot.jbcrypt.BCrypt;

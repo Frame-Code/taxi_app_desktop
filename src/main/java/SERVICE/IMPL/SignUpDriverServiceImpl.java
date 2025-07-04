@@ -1,11 +1,11 @@
-package SERVICE.IMPL;
+package service.impl;
 
-import DOMAIN.ENTITIES.Driver;
-import DOMAIN.REPOSITORY.INTERFACES.ClientRepository;
-import DOMAIN.REPOSITORY.INTERFACES.DriverRepository;
-import SERVICE.INTERFACES.ISignUpDriverService;
-import SERVICE.INTERFACES.SignUpService;
+import domain.entities.Driver;
+import domain.repository.interfaces.ClientRepository;
+import domain.repository.interfaces.DriverRepository;
 import lombok.extern.apachecommons.CommonsLog;
+import service.interfaces.ISignUpDriverService;
+import service.interfaces.SignUpService;
 
 @CommonsLog
 public class SignUpDriverServiceImpl extends SignUpService implements ISignUpDriverService {

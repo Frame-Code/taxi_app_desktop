@@ -1,4 +1,4 @@
-package UI;
+package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Point;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
-import lombok.Getter;
+
 import lombok.extern.apachecommons.CommonsLog;
 import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.OSMTileFactoryInfo;

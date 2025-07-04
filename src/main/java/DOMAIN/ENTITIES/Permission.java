@@ -1,6 +1,6 @@
-package DOMAIN.ENTITIES;
+package domain.entities;
 
-import SHARED.ENUMS.PERMISSION_NAME;
+import shared.enums.PERMISSION_NAME;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

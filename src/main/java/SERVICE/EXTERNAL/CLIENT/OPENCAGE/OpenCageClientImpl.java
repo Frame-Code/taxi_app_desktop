@@ -1,4 +1,4 @@
-package SERVICE.EXTERNAL.CLIENT.OPENCAGE;
+package service.external.client.opencage;
 
 import com.opencagedata.jopencage.JOpenCageGeocoder;
 import com.opencagedata.jopencage.model.JOpenCageResponse;

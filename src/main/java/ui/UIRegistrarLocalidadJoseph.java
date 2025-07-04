@@ -1,36 +1,21 @@
-package UI;
+package ui;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import domain.entities.Province;
+import domain.repository.impl.ProvinceRepositoryImpl;
+import service.impl.ProvinceServiceImpl;
+import service.interfaces.IProvinceService;
+import shared.utils.HibernateUtil;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-// Esto es para que el código se pueda ejecutar. Deberías tener estas clases en tu proyecto.
-interface IProvinceService {
-    List<Province> getProvinces();
-    Province save(Province province);
-    Optional<Province> findByName(String name);
-    Optional<Province> addCity(String provinceName, String cityName);
-}
-
-class Province {
-    private String name;
-    private List<String> cities = new ArrayList<>();
-
-    public Province(String name) { this.name = name; }
-    public String getName() { return name; }
-    public void addCity(String cityName) { this.cities.add(cityName); }
-    @Override public String toString() { return "Province{name='" + name + "', cities=" + cities + '}'; }
-}
 
 
 public class UIRegistrarLocalidadJoseph extends JFrame {
 
-    // -> PASO 1: DECLARAR COMPONENTES COMO VARIABLES DE INSTANCIA
-    // Para poder acceder a ellos desde los métodos de lógica.
     private final IProvinceService provinceService;
     private JTextField txtNombreProvincia;
     private JButton btnGuardarProvincia;
@@ -42,15 +27,10 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
     private JTextArea resultsArea;
 
 
-    // Colors
     private static final Color FORM_BACKGROUND = Color.decode("#DCDCDC");
     private static final Color TEXT_PRIMARY = Color.decode("#000000");
-    // ... otros colores
 
-    // -> PASO 2: MODIFICAR EL CONSTRUCTOR
-    // Ahora recibe el servicio como parámetro.
     public UIRegistrarLocalidadJoseph(IProvinceService provinceService) {
-        // -> Guardamos la instancia del servicio
         this.provinceService = provinceService;
 
         setTitle("Registrar Localidades");
@@ -59,13 +39,10 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
 
-        // --- Header (Sin cambios) ---
         JPanel header = new JPanel(new BorderLayout());
         header.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        // ... código del header ...
         add(header, BorderLayout.NORTH);
 
-        // --- Main Content ---
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(FORM_BACKGROUND);
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -81,10 +58,6 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
         JPanel formsContainer = new JPanel(new GridLayout(1, 2, 20, 0));
         formsContainer.setBackground(FORM_BACKGROUND);
 
-        // -> Se ha refactorizado la creación de los formularios
-        // para asignar los componentes a las variables de instancia.
-
-        // --- Panel de Ciudad ---
         JPanel cityPanel = new JPanel();
         setupFormPanel(cityPanel, "Ciudad");
         cityPanel.add(createLabel("Nombre:", TEXT_PRIMARY, 14));
@@ -99,7 +72,6 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
         cityPanel.add(btnGuardarCiudad);
         formsContainer.add(cityPanel);
 
-        // --- Panel de Provincia ---
         JPanel provPanel = new JPanel();
         setupFormPanel(provPanel, "Provincia");
         provPanel.add(createLabel("Nombre:", TEXT_PRIMARY, 14));
@@ -109,7 +81,6 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
         btnGuardarProvincia = createButton("GUARDAR PROVINCIA"); // Asignación
         provPanel.add(btnGuardarProvincia);
         formsContainer.add(provPanel);
-
 
         mainPanel.add(formsContainer);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
@@ -125,7 +96,6 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
         mainPanel.add(searchPanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        // --- Área de Resultados ---
         resultsArea = new JTextArea(8, 80); // Asignación
         resultsArea.setBackground(Color.WHITE);
         resultsArea.setBorder(new LineBorder(Color.BLACK));
@@ -135,16 +105,10 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
 
         add(mainPanel, BorderLayout.CENTER);
 
-        // -> PASO 3: INICIALIZAR LA LÓGICA
         inicializarListeners();
         cargarProvinciasEnComboBox();
     }
 
-    // -> PASO 4: IMPLEMENTAR LOS MÉTODOS DE LÓGICA
-
-    /**
-     * Carga las provincias desde el servicio y las muestra en el JComboBox.
-     */
     private void cargarProvinciasEnComboBox() {
         comboProvincias.removeAllItems(); // Limpia el combo
         List<Province> provincias = provinceService.getProvinces();
@@ -172,7 +136,9 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
             JOptionPane.showMessageDialog(this, "El nombre de la provincia no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        provinceService.save(new Province(nombreNuevaProvincia));
+        provinceService.save(Province.builder()
+                .name(nombreNuevaProvincia)
+                .build());
         JOptionPane.showMessageDialog(this, "Provincia guardada con éxito.");
         txtNombreProvincia.setText("");
         cargarProvinciasEnComboBox(); // Actualiza el combo con la nueva provincia
@@ -209,9 +175,6 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
         }
     }
 
-
-    // --- Métodos de ayuda para crear componentes (refactorizados) ---
-
     private void setupFormPanel(JPanel panel, String legend) {
         panel.setBackground(FORM_BACKGROUND);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -242,41 +205,10 @@ public class UIRegistrarLocalidadJoseph extends JFrame {
         return btn;
     }
 
-    // -> PASO 5: ACTUALIZAR EL MÉTODO MAIN PARA PRUEBAS
     public static void main(String[] args) throws UnsupportedLookAndFeelException {
-        // Se crea un servicio "falso" para poder probar la ventana.
-        // En tu aplicación real, obtendrás este servicio de otra parte.
-        IProvinceService servicioDePrueba = new IProvinceService() {
-            private final List<Province> provinciasDB = new ArrayList<>();
-            {
-                // Datos iniciales para probar
-                Province p1 = new Province("Guayas");
-                p1.addCity("Guayaquil");
-                p1.addCity("Duran");
-                provinciasDB.add(p1);
-                provinciasDB.add(new Province("Pichincha"));
-            }
-            @Override public List<Province> getProvinces() { return new ArrayList<>(provinciasDB); }
-            @Override public Province save(Province province) {
-                provinciasDB.add(province);
-                System.out.println("Guardando: " + province);
-                return province;
-            }
-            @Override public Optional<Province> findByName(String name) {
-                return provinciasDB.stream().filter(p -> p.getName().equalsIgnoreCase(name)).findFirst();
-            }
-            @Override public Optional<Province> addCity(String provinceName, String cityName) {
-                Optional<Province> p = findByName(provinceName);
-                p.ifPresent(prov -> prov.addCity(cityName));
-                System.out.println("Agregando '" + cityName + "' a '" + provinceName + "'");
-                return p;
-            }
-        };
-
         UIManager.setLookAndFeel(new FlatDarkLaf());
         SwingUtilities.invokeLater(() -> {
-            // Se le pasa el servicio de prueba al crear la UI
-            UIRegistrarLocalidadJoseph ui = new UIRegistrarLocalidadJoseph(servicioDePrueba);
+            UIRegistrarLocalidadJoseph ui = new UIRegistrarLocalidadJoseph(new ProvinceServiceImpl(new ProvinceRepositoryImpl(HibernateUtil.getSessionFactory("hibernate.cfg.xml"))));
             ui.setVisible(true);
         });
     }

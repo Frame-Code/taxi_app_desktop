@@ -1,4 +1,4 @@
-package UI;
+package ui;
 
 import javax.swing.JPanel;
 import org.jxmapviewer.viewer.GeoPosition;

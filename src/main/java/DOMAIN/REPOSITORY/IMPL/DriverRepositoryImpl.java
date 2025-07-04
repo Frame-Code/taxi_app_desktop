@@ -1,12 +1,13 @@
-package DOMAIN.REPOSITORY.IMPL;
+package domain.repository.impl;
 
-import DOMAIN.ENTITIES.Driver;
-import DOMAIN.REPOSITORY.INTERFACES.BaseRepository;
-import DOMAIN.REPOSITORY.INTERFACES.DriverRepository;
+import domain.entities.Driver;
+import domain.repository.interfaces.BaseRepository;
+import domain.repository.interfaces.DriverRepository;
 import jakarta.persistence.NoResultException;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
@@ -15,6 +16,11 @@ import java.util.Optional;
 
 @CommonsLog
 public class DriverRepositoryImpl extends BaseRepository implements DriverRepository {
+
+    public DriverRepositoryImpl(SessionFactory sessionFactory) {
+        super(sessionFactory);
+    }
+
     @Override
     public Driver save(Driver driver) {
         Transaction transaction = null;

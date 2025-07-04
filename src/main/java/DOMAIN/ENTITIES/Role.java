@@ -1,6 +1,6 @@
-package DOMAIN.ENTITIES;
+package domain.entities;
 
-import SHARED.ENUMS.ROLE_NAME;
+import shared.enums.ROLE_NAME;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

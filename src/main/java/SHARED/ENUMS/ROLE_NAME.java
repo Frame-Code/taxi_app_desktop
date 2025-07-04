@@ -1,4 +1,4 @@
-package SHARED.ENUMS;
+package shared.enums;
 
 /**
  * @author Daniel Mora Cantillo

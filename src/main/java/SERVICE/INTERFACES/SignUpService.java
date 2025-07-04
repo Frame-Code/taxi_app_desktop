@@ -1,6 +1,6 @@
-package SERVICE.INTERFACES;
+package service.interfaces;
 
-import DOMAIN.REPOSITORY.INTERFACES.ClientRepository;
+import domain.repository.interfaces.ClientRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,4 @@
-package UI;
+package ui;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import javax.swing.*;
