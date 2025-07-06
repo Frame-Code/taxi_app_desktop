@@ -34,7 +34,7 @@ public class Payment {
     private PAYMENT_METHOD paymentMethod;
 
     @Column(nullable = false)
-    private Double amount;
+    private double amount;
 
     @Column(nullable = false)
     private UUID transactionCode;

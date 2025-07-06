@@ -30,6 +30,6 @@ public class Client {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "id_user_entity")
     private UserEntity userEntity;
 }

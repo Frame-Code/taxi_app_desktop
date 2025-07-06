@@ -115,7 +115,7 @@ public class CityRepositoryImpl extends BaseRepository implements CityRepository
             transaction = session.beginTransaction();
             session.merge(city);
             transaction.commit();
-            log.info("City saved successfully");
+            log.info("City updated successfully");
         } catch (HibernateException | NullPointerException ex) {
             if(transaction != null) {
                 log.error("Error saving city: " + ex.getMessage());

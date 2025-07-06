@@ -32,7 +32,7 @@ public class Driver {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idUser")
+    @JoinColumn(name = "idUser", nullable = false)
     private UserEntity userEntity;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -31,11 +31,11 @@ public class Cab {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idVehicle", unique = true, nullable = false)
     private Vehicle vehicle;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idDriver", unique = true, nullable = false)
     private Driver driver;
 

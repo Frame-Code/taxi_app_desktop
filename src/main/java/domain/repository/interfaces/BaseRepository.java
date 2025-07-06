@@ -18,8 +18,6 @@ public abstract class BaseRepository {
     }
 
     protected String formatName(String name) {
-        name = name.toLowerCase();
-        name = name.trim();
-        return name;
+        return name.toLowerCase().trim();
     }
 }

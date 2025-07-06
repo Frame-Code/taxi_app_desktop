@@ -3,6 +3,7 @@ package domain.repository.impl;
 import domain.entities.Province;
 import domain.repository.interfaces.BaseRepository;
 import domain.repository.interfaces.ProvinceRepository;
+import jakarta.persistence.NoResultException;
 import lombok.AllArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.HibernateException;
@@ -13,7 +14,6 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
@@ -34,14 +34,14 @@ public class ProvinceRepositoryImpl extends BaseRepository implements ProvinceRe
         try {
             session = super.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            Query<Province> query = session.createQuery("SELECT p FROM Province p WHERE p.name = :name", Province.class);
+            Query<Province> query = session.createQuery("SELECT p FROM Province p WHERE p.name LIKE :name", Province.class);
             query.setParameter("name", formatName(name));
             Province province = query.getSingleResult();
             transaction.commit();
             return Optional.of(province);
-        } catch (NullPointerException | NoSuchElementException e) {
+        } catch (NullPointerException | NoResultException e) {
             if (transaction != null) {
-                log.error("Error finding province: " + e.getMessage());
+                log.warn("Error finding province: " + e.getMessage());
                 transaction.rollback();
             }
         } catch (NonUniqueResultException e) {
@@ -132,7 +132,7 @@ public class ProvinceRepositoryImpl extends BaseRepository implements ProvinceRe
             transaction = session.beginTransaction();
             session.merge(province);
             transaction.commit();
-            log.info("Province saved successfully");
+            log.info("Province updated successfully");
         } catch (HibernateException | NullPointerException ex) {
             if(transaction != null) {
                 log.error("Error saving province: " + ex.getMessage());

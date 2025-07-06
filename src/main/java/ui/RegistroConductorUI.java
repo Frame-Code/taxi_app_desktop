@@ -4,22 +4,17 @@ import com.formdev.flatlaf.FlatLightLaf;
 import domain.entities.Car;
 import domain.entities.Driver;
 import domain.entities.License;
-import domain.entities.Role;
 import domain.entities.UserEntity;
 import domain.repository.impl.CabRepositoryImpl;
 import domain.repository.impl.CarRepositoryImpl;
 import domain.repository.impl.DriverRepositoryImpl;
 import domain.repository.impl.RoleRepositoryImpl;
 import domain.repository.impl.UserRepositoryImpl;
-import domain.repository.interfaces.RoleRepository;
+import domain.repository.interfaces.DriverRepository;
 import lombok.extern.apachecommons.CommonsLog;
-import service.impl.SignUpDriverServiceImpl;
-import service.interfaces.ISignUpDriverService; // Importa tu interfaz de servicio
-import service.interfaces.SignUpService;
-import shared.enums.ROLE_NAME;
+import service.impl.auth_module.SignUpDriverServiceImpl;
+import service.interfaces.auth_module.ISignUpDriverService;
 import shared.utils.HibernateUtil;
-//import shared.utils.HibernateUtil;
-
 import java.awt.event.ActionEvent;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
@@ -32,10 +27,12 @@ import javax.swing.UnsupportedLookAndFeelException;
 @CommonsLog
 public class RegistroConductorUI extends javax.swing.JFrame {
     private final ISignUpDriverService signUpDriverService;
+    private final DriverRepository driverRepository;
 
     // Constructor de la ventana de registro
-    public RegistroConductorUI(ISignUpDriverService signUpDriverService) {
+    public RegistroConductorUI(ISignUpDriverService signUpDriverService, DriverRepository driverRepository) {
         this.signUpDriverService = signUpDriverService;
+        this.driverRepository = driverRepository;
         initComponents();
         setupListeners();
     }
@@ -107,13 +104,13 @@ public class RegistroConductorUI extends javax.swing.JFrame {
                     .licensePlate(matriculaVehiculo)
                     .build();
 
-            boolean registroExitoso = signUpDriverService.signUp(driver, car);
+            boolean registroExitoso = signUpDriverService.signUp(driver, car, driverRepository);
 
             if (registroExitoso) {
                 JOptionPane.showMessageDialog(this, "Conductor registrado exitosamente.", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
                 clearFormFields();
             } else {
-                JOptionPane.showMessageDialog(this, "Error desconocido al registrar conductor.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error: el email y telefono ya esta registrado.", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (NumberFormatException e) {
@@ -652,14 +649,11 @@ public class RegistroConductorUI extends javax.swing.JFrame {
                 new SignUpDriverServiceImpl(
                         new UserRepositoryImpl(
                                 HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")),
-                        new DriverRepositoryImpl(
-                                HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")),
-                        new CarRepositoryImpl(
-                                HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")),
                         new RoleRepositoryImpl(
                                 HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")),
                         new CabRepositoryImpl(
-                                HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))))
+                                HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),
+                new DriverRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")))
                 .setVisible(true));
     }
 

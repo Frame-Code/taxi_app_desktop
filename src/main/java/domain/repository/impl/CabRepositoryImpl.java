@@ -1,12 +1,8 @@
 package domain.repository.impl;
 
 import domain.entities.Cab;
-import domain.entities.Car;
-import domain.entities.Vehicle;
 import domain.repository.interfaces.BaseRepository;
 import domain.repository.interfaces.CabRepository;
-import domain.repository.interfaces.CarRepository;
-import domain.repository.interfaces.DriverRepository;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -33,18 +29,17 @@ public class CabRepositoryImpl extends BaseRepository implements CabRepository {
             transaction.commit();
             log.info("Cab saved successfully");
         } catch (HibernateException | NullPointerException e) {
-            if(transaction != null) {
-                log.error("Error saving cab: " + e.getMessage());
+            if (transaction != null) {
+                log.error("Error saving province: " + e.getMessage());
                 transaction.rollback();
             }
         } finally {
-            if(transaction != null) {
+            if (transaction != null) {
                 session.close();
                 log.info("Hibernate session closed");
             }
         }
         return cab;
-
     }
 
     @Override
@@ -99,10 +94,10 @@ public class CabRepositoryImpl extends BaseRepository implements CabRepository {
             transaction = session.beginTransaction();
             session.merge(cab);
             transaction.commit();
-            log.info("Cab saved successfully");
+            log.info("Cab updated successfully");
         } catch (HibernateException | NullPointerException ex) {
             if(transaction != null) {
-                log.error("Error saving cab: " + ex.getMessage());
+                log.error("Error updating cab: " + ex.getMessage());
                 transaction.rollback();
             }
         } finally {

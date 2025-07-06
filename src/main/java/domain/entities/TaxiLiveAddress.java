@@ -1,10 +1,10 @@
 package domain.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 @ToString
 @PrimaryKeyJoinColumn(name = "id")
 public class TaxiLiveAddress extends Address {
-    @OneToOne
-    @JoinColumn(name = "idTaxi", unique = true)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idCab", unique = true)
     private Cab cab;
 }

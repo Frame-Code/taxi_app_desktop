@@ -30,5 +30,5 @@ public class Admin {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_user")
-    private UserEntity userEntity;
+    private UserEntity user;
 }
