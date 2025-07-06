@@ -31,12 +31,10 @@ public class License {
     private String driverLicense;
 
     @Column(nullable = false)
-    private Integer licenseType;
+    private Character licenseType;
 
-    @Column(nullable = false)
     private LocalDate issuanceDate;
 
-    @Column(nullable = false)
     private LocalDate expirationDate;
 
 }

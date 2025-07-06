@@ -3,6 +3,7 @@ package domain.repository.impl;
 import domain.entities.Role;
 import domain.repository.interfaces.BaseRepository;
 import domain.repository.interfaces.RoleRepository;
+import jakarta.persistence.NoResultException;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.HibernateException;
 import org.hibernate.NonUniqueResultException;
@@ -10,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import shared.enums.ROLE_NAME;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -23,18 +25,18 @@ public class RoleRepositoryImpl extends BaseRepository implements RoleRepository
     }
 
     @Override
-    public Optional<Role> findByName(String name) {
+    public Optional<Role> findByName(ROLE_NAME name) {
         Transaction transaction = null;
         Session session = null;
         try {
             session = super.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            Query<Role> query = session.createQuery("SELECT r FROM Role r WHERE r.name LIKE :name", Role.class);
-            query.setParameter("name", formatName(name));
+            Query<Role> query = session.createQuery("SELECT r FROM Role r WHERE r.roleName LIKE :name", Role.class);
+            query.setParameter("name", name);
             Role role = query.getSingleResult();
             transaction.commit();
             return Optional.of(role);
-        } catch (NullPointerException | NoSuchElementException e) {
+        } catch (NullPointerException | NoSuchElementException |NoResultException e) {
             if (transaction != null) {
                 log.error("Error finding role: " + e.getMessage());
                 transaction.rollback();

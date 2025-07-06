@@ -6,6 +6,7 @@ package domain.repository.interfaces;
 
 import domain.entities.Role;
 import domain.repository.dao.interfaces.IBaseDao;
+import shared.enums.ROLE_NAME;
 
 import java.util.Optional;
 /**
@@ -13,5 +14,5 @@ import java.util.Optional;
  * @author Alex
  */
 public interface RoleRepository extends IBaseDao<Role> {
-    Optional<Role> findByName(String name);
+    Optional<Role> findByName(ROLE_NAME name);
 }

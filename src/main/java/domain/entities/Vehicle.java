@@ -32,9 +32,6 @@ public class Vehicle {
     @Column(length = 4, nullable = false)
     private String year;
 
-    @Column(length = 25)
-    private String color;
-
     @Column(length = 50, nullable = false)
     private String brand;
 

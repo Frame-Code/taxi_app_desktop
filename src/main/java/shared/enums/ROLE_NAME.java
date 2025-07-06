@@ -6,6 +6,5 @@ package shared.enums;
 public enum ROLE_NAME {
     CAB,
     CLIENT,
-    ADMINISTRATOR, 
-    DRIVER,
+    ADMINISTRATOR
 }

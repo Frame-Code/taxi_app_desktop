@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "https://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/taxi_app</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>
+
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <property name="current_session_context_class">thread</property>
+        <property name="hibernate.hbm2ddl.auto">create-drop</property>
+
+        <!-- entities -->
+        <mapping class="domain.entities.Address"/>
+        <mapping class="domain.entities.Admin"/>
+        <mapping class="domain.entities.Cab"/>
+        <mapping class="domain.entities.Car"/>
+        <mapping class="domain.entities.City"/>
+        <mapping class="domain.entities.Client"/>
+        <mapping class="domain.entities.ClientAddress"/>
+        <mapping class="domain.entities.Driver"/>
+        <mapping class="domain.entities.Fare"/>
+        <mapping class="domain.entities.License"/>
+        <mapping class="domain.entities.Notification"/>
+        <mapping class="domain.entities.Payment"/>
+        <mapping class="domain.entities.Permission"/>
+        <mapping class="domain.entities.Province"/>
+        <mapping class="domain.entities.Ride"/>
+        <mapping class="domain.entities.RoadNotification"/>
+        <mapping class="domain.entities.Role"/>
+        <mapping class="domain.entities.TaxiLiveAddress"/>
+        <mapping class="domain.entities.UserEntity"/>
+        <mapping class="domain.entities.Vehicle"/>
+
+    </session-factory>
+</hibernate-configuration>

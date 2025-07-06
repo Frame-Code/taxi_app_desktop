@@ -45,6 +45,11 @@ public class SignUpDriverServiceImpl extends SignUpService implements ISignUpDri
     @Override
     @Transactional
     public boolean signUp(Driver driver, Car car) {
+        if(isUsedEmail(driver.getUserEntity().getEmail()) || isUsedPhone(driver.getUserEntity().getPhone())) {
+            log.info("Email or phone is already in use");
+            return false;
+        }
+
         if (driver == null || driver.getUserEntity() == null || driver.getLicense() == null || car == null) {
             log.warn("Cannot sign up userEntity: Driver, UserEntity, License, or Vehicle entities are null.");
             throw new IllegalArgumentException("Datos de conductor, usuario, licencia o vehículo incompletos.");
@@ -60,15 +65,13 @@ public class SignUpDriverServiceImpl extends SignUpService implements ISignUpDri
         userEntity.setPasswordHash(PasswordUtils.hashPassword(plainPassword));
 
 
-        Optional<Role> driverRole = roleRepository.findByName(ROLE_NAME.DRIVER.name());
+        Optional<Role> driverRole = roleRepository.findByName(ROLE_NAME.CAB);
         if (driverRole.isEmpty()) {
             log.error("Role 'DRIVER' not found in the system. Please ensure it's configured.");
-            throw new IllegalStateException("El rol '" + ROLE_NAME.DRIVER.name() + "' no está configurado en el sistema.");
+            throw new IllegalStateException("El rol '" + ROLE_NAME.CAB.name() + "' no está configurado en el sistema.");
         }
         userEntity.setRole(driverRole.get());
 
-        driverRepository.save(driver);
-        carRepository.save(car);
         cabRepository.save(Cab.builder()
                 .vehicle(car)
                 .driver(driver)

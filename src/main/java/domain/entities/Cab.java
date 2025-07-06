@@ -1,5 +1,6 @@
 package domain.entities;
 
+import jakarta.persistence.CascadeType;
 import shared.enums.STATUS_TAXI;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,11 +31,11 @@ public class Cab {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idVehicle", unique = true, nullable = false)
     private Vehicle vehicle;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idDriver", unique = true, nullable = false)
     private Driver driver;
 
