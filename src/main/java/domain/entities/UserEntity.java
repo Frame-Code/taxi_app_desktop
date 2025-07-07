@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +20,8 @@ import java.time.LocalDate;
 /**
  * @author Daniel Mora Cantillo
  * */
-@Entity(name = "user_entity")
+@Entity
+@Table(name = "user_entity")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

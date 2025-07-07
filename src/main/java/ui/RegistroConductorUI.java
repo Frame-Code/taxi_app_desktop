@@ -6,7 +6,6 @@ import domain.entities.Driver;
 import domain.entities.License;
 import domain.entities.UserEntity;
 import domain.repository.impl.CabRepositoryImpl;
-import domain.repository.impl.CarRepositoryImpl;
 import domain.repository.impl.DriverRepositoryImpl;
 import domain.repository.impl.RoleRepositoryImpl;
 import domain.repository.impl.UserRepositoryImpl;
@@ -17,6 +16,7 @@ import service.interfaces.auth_module.ISignUpDriverService;
 import shared.utils.HibernateUtil;
 import java.awt.event.ActionEvent;
 import java.time.LocalDate;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -35,6 +35,7 @@ public class RegistroConductorUI extends javax.swing.JFrame {
         this.driverRepository = driverRepository;
         initComponents();
         setupListeners();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     private void setupListeners() {
