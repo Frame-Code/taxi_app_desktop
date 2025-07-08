@@ -39,7 +39,6 @@
         <mapping class="domain.entities.TaxiLiveAddress"/>
         <mapping class="domain.entities.User"/>
         <mapping class="domain.entities.Vehicle"/>
-        <mapping class="domain.entities.VehicleMaintenance"/>
 
     </session-factory>
 </hibernate-configuration>
