@@ -9,6 +9,7 @@ import domain.repository.interfaces.RideRepository;
 import lombok.RequiredArgsConstructor;
 import service.external.client.openrouteservice.IOpenRouteServiceClient;
 import service.interfaces.ride_module.IRideService;
+import shared.dto.CoordinatesRideDTO;
 import shared.dto.CoordinatesToMatchDTO;
 import shared.dto.InfoRideDTO;
 import shared.enums.STATUS_TAXI;
@@ -35,8 +36,13 @@ public class RideServiceImpl implements IRideService {
     }
 
     @Override
-    public Optional<InfoRideDTO> getInfoRide(CoordinatesToMatchDTO coordinatesToMatchDTO) throws IOException, NullPointerException {
-        String response = openRouteServiceClient.getResponse(coordinatesToMatchDTO);
+    public Optional<Ride> findById(Long id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public Optional<InfoRideDTO> getInfoRide(CoordinatesRideDTO coordinatesRideDTO) throws IOException, NullPointerException {
+        String response = openRouteServiceClient.getResponse(coordinatesRideDTO);
         JsonElement rootElement = gson.fromJson(response, JsonElement.class);
         if(rootElement.isJsonObject()) {
             JsonObject rootObject = rootElement.getAsJsonObject();

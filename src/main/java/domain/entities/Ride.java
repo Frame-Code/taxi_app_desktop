@@ -17,6 +17,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shared.utils.GeolocationUtil;
 
 import java.time.LocalDateTime;
 
@@ -38,6 +39,10 @@ public class Ride{
     private LocalDateTime startDate;
 
     private LocalDateTime endDate;
+
+    private String startAddressReference;
+
+    private String endAddressReference;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_address_origin")
@@ -62,4 +67,21 @@ public class Ride{
     @ManyToOne
     @JoinColumn(name = "id_client")
     private Client client;
+
+    public double getOriginLongitude() {
+        return startAddress.getLocation().getX();
+    }
+
+    public double getOriginLatitude() {
+        return startAddress.getLocation().getY();
+    }
+
+    public double getDestinyLongitude() {
+        return endAddress.getLocation().getX();
+    }
+
+    public double getDestinyLatitude() {
+        return endAddress.getLocation().getX();
+    }
+
 }

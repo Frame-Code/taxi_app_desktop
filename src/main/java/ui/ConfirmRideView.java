@@ -32,9 +32,9 @@ public class ConfirmRideView extends javax.swing.JFrame {
     private final PaymentFactory paymentFactory;
     private final Client client;
     private final CabRequestView cabRequestView;
+    private final CoordinatesRideDTO coordinatesRideDTO;
     private double originLatitude;
     private double originLongitude;
-    private CoordinatesToMatchDTO coordinatesToMatchDTO;
 
     public ConfirmRideView(CoordinatesRideDTO coordinatesRideDTO,
             IRideService rideService,
@@ -52,19 +52,15 @@ public class ConfirmRideView extends javax.swing.JFrame {
         this.originLongitude = coordinatesRideDTO.originLongitude();
         this.client = client;
         this.cabRequestView = cabRequestView;
-        this.coordinatesToMatchDTO = new CoordinatesToMatchDTO(
-                coordinatesRideDTO.originLatitude(),
-                coordinatesRideDTO.originLongitude(),
-                coordinatesRideDTO.destinyLatitude(),
-                coordinatesRideDTO.destinyLongitude());
         this.paymentFactory = paymentFactory;
+        this.coordinatesRideDTO = coordinatesRideDTO;
         initComponents();
         setResizable(false);
         setTitle("Confirmar ruta");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         initControllers();
-        loadFields(coordinatesToMatchDTO, coordinatesRideDTO);
+        loadFields(coordinatesRideDTO);
     }
 
     private void initControllers() {
@@ -80,7 +76,7 @@ public class ConfirmRideView extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "No se han encontrado taxis disponibles, intente mas tarde :(", "Taxis no encontrados", JOptionPane.INFORMATION_MESSAGE);
                         return;
                     }
-                    var cabOpt = matchService.requestCab(coordinatesToMatchDTO, cabsFounded, client, paymentFactory.create(PAYMENT_METHOD.CASH, Double.parseDouble(finalPrice.getText().substring(1))));
+                    var cabOpt = matchService.requestCab(coordinatesRideDTO, cabsFounded, client, paymentFactory.create(PAYMENT_METHOD.CASH, Double.parseDouble(finalPrice.getText().substring(1))));
                     if (cabOpt.isEmpty()) {
                         JOptionPane.showMessageDialog(this, "Error asignando taxi, intente mas tarde", "Error ", JOptionPane.ERROR_MESSAGE);
                         return;
@@ -105,7 +101,7 @@ public class ConfirmRideView extends javax.swing.JFrame {
 
     }
 
-    private void loadFields(CoordinatesToMatchDTO coordinatesToMatchDTO, CoordinatesRideDTO coordinatesRideDTO) {
+    private void loadFields(CoordinatesRideDTO coordinatesRideDTO) {
         var fareOpt = fareService.findFare();
         if (fareOpt.isEmpty()) {
             log.error("Impossible calculate price because is not possible to find fare");
@@ -118,7 +114,7 @@ public class ConfirmRideView extends javax.swing.JFrame {
             coordinatesOrigin.setText(coordinatesRideDTO.getOriginCoordinates());
             referenceDestiny.setText(coordinatesRideDTO.destinyReference());
             coordinatesDestiny.setText(coordinatesRideDTO.getDestinyCoordinates());
-            rideService.getInfoRide(coordinatesToMatchDTO)
+            rideService.getInfoRide(coordinatesRideDTO)
                     .map(infoRideDTO -> {
                         approxTime.setText(infoRideDTO.getApproxTimeAsMinutes() + " Minutos");
                         approxKm.setText(infoRideDTO.approxDistance() + " KM");

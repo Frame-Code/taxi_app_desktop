@@ -1,14 +1,17 @@
 package ui;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import shared.dto.CoordinatesRideDTO;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class UIConfirmarLlegadaDestinoClient extends JFrame {
+    private final CoordinatesRideDTO coordinatesRideDTO;
 
-    public UIConfirmarLlegadaDestinoClient() {
+    public UIConfirmarLlegadaDestinoClient(CoordinatesRideDTO coordinatesRideDTO) {
         super("Cliente: Confirmar llegada al destino");
+        this.coordinatesRideDTO = coordinatesRideDTO;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(900, 600); // Increased height
         setLocationRelativeTo(null);
@@ -103,13 +106,13 @@ public class UIConfirmarLlegadaDestinoClient extends JFrame {
         return textArea;
     }
 
-    public static void main(String[] args) throws UnsupportedLookAndFeelException {
+    /*public static void main(String[] args) throws UnsupportedLookAndFeelException {
         UIManager.setLookAndFeel(new FlatLightLaf());
         SwingUtilities.invokeLater(() -> {
             UIConfirmarLlegadaDestinoClient ui = new UIConfirmarLlegadaDestinoClient();
             ui.setVisible(true);
         });
-    }
+    }*/
 }
 
 

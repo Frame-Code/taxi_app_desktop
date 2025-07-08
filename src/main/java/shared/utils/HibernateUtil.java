@@ -2,20 +2,28 @@ package shared.utils;
 
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.registry.BootstrapServiceRegistry;
+import org.hibernate.boot.registry.BootstrapServiceRegistryBuilder;
+import org.hibernate.event.spi.PostUpdateEventListener;
+
+import java.util.List;
 
 /**
  * @author Daniel Mora Cantillo
  * */
 public class HibernateUtil {
-    private static Configuration configuration;
-    private static SessionFactory buildSessionFactory(String configFile) {
+    private static Metadata metadata;
+    private static synchronized SessionFactory buildSessionFactory(String configFile) {
         try {
-            if(configuration == null) {
-                configuration = new Configuration().configure(configFile);
+            if(metadata == null) {
+                BootstrapServiceRegistry bootstrapServiceRegistry = new BootstrapServiceRegistryBuilder()
+                        .applyIntegrator(new IntegratorHibernate())
+
+
             }
-            return configuration.buildSessionFactory();
-        } catch (HibernateException ex) {
+            return metadata.buildSessionFactory();
+        } catch (HibernateException | NullPointerException ex) {
             throw new RuntimeException("Error creating session factory " + ex);
         }
     }

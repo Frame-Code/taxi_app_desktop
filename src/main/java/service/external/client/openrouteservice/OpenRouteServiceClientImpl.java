@@ -1,5 +1,6 @@
 package service.external.client.openrouteservice;
 
+import shared.dto.CoordinatesRideDTO;
 import shared.dto.CoordinatesToMatchDTO;
 import shared.utils.HttpClientUtil;
 
@@ -15,11 +16,11 @@ public class OpenRouteServiceClientImpl implements IOpenRouteServiceClient{
     private final String ENDPOINT_DRIVING_CAR = "https://api.openrouteservice.org/v2/directions/driving-car?";
 
     @Override
-    public String getResponse(CoordinatesToMatchDTO coordinatesToMatchDTO) throws IOException {
+    public String getResponse(CoordinatesRideDTO coordinatesRideDTO) throws IOException {
         Map<String, String> params = Map.of(
                 "api_key", API_KEY,
-                "start", coordinatesToMatchDTO.getOrigin(","),
-                "end",  coordinatesToMatchDTO.getDestiny(",")
+                "start", coordinatesRideDTO.getOrigin(","),
+                "end",  coordinatesRideDTO.getDestiny(",")
         );
         Map<String, String> headers = Map.of(
                 "Accept", "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8"

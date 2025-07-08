@@ -10,7 +10,7 @@ import lombok.extern.apachecommons.CommonsLog;
 import service.interfaces.ride_module.IRideService;
 import service.interfaces.matching_module.IFindCabsService;
 import service.interfaces.matching_module.IMatchService;
-import shared.dto.CoordinatesToMatchDTO;
+import shared.dto.CoordinatesRideDTO;
 import shared.enums.STATUS_ROAD;
 import shared.enums.STATUS_TAXI;
 import shared.utils.GeolocationUtil;
@@ -37,22 +37,24 @@ public class MatchServiceImpl implements IMatchService {
     }
 
     @Override
-    public Optional<Cab> requestCab(CoordinatesToMatchDTO coordinatesToMatchDTO, List<Cab> cabs, Client client, Payment payment) {
+    public Optional<Cab> requestCab(CoordinatesRideDTO coordinatesRideDTO, List<Cab> cabs, Client client, Payment payment) {
         return cabs.stream().findFirst().map(cab -> {
             var ride = Ride.builder()
                     .client(client)
                     .cab(cab)
                     .startDate(LocalDateTime.now())
+                    .startAddressReference(coordinatesRideDTO.originReference())
+                    .endAddressReference(coordinatesRideDTO.destinyReference())
                     .startAddress(Address.builder()
                             .location(GeolocationUtil.createPoint(
-                                    coordinatesToMatchDTO.originLatitude(),
-                                    coordinatesToMatchDTO.originLongitude()
+                                    coordinatesRideDTO.originLatitude(),
+                                    coordinatesRideDTO.originLongitude()
                             ))
                             .build())
                     .endAddress(Address.builder()
                             .location(GeolocationUtil.createPoint(
-                                    coordinatesToMatchDTO.destinyLatitude(),
-                                    coordinatesToMatchDTO.destinyLongitude()
+                                    coordinatesRideDTO.destinyLatitude(),
+                                    coordinatesRideDTO.destinyLongitude()
                             ))
                             .build())
                     .status(STATUS_ROAD.INITIALIZED)

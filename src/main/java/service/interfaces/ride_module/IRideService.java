@@ -1,6 +1,7 @@
 package service.interfaces.ride_module;
 
 import domain.entities.Ride;
+import shared.dto.CoordinatesRideDTO;
 import shared.dto.CoordinatesToMatchDTO;
 import shared.dto.InfoRideDTO;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
  */
 public interface IRideService {
     Ride save(Ride ride);
-    Optional<InfoRideDTO> getInfoRide(CoordinatesToMatchDTO coordinatesToMatchDTO) throws IOException;
+    Optional<Ride> findById(Long id);
+    Optional<InfoRideDTO> getInfoRide(CoordinatesRideDTO coordinatesRideDTO) throws IOException;
 
 }

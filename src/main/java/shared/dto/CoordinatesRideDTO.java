@@ -16,4 +16,12 @@ public record CoordinatesRideDTO (
     public String getDestinyCoordinates() {
         return "latitude: " + destinyLatitude + ", Longitude: " + destinyLongitude;
     }
+
+    public String getOrigin(String splitter) {
+        return originLongitude + splitter + originLatitude;
+    }
+
+    public String getDestiny(String splitter) {
+        return destinyLongitude + splitter + destinyLatitude;
+    }
 }
