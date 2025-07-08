@@ -2,7 +2,6 @@ package ui;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import domain.entities.Client;
-import domain.entities.UserEntity;
 import domain.repository.impl.CabRepositoryImpl;
 import domain.repository.impl.ClientRepositoryImpl;
 import domain.repository.impl.FareRepositoryImpl;

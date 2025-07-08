@@ -8,9 +8,13 @@ import org.hibernate.cfg.Configuration;
  * @author Daniel Mora Cantillo
  * */
 public class HibernateUtil {
+    private static Configuration configuration;
     private static SessionFactory buildSessionFactory(String configFile) {
         try {
-            return new Configuration().configure(configFile).buildSessionFactory();
+            if(configuration == null) {
+                configuration = new Configuration().configure(configFile);
+            }
+            return configuration.buildSessionFactory();
         } catch (HibernateException ex) {
             throw new RuntimeException("Error creating session factory " + ex);
         }

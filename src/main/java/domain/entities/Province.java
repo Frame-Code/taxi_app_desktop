@@ -13,7 +13,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +22,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-@ToString
 public class Province {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,5 +41,13 @@ public class Province {
     public void setCities(Set<City> cities) {
         this.cities = cities;
         cities.forEach(city -> city.setProvince(this));
+    }
+
+    @Override
+    public String toString() {
+        return "Province{" +
+                "\n name='" + name + '\n' +
+                ", cities=" + cities +
+                '}';
     }
 }

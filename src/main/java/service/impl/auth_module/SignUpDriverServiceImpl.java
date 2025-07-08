@@ -6,7 +6,6 @@ import domain.entities.Driver;
 import domain.entities.Role;
 import domain.entities.UserEntity;
 import domain.repository.interfaces.CabRepository;
-import domain.repository.interfaces.CarRepository;
 import domain.repository.interfaces.DriverRepository;
 import domain.repository.interfaces.RoleRepository;
 import domain.repository.interfaces.UserRepository;

@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Entity
 @Builder
 @NoArgsConstructor
@@ -29,4 +30,11 @@ public class City {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idProvince")
     private Province province;
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "\n name='" + name + '\n' +
+                '}';
+    }
 }

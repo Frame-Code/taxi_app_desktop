@@ -8,5 +8,5 @@ import java.util.Optional;
  */
 public interface IOpenCageClient {
     String format(double latitude, double longitude);
-    public Optional<String> getState(double latitude, double longitude);
+    Optional<String> getState(double latitude, double longitude);
 }
