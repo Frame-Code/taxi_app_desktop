@@ -12,11 +12,12 @@ import ui.auth_ui.WelcomeTaxiShareUI;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import ui.auth_ui.RoutenanfragenUI;
 
-@CommonsLog
+//@CommonsLog
 public class App {
     public static void main(String[] args) {
-        try {
+        /*try {
             UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (UnsupportedLookAndFeelException e) {
             log.warn("Can't load theme look and feel, error: " + e);
@@ -34,6 +35,10 @@ public class App {
 
         // Pasar los servicios a la UI
         WelcomeTaxiShareUI ventana = new WelcomeTaxiShareUI(emailService, loginService);
-        ventana.setVisible(true);
+        ventana.setVisible(true);*/
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            RoutenanfragenUI fm = new RoutenanfragenUI();
+            fm.setVisible(true);
+        });
     }
 }
