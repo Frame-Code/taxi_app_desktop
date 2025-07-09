@@ -1,5 +1,5 @@
 
-package ui;
+package ui.auth_ui;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import domain.entities.Client;

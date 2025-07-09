@@ -102,12 +102,12 @@ public class RideRepositoryImpl extends BaseRepository implements RideRepository
             transaction.commit();
             log.info("Ride saved successfully");
         } catch (HibernateException | NullPointerException ex) {
-            if(transaction != null) {
+            if (transaction != null) {
                 log.error("Error saving ride: " + ex.getMessage());
                 transaction.rollback();
             }
         } finally {
-            if(transaction != null) {
+            if (transaction != null) {
                 session.close();
                 log.info("Hibernate session closed");
             }
@@ -132,12 +132,12 @@ public class RideRepositoryImpl extends BaseRepository implements RideRepository
                         transaction.commit();
                         return ride;
                     } catch (HibernateException | NullPointerException | NoResultException e) {
-                        if(transaction != null) {
+                        if (transaction != null) {
                             log.error("Error finding ride: " + e.getMessage());
                             transaction.rollback();
                         }
                     } finally {
-                        if(transaction != null) {
+                        if (transaction != null) {
                             session.close();
                             log.info("Hibernate session closed");
                         }

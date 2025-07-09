@@ -1,4 +1,4 @@
-package ui;
+package ui.request_cab_ui;
 
 import domain.entities.Cab;
 import domain.entities.Client;
@@ -10,7 +10,6 @@ import service.interfaces.ride_module.IRideCalculationsService;
 import service.interfaces.ride_module.IRideService;
 import shared.dto.CabDTO;
 import shared.dto.CoordinatesRideDTO;
-import shared.dto.CoordinatesToMatchDTO;
 import shared.enums.PAYMENT_METHOD;
 import ui.components.LoadingDialog;
 

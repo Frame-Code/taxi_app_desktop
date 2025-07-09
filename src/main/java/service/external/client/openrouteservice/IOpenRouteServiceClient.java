@@ -1,7 +1,6 @@
 package service.external.client.openrouteservice;
 
 import shared.dto.CoordinatesRideDTO;
-import shared.dto.CoordinatesToMatchDTO;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package ui;
+package ui.location_ui;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import domain.entities.Province;

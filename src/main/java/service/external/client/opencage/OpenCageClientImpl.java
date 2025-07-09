@@ -19,14 +19,14 @@ public class OpenCageClientImpl implements IOpenCageClient{
     private OpenCageClientImpl() {
         this.geoCoder = new JOpenCageGeocoder("aff8cae2561f4b66a8939c4ad2c0ce8a");
     }
-    
+
     public static synchronized OpenCageClientImpl getInstance() {
         if(INSTANCE != null) {
             return INSTANCE;
         }
         return new OpenCageClientImpl();
     }
-    
+
     @Override
     public String format(double latitude, double longitude) {
         JOpenCageResponse response = geoCoder.reverse(new JOpenCageReverseRequest(latitude, longitude));

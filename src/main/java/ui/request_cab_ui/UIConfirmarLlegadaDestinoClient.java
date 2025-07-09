@@ -1,4 +1,4 @@
-package ui;
+package ui.request_cab_ui;
 
 import lombok.extern.apachecommons.CommonsLog;
 import service.interfaces.ride_module.IRideService;

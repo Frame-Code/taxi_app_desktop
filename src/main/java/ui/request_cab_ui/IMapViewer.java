@@ -1,4 +1,4 @@
-package ui;
+package ui.request_cab_ui;
 
 import javax.swing.JPanel;
 import org.jxmapviewer.viewer.GeoPosition;

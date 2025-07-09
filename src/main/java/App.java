@@ -15,8 +15,8 @@ import service.impl.ride_service.FareServiceImpl;
 import service.impl.ride_service.IRideCalculationsServiceImpl;
 import service.impl.ride_service.RideServiceImpl;
 import shared.utils.HibernateUtil;
-import ui.CabRequestView;
-import ui.OpenStreetMapView;
+import ui.request_cab_ui.CabRequestView;
+import ui.request_cab_ui.OpenStreetMapView;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
