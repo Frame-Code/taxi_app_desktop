@@ -7,7 +7,7 @@ import service.interfaces.matching_module.IMatchService;
 import service.interfaces.payment_module.PaymentFactory;
 import service.interfaces.ride_module.IFareService;
 import service.interfaces.ride_module.IRideCalculationsService;
-import service.interfaces.ride_module.IRideService;
+import service.interfaces.ride_module.IRideClientService;
 import shared.dto.CoordinatesRideDTO;
 import ui.components.RoundedPanelWithShadow;
 
@@ -26,7 +26,7 @@ import org.jxmapviewer.viewer.GeoPosition;
 public class CabRequestView extends javax.swing.JFrame {
     private final IMapViewer mapViewer;
     private final IOpenCageClient openCageClient;
-    private final IRideService rideService;
+    private final IRideClientService rideService;
     private final IRideCalculationsService rideCalculationsService;
     private final IFareService fareService;
     private final IMatchService matchService;
@@ -38,7 +38,7 @@ public class CabRequestView extends javax.swing.JFrame {
 
     public CabRequestView(IMapViewer mapViewer,
                           IOpenCageClient openCageClient,
-                          IRideService rideService,
+                          IRideClientService rideService,
                           IRideCalculationsService rideCalculationsService,
                           IFareService fareService,
                           IMatchService matchService,

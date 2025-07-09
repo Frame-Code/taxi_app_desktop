@@ -1,7 +1,7 @@
 package ui.request_cab_ui;
 
 import lombok.extern.apachecommons.CommonsLog;
-import service.interfaces.ride_module.IRideService;
+import service.interfaces.ride_module.IRideClientService;
 import shared.dto.CabDTO;
 import shared.dto.CoordinatesRideDTO;
 
@@ -12,11 +12,12 @@ import java.util.concurrent.Executors;
 
 @CommonsLog
 public class UIConfirmarLlegadaDestinoClient extends JFrame {
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final CoordinatesRideDTO coordinatesRideDTO;
-    private final IRideService rideService;
+    private final IRideClientService rideService;
     private JButton confirmarBtn;
 
-    public UIConfirmarLlegadaDestinoClient(IRideService rideService, CabDTO cabDTO, CoordinatesRideDTO coordinatesRideDTO, Long id_ride) {
+    public UIConfirmarLlegadaDestinoClient(IRideClientService rideService, CabDTO cabDTO, CoordinatesRideDTO coordinatesRideDTO, Long id_ride) {
         super("Cliente: Confirmar llegada al destino");
         this.coordinatesRideDTO = coordinatesRideDTO;
         this.rideService = rideService;
@@ -114,11 +115,17 @@ public class UIConfirmarLlegadaDestinoClient extends JFrame {
         initVerifier(id_ride);
     }
 
+    private void initControllers() {
+        confirmarBtn.addActionListener(e -> {
+           JOptionPane.showMessageDialog(this, "Gracias por usar nuestros servicios!", "Carrera terminada", JOptionPane.INFORMATION_MESSAGE);
+        });
+    }
+
     private void initVerifier(Long id_ride) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
             try {
-                if(!rideService.isOriginConfirm(id_ride)) {
+                if(!rideService.isReadyToFinally(id_ride)) {
                     return;
                 }
                 confirmarBtn.setEnabled(true);
@@ -182,15 +189,6 @@ public class UIConfirmarLlegadaDestinoClient extends JFrame {
                 cabDTO.licensePLate();
     }
 
-
-
-    /*public static void main(String[] args) throws UnsupportedLookAndFeelException {
-        UIManager.setLookAndFeel(new FlatLightLaf());
-        SwingUtilities.invokeLater(() -> {
-            UIConfirmarLlegadaDestinoClient ui = new UIConfirmarLlegadaDestinoClient();
-            ui.setVisible(true);
-        });
-    }*/
 }
 
 

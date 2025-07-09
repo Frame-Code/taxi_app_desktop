@@ -1,7 +1,7 @@
 package ui.request_cab_ui;
 
 import lombok.extern.apachecommons.CommonsLog;
-import service.interfaces.ride_module.IRideService;
+import service.interfaces.ride_module.IRideClientService;
 import shared.dto.CabDTO;
 import shared.dto.CoordinatesRideDTO;
 
@@ -16,9 +16,9 @@ import java.util.concurrent.Executors;
  */
 @CommonsLog
 public class CabAssignedView extends javax.swing.JFrame {
-    private final IRideService rideService;
+    private final IRideClientService rideService;
 
-    public CabAssignedView(CabDTO cabDTO, CoordinatesRideDTO coordinatesRideDTO, IRideService rideService, Long id_ride) {
+    public CabAssignedView(CabDTO cabDTO, CoordinatesRideDTO coordinatesRideDTO, IRideClientService rideService, Long id_ride) {
         this.rideService = rideService;
         initComponents();
         setVisible(true);
@@ -255,6 +255,7 @@ public class CabAssignedView extends javax.swing.JFrame {
             }
 
             new UIConfirmarLlegadaDestinoClient(rideService, cabDTO, coordinatesRideDTO, id_ride).setVisible(true);
+            rideService.setInProcess(id_ride);
             this.dispose();
         });
 
@@ -268,6 +269,7 @@ public class CabAssignedView extends javax.swing.JFrame {
                     return;
                 }
                 btnConfirmRide.setEnabled(true);
+
             } catch (InterruptedException e) {
                 log.warn("Task was interrupted: " + e);
             }

@@ -10,7 +10,7 @@ import service.interfaces.matching_module.IMatchService;
 import service.interfaces.payment_module.PaymentFactory;
 import service.interfaces.ride_module.IFareService;
 import service.interfaces.ride_module.IRideCalculationsService;
-import service.interfaces.ride_module.IRideService;
+import service.interfaces.ride_module.IRideClientService;
 import ui.request_cab_ui.CabRequestView;
 import ui.request_cab_ui.IMapViewer;
 
@@ -30,7 +30,7 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
             ILogInService loginService,
             IMapViewer mapViewer,
             IOpenCageClient openCageClient,
-            IRideService rideService,
+            IRideClientService rideService,
             IRideCalculationsService rideCalculationsService,
             IFareService fareService,
             IMatchService matchService,
@@ -157,7 +157,7 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
 
     private void initControllers(IMapViewer mapViewer,
                                  IOpenCageClient openCageClient,
-                                 IRideService rideService,
+                                 IRideClientService rideService,
                                  IRideCalculationsService rideCalculationsService,
                                  IFareService fareService,
                                  IMatchService matchService,

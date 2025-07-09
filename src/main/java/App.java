@@ -13,7 +13,7 @@ import service.impl.matching_module.MatchServiceImpl;
 import service.impl.payment_module.PaymentFactoryImpl;
 import service.impl.ride_service.FareServiceImpl;
 import service.impl.ride_service.IRideCalculationsServiceImpl;
-import service.impl.ride_service.RideServiceImpl;
+import service.impl.ride_service.RideClientServiceImpl;
 import shared.utils.HibernateUtil;
 import ui.request_cab_ui.CabRequestView;
 import ui.request_cab_ui.OpenStreetMapView;
@@ -32,7 +32,7 @@ public class App {
             new CabRequestView(
                     new OpenStreetMapView(),
                     OpenCageClientImpl.getInstance(),
-                    new RideServiceImpl(
+                    new RideClientServiceImpl(
                             new RideRepositoryImpl(
                                     HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"),
                                     new CabRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),
@@ -48,7 +48,7 @@ public class App {
                             new FindCabsServiceImpl(
                                     new TaxiLiveAddressRepositoryImpl(
                                             HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),
-                            new RideServiceImpl(
+                            new RideClientServiceImpl(
                                     new RideRepositoryImpl(
                                             HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"),
                                             new CabRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),

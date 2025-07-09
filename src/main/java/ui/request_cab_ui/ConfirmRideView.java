@@ -7,7 +7,7 @@ import service.interfaces.matching_module.IMatchService;
 import service.interfaces.payment_module.PaymentFactory;
 import service.interfaces.ride_module.IFareService;
 import service.interfaces.ride_module.IRideCalculationsService;
-import service.interfaces.ride_module.IRideService;
+import service.interfaces.ride_module.IRideClientService;
 import shared.dto.CabDTO;
 import shared.dto.CoordinatesRideDTO;
 import shared.enums.PAYMENT_METHOD;
@@ -25,7 +25,7 @@ import javax.swing.SwingUtilities;
 @CommonsLog
 public class ConfirmRideView extends javax.swing.JFrame {
     private final IFareService fareService;
-    private final IRideService rideService;
+    private final IRideClientService rideService;
     private final IMatchService matchService;
     private final IRideCalculationsService rideCalculationsService;
     private final PaymentFactory paymentFactory;
@@ -36,7 +36,7 @@ public class ConfirmRideView extends javax.swing.JFrame {
     private double originLongitude;
 
     public ConfirmRideView(CoordinatesRideDTO coordinatesRideDTO,
-            IRideService rideService,
+            IRideClientService rideService,
             IRideCalculationsService rideCalculationsService,
             IFareService fareService,
             IMatchService matchService,

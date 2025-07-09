@@ -91,4 +91,20 @@ public class Ride{
         return status.equals(STATUS_RIDE.ORIGIN_CONFIRMED);
     }
 
+    public boolean isEnded() {
+        return status.equals(STATUS_RIDE.ENDED);
+    }
+
+    public boolean isInitialized() {
+        return status.equals(STATUS_RIDE.INITIALIZED);
+    }
+
+    public boolean isInProcess() {
+        return status.equals(STATUS_RIDE.IN_PROCESS);
+    }
+
+    public boolean isReadyToFinally() {
+        return status.equals(STATUS_RIDE.READY_TO_FINALLY);
+    }
+
 }

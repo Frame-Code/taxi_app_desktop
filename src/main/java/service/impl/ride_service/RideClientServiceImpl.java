@@ -9,7 +9,7 @@ import domain.repository.interfaces.RideRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import service.external.client.openrouteservice.IOpenRouteServiceClient;
-import service.interfaces.ride_module.IRideService;
+import service.interfaces.ride_module.IRideClientService;
 import shared.dto.CoordinatesRideDTO;
 import shared.dto.InfoRideDTO;
 import shared.enums.STATUS_RIDE;
@@ -25,7 +25,7 @@ import java.util.concurrent.ScheduledExecutorService;
  */
 @CommonsLog
 @RequiredArgsConstructor
-public class RideServiceImpl implements IRideService {
+public class RideClientServiceImpl implements IRideClientService {
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
     private final RideRepository repository;
     private final CabRepository cabRepository;
@@ -96,9 +96,36 @@ public class RideServiceImpl implements IRideService {
     }
 
     @Override
-    public boolean isEnded(Long id) {
-        throw new UnsupportedOperationException("No implemented");
+    public boolean isReadyToFinally(Long id) throws InterruptedException {
+        log.info("Starting verifier task for ride...");
+        boolean isReady = false;
+        while (true) {
+            var rideOpt = repository.findById(id);
+            if (rideOpt.isEmpty()) {
+                break;
+            }
+
+            if (rideOpt.get().isInitialized()) {
+                isReady = true;
+                break;
+            }
+
+            Thread.sleep(2000);
+        }
+        return isReady;
     }
+
+    @Override
+    public boolean setInProcess(Long id) {
+        return findById(id)
+                .map(ride -> {
+                    ride.setStatus(STATUS_RIDE.IN_PROCESS);
+                    repository.update(ride);
+                    return true;
+                })
+                .orElse(false);
+    }
+
 
     @Override
     public Optional<Ride> findByCab(Long id_cab) {

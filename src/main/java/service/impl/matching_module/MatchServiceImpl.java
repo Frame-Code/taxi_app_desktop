@@ -7,7 +7,7 @@ import domain.entities.Payment;
 import domain.entities.Ride;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
-import service.interfaces.ride_module.IRideService;
+import service.interfaces.ride_module.IRideClientService;
 import service.interfaces.matching_module.IFindCabsService;
 import service.interfaces.matching_module.IMatchService;
 import shared.dto.CoordinatesRideDTO;
@@ -27,7 +27,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MatchServiceImpl implements IMatchService {
     private final IFindCabsService findCabsService;
-    private final IRideService rideService;
+    private final IRideClientService rideService;
 
     @Override
     public List<Cab> findNearbyCabs(double latitude, double longitude) {

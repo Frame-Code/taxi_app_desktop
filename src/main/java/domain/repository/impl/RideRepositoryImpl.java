@@ -126,7 +126,7 @@ public class RideRepositoryImpl extends BaseRepository implements RideRepository
                     try {
                         session = super.getSessionFactory().openSession();
                         transaction = session.beginTransaction();
-                        Query<Ride> query = session.createQuery("SELECT r FROM Ride r WHERE r.cab.id = :id", Ride.class);
+                        Query<Ride> query = session.createQuery("SELECT r FROM Ride r WHERE r.cab.id = :id AND r.status = 'INITIALIZED' ", Ride.class);
                         query.setParameter("id", id_cab);
                         ride = query.getSingleResult();
                         transaction.commit();
