@@ -81,6 +81,13 @@ public class ConfirmRideView extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "Error asignando taxi, intente mas tarde", "Error ", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
+
+                    var rideOpt = rideService.findByCab(cabOpt.get().getId());
+                    if(rideOpt.isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "Fatal Error, consulte a TI", "Fatal error", JOptionPane.ERROR_MESSAGE);
+                        throw new RuntimeException("Ride not founded");
+                    }
+
                     btnConfirmRide.setEnabled(false);
                     new CabAssignedView(new CabDTO(
                             cabOpt.get().getDriver().getUserEntity().getFullNames(),
@@ -88,7 +95,10 @@ public class ConfirmRideView extends javax.swing.JFrame {
                             cabOpt.get().getDriver().getUserEntity().getPhone(),
                             cabOpt.get().getVehicle().getBrand(),
                             cabOpt.get().getVehicle().getModel(),
-                            cabOpt.get().getVehicle().getLicensePlate()));
+                            cabOpt.get().getVehicle().getLicensePlate()),
+                            coordinatesRideDTO,
+                            rideService,
+                            rideOpt.get().getId());
                 });
             } catch (InterruptedException ex) {
                 throw new RuntimeException(ex);

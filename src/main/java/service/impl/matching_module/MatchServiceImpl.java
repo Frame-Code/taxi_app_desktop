@@ -11,7 +11,7 @@ import service.interfaces.ride_module.IRideService;
 import service.interfaces.matching_module.IFindCabsService;
 import service.interfaces.matching_module.IMatchService;
 import shared.dto.CoordinatesRideDTO;
-import shared.enums.STATUS_ROAD;
+import shared.enums.STATUS_RIDE;
 import shared.enums.STATUS_TAXI;
 import shared.utils.GeolocationUtil;
 
@@ -57,7 +57,7 @@ public class MatchServiceImpl implements IMatchService {
                                     coordinatesRideDTO.destinyLongitude()
                             ))
                             .build())
-                    .status(STATUS_ROAD.INITIALIZED)
+                    .status(STATUS_RIDE.INITIALIZED)
                     .payment(payment)
                     .build();
             rideService.save(ride);

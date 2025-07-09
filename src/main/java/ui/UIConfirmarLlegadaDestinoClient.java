@@ -1,18 +1,26 @@
 package ui;
 
-import com.formdev.flatlaf.FlatLightLaf;
+import lombok.extern.apachecommons.CommonsLog;
+import service.interfaces.ride_module.IRideService;
+import shared.dto.CabDTO;
 import shared.dto.CoordinatesRideDTO;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+@CommonsLog
 public class UIConfirmarLlegadaDestinoClient extends JFrame {
     private final CoordinatesRideDTO coordinatesRideDTO;
+    private final IRideService rideService;
+    private JButton confirmarBtn;
 
-    public UIConfirmarLlegadaDestinoClient(CoordinatesRideDTO coordinatesRideDTO) {
+    public UIConfirmarLlegadaDestinoClient(IRideService rideService, CabDTO cabDTO, CoordinatesRideDTO coordinatesRideDTO, Long id_ride) {
         super("Cliente: Confirmar llegada al destino");
         this.coordinatesRideDTO = coordinatesRideDTO;
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.rideService = rideService;
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(900, 600); // Increased height
         setLocationRelativeTo(null);
         setResizable(false);
@@ -50,28 +58,44 @@ public class UIConfirmarLlegadaDestinoClient extends JFrame {
         JPanel origenPanel = new JPanel();
         origenPanel.setLayout(new BoxLayout(origenPanel, BoxLayout.Y_AXIS));
         origenPanel.add(createInfoLabel("Origen:"));
-        origenPanel.add(createValueTextArea());
+        origenPanel.add(
+                createValueTextArea(
+                        parseCoordinates(
+                                coordinatesRideDTO.originReference(),
+                                String.valueOf(coordinatesRideDTO.originLatitude()),
+                                String.valueOf(coordinatesRideDTO.originLongitude())
+                        )
+                )
+        );
         infoContainer.add(origenPanel);
 
         // Destino Panel
         JPanel destinoPanel = new JPanel();
         destinoPanel.setLayout(new BoxLayout(destinoPanel, BoxLayout.Y_AXIS));
         destinoPanel.add(createInfoLabel("Destino:"));
-        destinoPanel.add(createValueTextArea());
+        destinoPanel.add(
+                createValueTextArea(
+                        parseCoordinates(
+                                coordinatesRideDTO.destinyReference(),
+                                String.valueOf(coordinatesRideDTO.destinyLatitude()),
+                                String.valueOf(coordinatesRideDTO.destinyLongitude())
+                        )
+                )
+        );
         infoContainer.add(destinoPanel);
 
         // Taxista Panel
         JPanel taxistaPanel = new JPanel();
         taxistaPanel.setLayout(new BoxLayout(taxistaPanel, BoxLayout.Y_AXIS));
         taxistaPanel.add(createInfoLabel("Taxista:"));
-        taxistaPanel.add(createValueTextArea());
+        taxistaPanel.add(createValueTextArea(parseCab(cabDTO)));
         infoContainer.add(taxistaPanel);
 
         // Carro Panel
         JPanel carroPanel = new JPanel();
         carroPanel.setLayout(new BoxLayout(carroPanel, BoxLayout.Y_AXIS));
         carroPanel.add(createInfoLabel("Carro:"));
-        carroPanel.add(createValueTextArea());
+        carroPanel.add(createValueTextArea(parseVehicle(cabDTO)));
         infoContainer.add(carroPanel);
 
         content.add(infoContainer);
@@ -82,10 +106,29 @@ public class UIConfirmarLlegadaDestinoClient extends JFrame {
         confirmarBtn.setFont(new Font("Arial", Font.BOLD, 16));
         confirmarBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         confirmarBtn.setPreferredSize(new Dimension(200, 45));
+        confirmarBtn.setEnabled(false);
         content.add(confirmarBtn);
 
         add(content, BorderLayout.CENTER);
+
+        initVerifier(id_ride);
     }
+
+    private void initVerifier(Long id_ride) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(() -> {
+            try {
+                if(!rideService.isOriginConfirm(id_ride)) {
+                    return;
+                }
+                confirmarBtn.setEnabled(true);
+            } catch (InterruptedException e) {
+                log.warn("Task was interrupted: " + e);
+            }
+
+        });
+    }
+
 
     private JLabel createInfoLabel(String text) {
         JLabel lbl = new JLabel(text);
@@ -93,8 +136,8 @@ public class UIConfirmarLlegadaDestinoClient extends JFrame {
         return lbl;
     }
 
-    private JTextArea createValueTextArea() {
-        JTextArea textArea = new JTextArea();
+    private JTextArea createValueTextArea(String text) {
+        JTextArea textArea = new JTextArea(text);
         textArea.setFont(new Font("Arial", Font.PLAIN, 16));
         textArea.setOpaque(true);
         textArea.setBackground(Color.WHITE);
@@ -105,6 +148,41 @@ public class UIConfirmarLlegadaDestinoClient extends JFrame {
         textArea.setRows(5); // Increased rows
         return textArea;
     }
+
+    private String parseCoordinates(String reference, String latitude, String longitude) {
+        return "Referencia: " +
+                reference +
+                "\n" +
+                "Latitude: " +
+                latitude +
+                "\n" +
+                "Longitude: " +
+                longitude;
+    }
+
+    private String parseCab(CabDTO cabDTO) {
+        return "Nombres completos: " +
+                cabDTO.fullNames() +
+                "\n" +
+                "Correo: " +
+                cabDTO.email() +
+                "\n" +
+                "Telefono: " +
+                cabDTO.phone();
+    }
+
+    private String parseVehicle(CabDTO cabDTO) {
+        return "Marca: " +
+                cabDTO.brand() +
+                "\n" +
+                "Modelo: " +
+                cabDTO.model() +
+                "\n" +
+                "Placa: " +
+                cabDTO.licensePLate();
+    }
+
+
 
     /*public static void main(String[] args) throws UnsupportedLookAndFeelException {
         UIManager.setLookAndFeel(new FlatLightLaf());

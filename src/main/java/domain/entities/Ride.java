@@ -2,7 +2,7 @@ package domain.entities;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.OneToOne;
-import shared.enums.STATUS_ROAD;
+import shared.enums.STATUS_RIDE;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -17,7 +17,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import shared.utils.GeolocationUtil;
 
 import java.time.LocalDateTime;
 
@@ -54,7 +53,7 @@ public class Ride{
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private STATUS_ROAD status;
+    private STATUS_RIDE status;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_payment")
@@ -82,6 +81,14 @@ public class Ride{
 
     public double getDestinyLatitude() {
         return endAddress.getLocation().getX();
+    }
+
+    public boolean isReadyToStart() {
+        return status.equals(STATUS_RIDE.READY_TO_START);
+    }
+
+    public boolean isOriginConfirmed() {
+        return status.equals(STATUS_RIDE.ORIGIN_CONFIRMED);
     }
 
 }

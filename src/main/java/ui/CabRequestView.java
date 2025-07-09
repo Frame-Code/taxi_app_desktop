@@ -1,23 +1,7 @@
 package ui;
 
-import com.formdev.flatlaf.FlatLightLaf;
 import domain.entities.Client;
-import domain.repository.impl.CabRepositoryImpl;
-import domain.repository.impl.ClientRepositoryImpl;
-import domain.repository.impl.FareRepositoryImpl;
-import domain.repository.impl.ProvinceRepositoryImpl;
-import domain.repository.impl.RideRepositoryImpl;
-import domain.repository.impl.TaxiLiveAddressRepositoryImpl;
 import service.external.client.opencage.IOpenCageClient;
-import service.external.client.opencage.OpenCageClientImpl;
-import service.external.client.openrouteservice.OpenRouteServiceClientImpl;
-import service.impl.location_module.ProvinceServiceImpl;
-import service.impl.matching_module.FindCabsServiceImpl;
-import service.impl.matching_module.MatchServiceImpl;
-import service.impl.payment_module.PaymentFactoryImpl;
-import service.impl.ride_service.FareServiceImpl;
-import service.impl.ride_service.IRideCalculationsServiceImpl;
-import service.impl.ride_service.RideServiceImpl;
 import service.interfaces.location_module.IProvinceService;
 import service.interfaces.matching_module.IMatchService;
 import service.interfaces.payment_module.PaymentFactory;
@@ -25,7 +9,6 @@ import service.interfaces.ride_module.IFareService;
 import service.interfaces.ride_module.IRideCalculationsService;
 import service.interfaces.ride_module.IRideService;
 import shared.dto.CoordinatesRideDTO;
-import shared.utils.HibernateUtil;
 import ui.components.RoundedPanelWithShadow;
 
 import java.awt.Color;
@@ -34,8 +17,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import org.jxmapviewer.viewer.GeoPosition;
 
@@ -384,41 +365,6 @@ public class CabRequestView extends javax.swing.JFrame {
         txtField.setText(openCageClient.format(mapViewer.getSelectedCoordinates().getLatitude(), mapViewer.getSelectedCoordinates().getLongitude()));
     }
 
-    public static void main(String args[]) throws UnsupportedLookAndFeelException {
-        UIManager.setLookAndFeel(new FlatLightLaf());
-        java.awt.EventQueue.invokeLater(() -> {
-            new CabRequestView(
-                    new OpenStreetMapView(),
-                    OpenCageClientImpl.getInstance(),
-                    new RideServiceImpl(
-                            new RideRepositoryImpl(
-                                    HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")), new CabRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")),
-                            new OpenRouteServiceClientImpl()),
-                    new IRideCalculationsServiceImpl(
-                            new FareRepositoryImpl(
-                                    HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),
-                    new FareServiceImpl(
-                            new FareRepositoryImpl(
-                                    HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),
-                    new MatchServiceImpl(
-                            new FindCabsServiceImpl(
-                                    new TaxiLiveAddressRepositoryImpl(
-                                            HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),
-                            new RideServiceImpl(
-                                    new RideRepositoryImpl(
-                                            HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")),
-                                    new CabRepositoryImpl(
-                                            HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")),
-                                    new OpenRouteServiceClientImpl())),
-                    new ProvinceServiceImpl(
-                            new ProvinceRepositoryImpl(
-                                    HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),
-                    new PaymentFactoryImpl(),
-                    new ClientRepositoryImpl(
-                            HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")).findByEmail("mail@email.com").get()
-            );
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFindCabs;

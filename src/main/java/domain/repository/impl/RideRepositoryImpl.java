@@ -2,21 +2,26 @@ package domain.repository.impl;
 
 import domain.entities.Ride;
 import domain.repository.interfaces.BaseRepository;
+import domain.repository.interfaces.CabRepository;
 import domain.repository.interfaces.RideRepository;
+import jakarta.persistence.NoResultException;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.List;
 import java.util.Optional;
 
 @CommonsLog
 public class RideRepositoryImpl extends BaseRepository implements RideRepository {
+    private final CabRepository cabRepository;
 
-    public RideRepositoryImpl(SessionFactory sessionFactory) {
+    public RideRepositoryImpl(SessionFactory sessionFactory, CabRepository cabRepository) {
         super(sessionFactory);
+        this.cabRepository = cabRepository;
     }
 
     @Override
@@ -108,5 +113,39 @@ public class RideRepositoryImpl extends BaseRepository implements RideRepository
             }
         }
         return ride;
+    }
+
+    @Override
+    public Optional<Ride> findByCab(Long id_cab) {
+        return cabRepository.findById(id_cab)
+                .map(cab -> {
+                    log.info("Finding ride by cab...");
+                    Transaction transaction = null;
+                    Session session = null;
+                    Ride ride = null;
+                    try {
+                        session = super.getSessionFactory().openSession();
+                        transaction = session.beginTransaction();
+                        Query<Ride> query = session.createQuery("SELECT r FROM Ride r WHERE r.cab.id = :id", Ride.class);
+                        query.setParameter("id", id_cab);
+                        ride = query.getSingleResult();
+                        transaction.commit();
+                        return ride;
+                    } catch (HibernateException | NullPointerException | NoResultException e) {
+                        if(transaction != null) {
+                            log.error("Error finding ride: " + e.getMessage());
+                            transaction.rollback();
+                        }
+                    } finally {
+                        if(transaction != null) {
+                            session.close();
+                            log.info("Hibernate session closed");
+                        }
+                    }
+                    log.info("Ride not founded");
+                    return ride;
+                })
+                .or(Optional::empty);
+
     }
 }

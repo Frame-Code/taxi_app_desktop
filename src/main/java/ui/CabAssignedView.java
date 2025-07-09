@@ -1,22 +1,34 @@
 package ui;
 
+import lombok.extern.apachecommons.CommonsLog;
+import service.interfaces.ride_module.IRideService;
 import shared.dto.CabDTO;
+import shared.dto.CoordinatesRideDTO;
+
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  *
  * @author Daniel Mora Cantillo
  */
+@CommonsLog
 public class CabAssignedView extends javax.swing.JFrame {
+    private final IRideService rideService;
 
-    public CabAssignedView(CabDTO cabDTO) {
+    public CabAssignedView(CabDTO cabDTO, CoordinatesRideDTO coordinatesRideDTO, IRideService rideService, Long id_ride) {
+        this.rideService = rideService;
         initComponents();
+        setVisible(true);
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle("Taxi asignado!");
         setFields(cabDTO);
-        setVisible(true);
+        initControllers(cabDTO, coordinatesRideDTO, id_ride);
+        initVerifier(id_ride);
     }
 
     @SuppressWarnings("unchecked")
@@ -36,8 +48,6 @@ public class CabAssignedView extends javax.swing.JFrame {
         jLabel34 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
         lblModel = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
-        lblColor = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         lblLicensePlate = new javax.swing.JLabel();
         lblBrand = new javax.swing.JLabel();
@@ -121,12 +131,6 @@ public class CabAssignedView extends javax.swing.JFrame {
         lblModel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblModel.setText("reference...");
 
-        jLabel37.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel37.setText("Color:");
-
-        lblColor.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblColor.setText("reference...");
-
         jLabel38.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel38.setText("Placa:");
 
@@ -152,10 +156,6 @@ public class CabAssignedView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblModel, javax.swing.GroupLayout.PREFERRED_SIZE, 731, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel37)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblColor, javax.swing.GroupLayout.PREFERRED_SIZE, 731, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel38)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblLicensePlate, javax.swing.GroupLayout.PREFERRED_SIZE, 731, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -173,9 +173,7 @@ public class CabAssignedView extends javax.swing.JFrame {
                     .addComponent(jLabel36)
                     .addComponent(lblModel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel37)
-                    .addComponent(lblColor))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel38)
@@ -249,6 +247,33 @@ public class CabAssignedView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void initControllers(CabDTO cabDTO, CoordinatesRideDTO coordinatesRideDTO, Long id_ride) {
+        btnConfirmRide.addActionListener(e -> {
+            if(!rideService.setOriginConfirm(id_ride)) {
+                JOptionPane.showMessageDialog(this, "Fatal Error, consulte a TI", "Fatal error", JOptionPane.ERROR_MESSAGE);
+                throw new RuntimeException("Ride not founded");
+            }
+
+            new UIConfirmarLlegadaDestinoClient(rideService, cabDTO, coordinatesRideDTO, id_ride).setVisible(true);
+            this.dispose();
+        });
+
+    }
+
+    private void initVerifier(Long id_ride) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(() -> {
+            try {
+                if(!rideService.isReadyToStart(id_ride)) {
+                    return;
+                }
+                btnConfirmRide.setEnabled(true);
+            } catch (InterruptedException e) {
+                log.warn("Task was interrupted: " + e);
+            }
+        });
+
+    }
 
     private void setFields(CabDTO cabDTO) {
         lblFullNames.setText(cabDTO.fullNames());
@@ -266,14 +291,12 @@ public class CabAssignedView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblBrand;
-    private javax.swing.JLabel lblColor;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblFullNames;
     private javax.swing.JLabel lblLicensePlate;

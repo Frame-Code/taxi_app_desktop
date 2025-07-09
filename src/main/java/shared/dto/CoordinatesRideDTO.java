@@ -17,6 +17,7 @@ public record CoordinatesRideDTO (
         return "latitude: " + destinyLatitude + ", Longitude: " + destinyLongitude;
     }
 
+
     public String getOrigin(String splitter) {
         return originLongitude + splitter + originLatitude;
     }
