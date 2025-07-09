@@ -76,26 +76,6 @@ public class RideClientServiceImpl implements IRideClientService {
     }
 
     @Override
-    public boolean isOriginConfirm(Long id) throws InterruptedException {
-        log.info("Starting verifier task for ride...");
-        boolean isOriginConfirmed = false;
-        while (true) {
-            var rideOpt = repository.findById(id);
-            if (rideOpt.isEmpty()) {
-                break;
-            }
-
-            if (rideOpt.get().isOriginConfirmed()) {
-                isOriginConfirmed = true;
-                break;
-            }
-
-            Thread.sleep(2000);
-        }
-        return isOriginConfirmed;
-    }
-
-    @Override
     public boolean isReadyToFinally(Long id) throws InterruptedException {
         log.info("Starting verifier task for ride...");
         boolean isReady = false;
@@ -105,7 +85,7 @@ public class RideClientServiceImpl implements IRideClientService {
                 break;
             }
 
-            if (rideOpt.get().isInitialized()) {
+            if (rideOpt.get().isReadyToFinally()) {
                 isReady = true;
                 break;
             }
@@ -120,6 +100,17 @@ public class RideClientServiceImpl implements IRideClientService {
         return findById(id)
                 .map(ride -> {
                     ride.setStatus(STATUS_RIDE.IN_PROCESS);
+                    repository.update(ride);
+                    return true;
+                })
+                .orElse(false);
+    }
+
+    @Override
+    public boolean setEnded(Long id) {
+        return findById(id)
+                .map(ride -> {
+                    ride.setStatus(STATUS_RIDE.ENDED);
                     repository.update(ride);
                     return true;
                 })

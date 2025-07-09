@@ -16,9 +16,9 @@ public interface IRideClientService {
     Optional<Ride> findById(Long id);
     boolean setOriginConfirm(Long id);
     boolean isReadyToStart(Long id) throws InterruptedException;
-    boolean isOriginConfirm(Long id) throws InterruptedException;
     boolean isReadyToFinally(Long id) throws InterruptedException;
     boolean setInProcess(Long id);
+    boolean setEnded(Long id);
     Optional<Ride> findByCab(Long id_cab);
     Optional<InfoRideDTO> getInfoRide(CoordinatesRideDTO coordinatesRideDTO) throws IOException;
 

@@ -15,12 +15,18 @@ public class UIConfirmarLlegadaDestinoClient extends JFrame {
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final CoordinatesRideDTO coordinatesRideDTO;
     private final IRideClientService rideService;
+    private final CabRequestView cabRequestView;
     private JButton confirmarBtn;
 
-    public UIConfirmarLlegadaDestinoClient(IRideClientService rideService, CabDTO cabDTO, CoordinatesRideDTO coordinatesRideDTO, Long id_ride) {
+    public UIConfirmarLlegadaDestinoClient(IRideClientService rideService,
+                                           CabDTO cabDTO,
+                                           CoordinatesRideDTO coordinatesRideDTO,
+                                           Long id_ride,
+                                           CabRequestView cabRequestView) {
         super("Cliente: Confirmar llegada al destino");
         this.coordinatesRideDTO = coordinatesRideDTO;
         this.rideService = rideService;
+        this.cabRequestView = cabRequestView;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(900, 600); // Increased height
         setLocationRelativeTo(null);
@@ -103,7 +109,7 @@ public class UIConfirmarLlegadaDestinoClient extends JFrame {
         content.add(Box.createRigidArea(new Dimension(0, 30)));
 
         // Botón confirmar (sin funcionalidad)
-        JButton confirmarBtn = new JButton("Confirmar llegada");
+        confirmarBtn = new JButton("Confirmar llegada");
         confirmarBtn.setFont(new Font("Arial", Font.BOLD, 16));
         confirmarBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         confirmarBtn.setPreferredSize(new Dimension(200, 45));
@@ -112,12 +118,20 @@ public class UIConfirmarLlegadaDestinoClient extends JFrame {
 
         add(content, BorderLayout.CENTER);
 
+        initControllers(id_ride);
         initVerifier(id_ride);
     }
 
-    private void initControllers() {
+    private void initControllers(Long id_ride) {
         confirmarBtn.addActionListener(e -> {
+            if(!rideService.setEnded(id_ride)) {
+                JOptionPane.showMessageDialog(this, "Fatal error, consulte a TI", "Falta error", JOptionPane.ERROR_MESSAGE);
+                throw new RuntimeException("Ride not founded");
+            }
            JOptionPane.showMessageDialog(this, "Gracias por usar nuestros servicios!", "Carrera terminada", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+            cabRequestView.resetMap();
+            cabRequestView.setVisible(true);
         });
     }
 

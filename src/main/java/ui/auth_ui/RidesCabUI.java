@@ -2,6 +2,7 @@
 package ui.auth_ui;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import domain.entities.Cab;
 import domain.entities.Ride;
 import domain.repository.impl.CabRepositoryImpl;
 import domain.repository.impl.RideRepositoryImpl;
@@ -28,12 +29,13 @@ public class RidesCabUI extends javax.swing.JFrame {
     private final Long idCab;
     private Long idRide;
 
-    public RidesCabUI(IRideCabService rideCabService, Long id) {
+    public RidesCabUI(IRideCabService rideCabService, Long idCab, String fullNames) {
         this.rideCabService = rideCabService;
-        this.idCab = id;
+        this.idCab = idCab;
         initComponents();
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        jLabel5.setText(fullNames);
         initControllers();
         verifyNewRide();
     }
@@ -295,17 +297,17 @@ public class RidesCabUI extends javax.swing.JFrame {
 
     }
 
-    public static void main(String args[]) throws UnsupportedLookAndFeelException {
+    /*public static void main(String args[]) throws UnsupportedLookAndFeelException {
         UIManager.setLookAndFeel(new FlatLightLaf());
         java.awt.EventQueue.invokeLater(() -> new RidesCabUI(
                 new RideCabServiceImpl(
                         new RideRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"),
                                 new CabRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),
                         new CabRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),
-                2L
+                3L
 
         ).setVisible(true));
-    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

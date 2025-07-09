@@ -113,7 +113,7 @@ public class CabRequestView extends javax.swing.JFrame {
         txtDestinyReference.setText("Referencia de la ubicación seleccionada");
 
         btnFindCabs.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnFindCabs.setText("BUSCAR TAXIS");
+        btnFindCabs.setText("Ver informacion de ruta");
 
         javax.swing.GroupLayout requestTaxiLayout = new javax.swing.GroupLayout(requestTaxi);
         requestTaxi.setLayout(requestTaxiLayout);
@@ -233,9 +233,6 @@ public class CabRequestView extends javax.swing.JFrame {
                                 .addGap(0, 6, Short.MAX_VALUE))
         );
 
-        jLabel9.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel9.setText("LOCACIONES DISPONIBLES");
-
         jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user-solid.png"))); // NOI18N
 
@@ -311,6 +308,13 @@ public class CabRequestView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public void resetMap() {
+        initMap();
+        txtDestinyReference.setText("Seleccione la ubicación de destino en el mapa:");
+        txtOriginReference.setText("Seleccione la ubicación de origen en el mapa:");
+        txtCoordinates.setText("[Coordinates]");
+    }
 
     private void initMap() {
         mapViewer.initMap(pnlMap);

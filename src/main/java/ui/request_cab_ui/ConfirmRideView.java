@@ -97,7 +97,8 @@ public class ConfirmRideView extends javax.swing.JFrame {
                             cabOpt.get().getVehicle().getLicensePlate()),
                             coordinatesRideDTO,
                             rideService,
-                            rideOpt.get().getId());
+                            rideOpt.get().getId(),
+                            cabRequestView);
                 });
             } catch (InterruptedException ex) {
                 throw new RuntimeException(ex);

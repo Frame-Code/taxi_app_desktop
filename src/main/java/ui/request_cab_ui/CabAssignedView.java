@@ -17,9 +17,15 @@ import java.util.concurrent.Executors;
 @CommonsLog
 public class CabAssignedView extends javax.swing.JFrame {
     private final IRideClientService rideService;
+    private final CabRequestView cabRequestView;
 
-    public CabAssignedView(CabDTO cabDTO, CoordinatesRideDTO coordinatesRideDTO, IRideClientService rideService, Long id_ride) {
+    public CabAssignedView(CabDTO cabDTO,
+                           CoordinatesRideDTO coordinatesRideDTO,
+                           IRideClientService rideService,
+                           Long id_ride,
+                           CabRequestView cabRequestView) {
         this.rideService = rideService;
+        this.cabRequestView = cabRequestView;
         initComponents();
         setVisible(true);
         setResizable(false);
@@ -254,8 +260,11 @@ public class CabAssignedView extends javax.swing.JFrame {
                 throw new RuntimeException("Ride not founded");
             }
 
-            new UIConfirmarLlegadaDestinoClient(rideService, cabDTO, coordinatesRideDTO, id_ride).setVisible(true);
-            rideService.setInProcess(id_ride);
+            if(!rideService.setInProcess(id_ride)) {
+                JOptionPane.showMessageDialog(this, "Fatal Error, consulte a TI", "Fatal error", JOptionPane.ERROR_MESSAGE);
+                throw new RuntimeException("Ride not founded");
+            }
+            new UIConfirmarLlegadaDestinoClient(rideService, cabDTO, coordinatesRideDTO, id_ride, cabRequestView).setVisible(true);
             this.dispose();
         });
 
