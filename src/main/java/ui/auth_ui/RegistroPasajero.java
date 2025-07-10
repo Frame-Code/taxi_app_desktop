@@ -5,15 +5,18 @@ import com.formdev.flatlaf.FlatLightLaf;
 import domain.entities.Client;
 import domain.entities.UserEntity;
 import domain.repository.impl.ClientRepositoryImpl;
+import domain.repository.impl.RoleRepositoryImpl;
 import domain.repository.impl.UserRepositoryImpl;
 import domain.repository.interfaces.ClientRepository;
 import service.impl.auth_module.SignUpClientServiceImpl;
+import service.impl.role_module.RoleServiceImpl;
 import service.interfaces.auth_module.ISignUpClientService;
+import service.interfaces.role_module.IRoleService;
+import shared.enums.ROLE_NAME;
 import shared.utils.HibernateUtil;
 
 import javax.swing.JFrame;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.JOptionPane;
 import java.time.LocalDate;
 
 /**
@@ -23,13 +26,23 @@ import java.time.LocalDate;
 public class RegistroPasajero extends javax.swing.JFrame {
     private final ISignUpClientService signUpClientService;
     private final ClientRepository clientRepository;
+    private final IRoleService roleService;
+    private WelcomeTaxiShareUI welcomeTaxiShareUI; // Added field
 
-    public RegistroPasajero(ISignUpClientService signUpClientService, ClientRepository clientRepository) {
+    public RegistroPasajero(ISignUpClientService signUpClientService,
+                            ClientRepository clientRepository,
+                            IRoleService roleService) {
         this.signUpClientService = signUpClientService;
         this.clientRepository = clientRepository;
+        this.roleService = roleService;
         initComponents();
         initControllers();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }
+
+    // Setter for WelcomeTaxiShareUI
+    public void setWelcomeTaxiShareUI(WelcomeTaxiShareUI welcomeTaxiShareUI) {
+        this.welcomeTaxiShareUI = welcomeTaxiShareUI;
     }
 
     private void initControllers() {
@@ -43,25 +56,32 @@ public class RegistroPasajero extends javax.swing.JFrame {
         String email = txtCorreo.getText();
         String password = new String(txtPassword.getPassword());
 
+        if (nombres.isEmpty() || apellidos.isEmpty() || celular.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-        UserEntity newUserEntity = UserEntity.builder()
-                .names(nombres)
-                .lastNames(apellidos)
-                .phone(celular)
-                .email(email)
-                .passwordHash(password)
-                .bornDate(LocalDate.now())
-                .createdBy("System")
-                .build();
-
+        var roleOpt = roleService.findByName(ROLE_NAME.CLIENT);
+        if(roleOpt.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Fatal error consulte a departamento TI", "Error", JOptionPane.ERROR_MESSAGE);
+            throw new RuntimeException("Fatal error: Role not founded");
+        }
 
         Client newClient = Client.builder()
-                .userEntity(newUserEntity)
+                .userEntity(UserEntity.builder()
+                        .names(nombres)
+                        .lastNames(apellidos)
+                        .phone(celular)
+                        .email(email)
+                        .passwordHash(password)
+                        .bornDate(LocalDate.now())
+                        .createdBy("System")
+                        .role(roleOpt.get())
+                        .build())
                 .build();
 
 
         boolean registroExitoso = signUpClientService.signUp(newClient, clientRepository);
-
 
         if (registroExitoso) {
             javax.swing.JOptionPane.showMessageDialog(this, "Registro exitoso para " + nombres + "!");
@@ -187,6 +207,14 @@ public class RegistroPasajero extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton4.setText("Inicie sesión");
         jButton4.setBorder(null);
+        jButton4.addActionListener(e -> {
+            if (welcomeTaxiShareUI != null) {
+                welcomeTaxiShareUI.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error: WelcomeTaxiShareUI no está inicializado.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -274,18 +302,6 @@ public class RegistroPasajero extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) throws UnsupportedLookAndFeelException {
-        UIManager.setLookAndFeel(new FlatLightLaf());
-        java.awt.EventQueue.invokeLater(() -> new RegistroPasajero(
-                new SignUpClientServiceImpl(
-                        new UserRepositoryImpl(
-                                HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),
-                new ClientRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")))
-                .setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Contáctanos;

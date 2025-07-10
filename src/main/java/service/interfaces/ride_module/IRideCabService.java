@@ -10,6 +10,7 @@ public interface IRideCabService {
     boolean setCabEnable(Long id);
     boolean isInProcess(Long id) throws InterruptedException;
     boolean isOriginConfirm(Long id) throws InterruptedException;
+    boolean setCabDisable(Long id);
     boolean isEnded(Long id) throws InterruptedException;
 
 }

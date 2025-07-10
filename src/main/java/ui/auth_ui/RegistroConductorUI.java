@@ -4,7 +4,6 @@ import com.formdev.flatlaf.FlatLightLaf;
 import domain.entities.Car;
 import domain.entities.Driver;
 import domain.entities.License;
-import domain.entities.Role;
 import domain.entities.UserEntity;
 import domain.repository.impl.CabRepositoryImpl;
 import domain.repository.impl.DriverRepositoryImpl;
@@ -13,7 +12,10 @@ import domain.repository.impl.UserRepositoryImpl;
 import domain.repository.interfaces.DriverRepository;
 import lombok.extern.apachecommons.CommonsLog;
 import service.impl.auth_module.SignUpDriverServiceImpl;
+import service.impl.role_module.RoleServiceImpl;
 import service.interfaces.auth_module.ISignUpDriverService;
+import service.interfaces.role_module.IRoleService;
+import shared.enums.ROLE_NAME;
 import shared.utils.HibernateUtil;
 import java.awt.event.ActionEvent;
 import java.time.LocalDate;
@@ -29,11 +31,15 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class RegistroConductorUI extends javax.swing.JFrame {
     private final ISignUpDriverService signUpDriverService;
     private final DriverRepository driverRepository;
+    private final IRoleService roleService;
 
     // Constructor de la ventana de registro
-    public RegistroConductorUI(ISignUpDriverService signUpDriverService, DriverRepository driverRepository) {
+    public RegistroConductorUI(ISignUpDriverService signUpDriverService,
+                               DriverRepository driverRepository,
+                               IRoleService roleService) {
         this.signUpDriverService = signUpDriverService;
         this.driverRepository = driverRepository;
+        this.roleService = roleService;
         initComponents();
         setupListeners();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -82,6 +88,12 @@ public class RegistroConductorUI extends javax.swing.JFrame {
                 return;
             }
 
+            var roleOpt = roleService.findByName(ROLE_NAME.CAB);
+            if(roleOpt.isEmpty()) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Fatal error consulte a departamento TI", "Error", JOptionPane.ERROR_MESSAGE);
+                throw new RuntimeException("Fatal error: Role not founded");
+            }
+
             // **4. Crear las entidades**
             Driver driver = Driver.builder()
                     .userEntity(UserEntity.builder()
@@ -91,6 +103,7 @@ public class RegistroConductorUI extends javax.swing.JFrame {
                             .phone(telefono)
                             .bornDate(fechaNacimiento)
                             .passwordHash(confirmarContrasena)
+                            .role(roleOpt.get())
                             .createdBy("System")
                             .build())
                     .license(License.builder()
@@ -550,27 +563,6 @@ public class RegistroConductorUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(18, 5, 0, 0);
         jPanel1.add(btnConfirmarRegistro, gridBagConstraints);
 
-        jLabel20.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel20.setText("¿Ya tienes una cuenta?");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 17;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 46, 0, 0);
-        jPanel1.add(jLabel20, gridBagConstraints);
-
-        jButton1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jButton1.setText("Inicia sesión");
-        jButton1.setBorder(null);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 23;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 6, 0, 0);
-        jPanel1.add(jButton1, gridBagConstraints);
-
         jButton2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jButton2.setText("Inicio");
         jButton2.setBorder(null);
@@ -640,24 +632,6 @@ public class RegistroConductorUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidosConductorActionPerformed
 
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) throws UnsupportedLookAndFeelException {
-        UIManager.setLookAndFeel(new FlatLightLaf());
-
-        java.awt.EventQueue.invokeLater(() -> new RegistroConductorUI(
-                new SignUpDriverServiceImpl(
-                        new UserRepositoryImpl(
-                                HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")),
-                        new RoleRepositoryImpl(
-                                HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")),
-                        new CabRepositoryImpl(
-                                HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),
-                new DriverRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml")))
-                .setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmarRegistro;

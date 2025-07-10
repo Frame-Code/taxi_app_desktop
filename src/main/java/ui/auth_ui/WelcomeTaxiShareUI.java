@@ -26,6 +26,7 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
     private final IEmailService emailService;
     private final ILogInService loginService;
     private final IUserGeneralService userGeneralService;
+    private RegistroPasajero registroPasajero; // Added field
 
 
     public WelcomeTaxiShareUI(
@@ -59,6 +60,11 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
         setVisible(true);
     }
 
+    // Setter for RegistroPasajero
+    public void setRegistroPasajero(RegistroPasajero registroPasajero) {
+        this.registroPasajero = registroPasajero;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -71,7 +77,7 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
-
+        jButton3 = new javax.swing.JButton(); // Added new button
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("Welcome to TaxiShare");
@@ -89,6 +95,16 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Registrarse");
+        jButton3.addActionListener(e -> {
+            if (registroPasajero != null) {
+                registroPasajero.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error: RegistroPasajero no está inicializado.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -113,7 +129,9 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
                                                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGap(103, 103, 103)
-                                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addContainerGap(85, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -133,6 +151,8 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -237,6 +257,7 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3; // Added new button
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

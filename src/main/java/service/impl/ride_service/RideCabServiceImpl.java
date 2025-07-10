@@ -104,6 +104,17 @@ public class RideCabServiceImpl implements IRideCabService {
     }
 
     @Override
+    public boolean setCabDisable(Long id) {
+        return cabRepository.findById(id)
+                .map(cab -> {
+                    cab.setStatus(STATUS_TAXI.DISABLE);
+                    cabRepository.update(cab);
+                    return true;
+                })
+                .orElse(false);
+    }
+
+    @Override
     public boolean isEnded(Long id) throws InterruptedException {
         log.info("Cab: Starting verifier task for ride...");
         boolean isOriginConfirmed = false;
