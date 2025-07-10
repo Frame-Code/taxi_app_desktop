@@ -8,10 +8,15 @@ import org.mindrot.jbcrypt.BCrypt;
  * @author Daniel Mora Cantillo
  */
 @CommonsLog
-public class PasswordUtil {
+public final class PasswordUtil {
     private static final int DEFAULT_LOG_ROUNDS = 12;
     private static final int MIN_LOG_ROUNDS = 10;
     private static final int MAX_LOG_ROUNDS = 15;
+
+    private PasswordUtil() {
+
+    }
+
 
     public static String hashPassword(String password) {
         return hashPassword(password, DEFAULT_LOG_ROUNDS);

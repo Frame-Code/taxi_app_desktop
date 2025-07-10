@@ -35,6 +35,7 @@ import ui.request_cab_ui.OpenStreetMapView;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 
 public class App {
@@ -46,8 +47,10 @@ public class App {
 
             // Initialize Hibernate SessionFactory
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory(HIBERNATE_CFG_XML);
-
-            // Initialize Repositories
+        } catch (UnsupportedLookAndFeelException e) {
+            throw new RuntimeException(e);
+        }
+            /*// Initialize Repositories
             UserRepository userRepository = new UserRepositoryImpl(sessionFactory);
             ClientRepository clientRepository = new ClientRepositoryImpl(sessionFactory);
             RoleRepository roleRepository = new RoleRepositoryImpl(sessionFactory);
@@ -111,6 +114,6 @@ public class App {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al iniciar la aplicación: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException("Error initializing the application " + e);
-        }
+        }*/
     }
 }
