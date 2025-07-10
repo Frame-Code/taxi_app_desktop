@@ -1,12 +1,28 @@
 import com.formdev.flatlaf.FlatLightLaf;
-import domain.repository.impl.*;
-import domain.repository.interfaces.*;
+import domain.repository.impl.CabRepositoryImpl;
+import domain.repository.impl.ClientRepositoryImpl;
+import domain.repository.impl.FareRepositoryImpl;
+import domain.repository.impl.ProvinceRepositoryImpl;
+import domain.repository.impl.RideRepositoryImpl;
+import domain.repository.impl.RoleRepositoryImpl;
+import domain.repository.impl.TaxiLiveAddressRepositoryImpl;
+import domain.repository.impl.UserRepositoryImpl;
+import domain.repository.interfaces.CabRepository;
+import domain.repository.interfaces.ClientRepository;
+import domain.repository.interfaces.FareRepository;
+import domain.repository.interfaces.ProvinceRepository;
+import domain.repository.interfaces.RideRepository;
+import domain.repository.interfaces.RoleRepository;
+import domain.repository.interfaces.UserRepository;
 import org.hibernate.SessionFactory;
 import service.external.client.opencage.IOpenCageClient;
 import service.external.client.opencage.OpenCageClientImpl;
 import service.external.client.openrouteservice.IOpenRouteServiceClient;
 import service.external.client.openrouteservice.OpenRouteServiceClientImpl;
-import service.impl.auth_module.*;
+import service.impl.auth_module.EmailServiceImpl;
+import service.impl.auth_module.LogInServiceImpl;
+import service.impl.auth_module.SignUpClientServiceImpl;
+import service.impl.auth_module.UserGeneralServiceImpl;
 import service.impl.location_module.ProvinceServiceImpl;
 import service.impl.matching_module.FindCabsServiceImpl;
 import service.impl.matching_module.MatchServiceImpl;
@@ -16,7 +32,10 @@ import service.impl.ride_service.IRideCalculationsServiceImpl;
 import service.impl.ride_service.RideCabServiceImpl;
 import service.impl.ride_service.RideClientServiceImpl;
 import service.impl.role_module.RoleServiceImpl;
-import service.interfaces.auth_module.*;
+import service.interfaces.auth_module.IEmailService;
+import service.interfaces.auth_module.ILogInService;
+import service.interfaces.auth_module.ISignUpClientService;
+import service.interfaces.auth_module.IUserGeneralService;
 import service.interfaces.location_module.IProvinceService;
 import service.interfaces.matching_module.IFindCabsService;
 import service.interfaces.matching_module.IMatchService;
@@ -35,10 +54,9 @@ import ui.request_cab_ui.OpenStreetMapView;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 
-public class App {
+public class AppOther {
     private static final String HIBERNATE_CFG_XML = "hibernate-local.cfg.xml";
 
     public static void main(String[] args) {

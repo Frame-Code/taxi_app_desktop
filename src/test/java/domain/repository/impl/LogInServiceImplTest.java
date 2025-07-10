@@ -3,6 +3,7 @@ package domain.repository.impl;
 import domain.entities.Client;
 import domain.entities.UserEntity;
 import domain.repository.interfaces.ClientRepository;
+import domain.repository.interfaces.UserRepository;
 import service.impl.auth_module.LogInServiceImpl;
 import service.interfaces.auth_module.ILogInService;
 import shared.utils.HibernateUtil;
@@ -14,12 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LogInServiceImplTest {
     private static ClientRepository repository;
+    private static UserRepository userRepository;
     private static ILogInService service;
 
     @BeforeAll
     public static void setUp() {
         repository = new ClientRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-test.cfg.xml"));
-        service = new LogInServiceImpl(repository);
+        service = new LogInServiceImpl(userRepository);
     }
 
     @Test

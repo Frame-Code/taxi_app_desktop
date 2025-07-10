@@ -32,7 +32,7 @@ public class RidesCabUI extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jLabel5.setText(fullNames);
         initControllers();
         verifyNewRide();
