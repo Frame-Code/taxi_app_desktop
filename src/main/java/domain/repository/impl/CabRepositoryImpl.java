@@ -1,13 +1,16 @@
 package domain.repository.impl;
 
 import domain.entities.Cab;
+import domain.entities.Client;
 import domain.repository.interfaces.BaseRepository;
 import domain.repository.interfaces.CabRepository;
+import jakarta.persistence.NoResultException;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -107,5 +110,31 @@ public class CabRepositoryImpl extends BaseRepository implements CabRepository {
             }
         }
         return cab;
+    }
+
+    @Override
+    public Optional<Cab> findCabByDriverEmail(String email) {
+        Transaction transaction = null;
+        Session session = null;
+        try {
+            session = super.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+            Query<Cab> query = session.createQuery("SELECT c FROM Cab c WHERE c.driver.userEntity.email = :email", Cab.class);
+            query.setParameter("email", email);
+            Cab cab = query.getSingleResult();
+            transaction.commit();
+            return Optional.of(cab);
+        } catch (HibernateException | NullPointerException | NoResultException e) {
+            if(transaction != null) {
+                log.warn("Error finding cab: " + e.getMessage());
+                transaction.rollback();
+            }
+        } finally {
+            if(transaction != null) {
+                session.close();
+                log.info("Hibernate session closed");
+            }
+        }
+        return Optional.empty();
     }
 }

@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface DriverRepository extends IBaseDao<Driver> {
     Optional<Driver> findByLicensePlate(String licensePlate);
+    Optional<Driver> findByEmail(String email);
 }

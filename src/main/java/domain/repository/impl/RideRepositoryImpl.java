@@ -131,12 +131,17 @@ public class RideRepositoryImpl extends BaseRepository implements RideRepository
                         ride = query.getSingleResult();
                         transaction.commit();
                         return ride;
-                    } catch (HibernateException | NullPointerException | NoResultException e) {
+                    } catch (HibernateException | NullPointerException  e) {
                         if (transaction != null) {
                             log.error("Error finding ride: " + e.getMessage());
                             transaction.rollback();
                         }
-                    } finally {
+                    } catch (NoResultException e) {
+                        if (transaction != null) {
+                            log.info("Searching ride: not ride founded for now...");
+                            transaction.rollback();
+                        }
+                    }finally {
                         if (transaction != null) {
                             session.close();
                             log.info("Hibernate session closed");

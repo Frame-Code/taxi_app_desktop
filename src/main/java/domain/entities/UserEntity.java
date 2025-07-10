@@ -57,7 +57,7 @@ public class UserEntity {
     private String createdBy;
 
     @ManyToOne
-    @JoinColumn(name = "idRole")
+    @JoinColumn(name = "idRole", nullable = false)
     private Role role;
 
     @PrePersist

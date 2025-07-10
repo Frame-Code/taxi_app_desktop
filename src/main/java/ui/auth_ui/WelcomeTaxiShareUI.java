@@ -5,10 +5,12 @@ import domain.entities.Client;
 import service.external.client.opencage.IOpenCageClient;
 import service.interfaces.auth_module.IEmailService;
 import service.interfaces.auth_module.ILogInService;
+import service.interfaces.auth_module.IUserGeneralService;
 import service.interfaces.location_module.IProvinceService;
 import service.interfaces.matching_module.IMatchService;
 import service.interfaces.payment_module.PaymentFactory;
 import service.interfaces.ride_module.IFareService;
+import service.interfaces.ride_module.IRideCabService;
 import service.interfaces.ride_module.IRideCalculationsService;
 import service.interfaces.ride_module.IRideClientService;
 import ui.request_cab_ui.CabRequestView;
@@ -18,12 +20,13 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- *
  * @author RonaldPC
  */
 public class WelcomeTaxiShareUI extends javax.swing.JFrame {
     private final IEmailService emailService;
     private final ILogInService loginService;
+    private final IUserGeneralService userGeneralService;
+
 
     public WelcomeTaxiShareUI(
             IEmailService emailService,
@@ -36,9 +39,11 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
             IMatchService matchService,
             IProvinceService provinceService,
             PaymentFactory paymentFactory,
-            Client client) {
+            IUserGeneralService userGeneralService,
+            IRideCabService rideCabService) {
         this.emailService = emailService;
         this.loginService = loginService;
+        this.userGeneralService = userGeneralService;
         initComponents();
         setSize(800, 500);
         setLocationRelativeTo(null);
@@ -50,7 +55,8 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
                 matchService,
                 provinceService,
                 paymentFactory,
-                client);
+                rideCabService);
+        setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -65,7 +71,6 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
-
 
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -89,46 +94,46 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel2)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(149, 149, 149)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(85, Short.MAX_VALUE))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addGap(33, 33, 33)
+                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(jLabel3)
+                                                                                .addComponent(jLabel2)
+                                                                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addGap(149, 149, 149)
+                                                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(103, 103, 103)
+                                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(85, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(24, Short.MAX_VALUE))
         );
 
 
@@ -146,6 +151,7 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Crear y mostrar la ventana de reset de contraseña
         ResetPasswordUI resetWindow = new ResetPasswordUI(emailService);
@@ -163,30 +169,66 @@ public class WelcomeTaxiShareUI extends javax.swing.JFrame {
                                  IMatchService matchService,
                                  IProvinceService provinceService,
                                  PaymentFactory paymentFactory,
-                                 Client client) {
+                                 IRideCabService rideCabService) {
         jButton1.addActionListener(e -> {
-            String email = jTextField1.getText();
+            String email = jTextField1.getText().trim();
             String password = new String(jPasswordField1.getPassword());
 
             boolean isValid = loginService.login(email, password);
 
-            if (isValid) {
-                CabRequestView cabRequestView = new CabRequestView(mapViewer,
-                        openCageClient,
-                        rideService,
-                        rideCalculationsService,
-                        fareService,
-                        matchService,
-                        provinceService,
-                        paymentFactory,
-                        client);
-                this.dispose();
-            } else {
-                // Login fallido, mostrar mensaje
+
+            if (!isValid) {
                 javax.swing.JOptionPane.showMessageDialog(this,
                         "Usuario o contraseña incorrectos",
                         "Error de inicio de sesión",
                         javax.swing.JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (loginService.isClient(email)) {
+                userGeneralService.findClientByEmail(email)
+                        .filter(client -> {
+                            new CabRequestView(mapViewer,
+                                    openCageClient,
+                                    rideService,
+                                    rideCalculationsService,
+                                    fareService,
+                                    matchService,
+                                    provinceService,
+                                    paymentFactory,
+                                    client);
+                            this.dispose();
+                            return true;
+                        })
+                        .or(() -> {
+                            javax.swing.JOptionPane.showMessageDialog(this,
+                                    "FATAL ERROR, CONSULTE A TI",
+                                    "Error de inicio de sesión",
+                                    javax.swing.JOptionPane.ERROR_MESSAGE);
+                            throw new RuntimeException("User was deleted now...");
+                        });
+                return;
+            }
+
+            if (loginService.isDriver(email)) {
+                userGeneralService.findCabByDriverEmail(email)
+                        .filter(cab -> {
+                            new RidesCabUI(
+                                    rideCabService,
+                                    cab.getId(),
+                                    cab.getDriver().getUserEntity().getFullNames()
+                            );
+                            this.dispose();
+                            return true;
+                        })
+                        .or(() -> {
+                            javax.swing.JOptionPane.showMessageDialog(this,
+                                    "FATAL ERROR, CONSULTE A TI",
+                                    "Error de inicio de sesión",
+                                    javax.swing.JOptionPane.ERROR_MESSAGE);
+                            throw new RuntimeException("User was deleted now...");
+                        });
+                return;
             }
         });
     }

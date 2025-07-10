@@ -4,6 +4,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 import domain.entities.Car;
 import domain.entities.Driver;
 import domain.entities.License;
+import domain.entities.Role;
 import domain.entities.UserEntity;
 import domain.repository.impl.CabRepositoryImpl;
 import domain.repository.impl.DriverRepositoryImpl;

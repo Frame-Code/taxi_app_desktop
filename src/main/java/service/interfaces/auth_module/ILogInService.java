@@ -6,4 +6,7 @@ package service.interfaces.auth_module;
  */
 public interface ILogInService {
     boolean login(String email, String plainPassword);
+    boolean isClient(String email);
+    boolean isDriver(String email);
+    boolean isAdministrator(String email);
 }

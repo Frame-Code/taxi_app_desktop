@@ -1,5 +1,6 @@
 package domain.repository.impl;
 
+import domain.entities.Client;
 import domain.entities.Driver;
 import domain.repository.interfaces.BaseRepository;
 import domain.repository.interfaces.DriverRepository;
@@ -127,6 +128,32 @@ public class DriverRepositoryImpl extends BaseRepository implements DriverReposi
         } catch (HibernateException | NullPointerException | NoResultException e) {
             if(transaction != null) {
                 log.error("Error finding driver: " + e.getMessage());
+                transaction.rollback();
+            }
+        } finally {
+            if(transaction != null) {
+                session.close();
+                log.info("Hibernate session closed");
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Driver> findByEmail(String email) {
+        Transaction transaction = null;
+        Session session = null;
+        try {
+            session = super.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+            Query<Driver> query = session.createQuery("SELECT d FROM Driver d WHERE d.userEntity.email = :email", Driver.class);
+            query.setParameter("email", email);
+            Driver driver = query.getSingleResult();
+            transaction.commit();
+            return Optional.of(driver);
+        } catch (HibernateException | NullPointerException | NoResultException e) {
+            if(transaction != null) {
+                log.warn("Error finding Driver: " + e.getMessage());
                 transaction.rollback();
             }
         } finally {

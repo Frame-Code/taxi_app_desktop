@@ -1,15 +1,9 @@
 
 package ui.auth_ui;
 
-import com.formdev.flatlaf.FlatLightLaf;
-import domain.entities.Cab;
 import domain.entities.Ride;
-import domain.repository.impl.CabRepositoryImpl;
-import domain.repository.impl.RideRepositoryImpl;
 import lombok.extern.apachecommons.CommonsLog;
-import service.impl.ride_service.RideCabServiceImpl;
 import service.interfaces.ride_module.IRideCabService;
-import shared.utils.HibernateUtil;
 
 import javax.swing.*;
 import java.awt.Color;
@@ -38,6 +32,7 @@ public class RidesCabUI extends javax.swing.JFrame {
         jLabel5.setText(fullNames);
         initControllers();
         verifyNewRide();
+        setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -296,18 +291,6 @@ public class RidesCabUI extends javax.swing.JFrame {
 
 
     }
-
-    /*public static void main(String args[]) throws UnsupportedLookAndFeelException {
-        UIManager.setLookAndFeel(new FlatLightLaf());
-        java.awt.EventQueue.invokeLater(() -> new RidesCabUI(
-                new RideCabServiceImpl(
-                        new RideRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"),
-                                new CabRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),
-                        new CabRepositoryImpl(HibernateUtil.getSessionFactory("hibernate-local.cfg.xml"))),
-                3L
-
-        ).setVisible(true));
-    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
